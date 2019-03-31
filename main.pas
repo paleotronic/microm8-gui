@@ -26,6 +26,18 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
+    miSLI9: TMenuItem;
+    miSLI8: TMenuItem;
+    miSLI7: TMenuItem;
+    miSLI6: TMenuItem;
+    miSLI5: TMenuItem;
+    miSLI4: TMenuItem;
+    miSLI3: TMenuItem;
+    miSLI2: TMenuItem;
+    miSLI1: TMenuItem;
+    miSLI0: TMenuItem;
+    miScanLineInt: TMenuItem;
+    miVideo: TMenuItem;
     miIntLOGO: TMenuItem;
     miIntINT: TMenuItem;
     miIntFP: TMenuItem;
@@ -78,6 +90,7 @@ type
     procedure miIntFPClick(Sender: TObject);
     procedure miIntINTClick(Sender: TObject);
     procedure miIntLOGOClick(Sender: TObject);
+    procedure miSLIClick(Sender: TObject);
     procedure miSPEjectClick(Sender: TObject);
     procedure miSPFileClick(Sender: TObject);
     procedure UnFreeze;
@@ -125,7 +138,7 @@ end;
 
 procedure TGUIForm.AppActivate(Sender: TObject);
 begin
-     StatusBar1.SimpleText := 'App has gained focus!';
+     //StatusBar1.SimpleText := 'App has gained focus!';
      if MillisecondsBetween(Now(), lastHideTime) < 1000 then
       exit;
      ShowM8;
@@ -134,11 +147,15 @@ end;
 
 procedure TGUIForm.AppDeactivate(Sender: TObject);
 begin
+     // if we have deactivated because of a click on the main window
+     // then sort it...
      if MillisecondsBetween(Now(), lastShowTime) < 1000 then
       exit;
+
      RepaintWindow;
-     HideM8;
-     StatusBar1.SimpleText := 'App has lost focus!';
+     if GetTitleOfActiveWindow <> 'microM8' then
+        HideM8;
+     StatusBar1.SimpleText := GetTitleOfActiveWindow;
      //Memo1.Lines.Add('app is deactivating');
 end;
 
@@ -202,6 +219,11 @@ end;
 procedure TGUIForm.miIntLOGOClick(Sender: TObject);
 begin
     self.hc.Get('http://localhost:38911/api/control/interpreter/logo');
+end;
+
+procedure TGUIForm.miSLIClick(Sender: TObject);
+begin
+      self.hc.Get('http://localhost:38911/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
 end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
@@ -419,8 +441,8 @@ begin
   //   exit;
   if WindowState = wsMinimized then
      exit;
-  if hidden then
-     exit;
+  //if hidden then
+  //   exit;
   if GetTitleOfActiveWindow = 'microM8' then
    begin
      //Application.Restore;
@@ -428,7 +450,7 @@ begin
      {$IFDEF WINDOWS}
      SetForegroundWindow(Application.MainForm.Handle);
      {$ENDIF}
-     StatusBar1.SimpleText := 'App is refocussing';
+     //StatusBar1.SimpleText := 'App is refocussing';
      lastShowTime := Now();
    end;
 end;

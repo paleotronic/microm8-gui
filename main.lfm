@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 492
+  Left = 2022
   Height = 491
-  Top = 44
+  Top = 124
   Width = 807
   AlphaBlendValue = 128
   Caption = 'MicroM8 Simple GUI Prototype'
@@ -138,6 +138,52 @@ object GUIForm: TGUIForm
       object MenuItem2: TMenuItem
         Caption = 'Quit'
         OnClick = MenuItem2Click
+      end
+    end
+    object miVideo: TMenuItem
+      Caption = 'Video'
+      object miScanLineInt: TMenuItem
+        Caption = 'Scanline Intensity'
+        object miSLI0: TMenuItem
+          Caption = '0'
+          OnClick = miSLIClick
+        end
+        object miSLI1: TMenuItem
+          Caption = '1'
+          OnClick = miSLIClick
+        end
+        object miSLI2: TMenuItem
+          Caption = '2'
+          OnClick = miSLIClick
+        end
+        object miSLI3: TMenuItem
+          Caption = '3'
+          OnClick = miSLIClick
+        end
+        object miSLI4: TMenuItem
+          Caption = '4'
+          OnClick = miSLIClick
+        end
+        object miSLI5: TMenuItem
+          Caption = '5'
+          OnClick = miSLIClick
+        end
+        object miSLI6: TMenuItem
+          Caption = '6'
+          OnClick = miSLIClick
+        end
+        object miSLI7: TMenuItem
+          Caption = '7'
+          OnClick = miSLIClick
+        end
+        object miSLI8: TMenuItem
+          Caption = '8'
+          OnClick = miSLIClick
+        end
+        object miSLI9: TMenuItem
+          Caption = '9'
+          OnClick = miSLIClick
+        end
       end
     end
   end
