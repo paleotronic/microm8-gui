@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2316
+  Left = 492
   Height = 491
-  Top = 20
+  Top = 44
   Width = 807
   AlphaBlendValue = 128
   Caption = 'MicroM8 Simple GUI Prototype'
@@ -37,7 +37,6 @@ object GUIForm: TGUIForm
     Width = 807
     Align = alClient
     BevelOuter = bvNone
-    Caption = 'Content will go here'
     ClientHeight = 416
     ClientWidth = 807
     Color = clBlack
@@ -51,6 +50,7 @@ object GUIForm: TGUIForm
       Top = 0
       Width = 807
       Align = alClient
+      OnClick = BackdropImageClick
       Stretch = True
     end
   end
@@ -68,23 +68,68 @@ object GUIForm: TGUIForm
     object MenuItem1: TMenuItem
       Caption = 'File'
       OnClick = MenuItem1Click
+      object MenuItem9: TMenuItem
+        Caption = 'Interpreters'
+        object miIntFP: TMenuItem
+          Caption = 'Floating Point BASIC'
+          OnClick = miIntFPClick
+        end
+        object miIntINT: TMenuItem
+          Caption = 'Integer BASIC'
+          OnClick = miIntINTClick
+        end
+        object miIntLOGO: TMenuItem
+          Caption = '3D Logo'
+          OnClick = miIntLOGOClick
+        end
+      end
       object MenuItem4: TMenuItem
         Caption = 'Drive 1'
-        object MenuItem8: TMenuItem
-          Caption = 'Insert Blank'
+        object miD1Blank: TMenuItem
+          Caption = 'Eject'
+          OnClick = miD1BlankClick
+        end
+        object miD1File: TMenuItem
+          Caption = 'Insert Disk...'
+          OnClick = miD1FileClick
         end
       end
       object MenuItem5: TMenuItem
         Caption = 'Drive 2'
-        object MenuItem9: TMenuItem
-          Caption = 'Insert Blank'
+        object miD2Blank: TMenuItem
+          Caption = 'Eject'
+          OnClick = miD2BlankClick
+        end
+        object miD2File: TMenuItem
+          Caption = 'Insert Disk...'
+          OnClick = miD2FileClick
+        end
+      end
+      object MenuItem8: TMenuItem
+        Caption = 'SmartPort'
+        object miSPEject: TMenuItem
+          Caption = 'Eject'
+          OnClick = miSPEjectClick
+        end
+        object miSPFile: TMenuItem
+          Caption = 'Connect Disk...'
+          OnClick = miSPFileClick
         end
       end
       object MenuItem7: TMenuItem
         Caption = '-'
       end
+      object miFileCat: TMenuItem
+        Caption = 'Launch Catalog'
+        ShortCut = 24768
+        OnClick = miFileCatClick
+      end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
       object menuRebootVM: TMenuItem
         Caption = 'Reboot VM'
+        ShortCut = 24584
         OnClick = menuRebootVMClick
       end
       object MenuItem6: TMenuItem
@@ -2048,5 +2093,12 @@ object GUIForm: TGUIForm
     OnTimer = CheckTimerTimer
     left = 256
     top = 321
+  end
+  object odDiskImages: TOpenDialog
+    Title = 'Open Disk Image'
+    DefaultExt = '.*'
+    Filter = 'Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
+    left = 111
+    top = 327
   end
 end
