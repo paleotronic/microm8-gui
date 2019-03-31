@@ -26,6 +26,27 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
+    miSHRColorRaster: TMenuItem;
+    miSHRColorVoxels: TMenuItem;
+    miSHRColorDots: TMenuItem;
+    miSHR: TMenuItem;
+    miDHRMonoRaster: TMenuItem;
+    miDHRMonoVoxels: TMenuItem;
+    miDHRMonoDots: TMenuItem;
+    miDHRColorRaster: TMenuItem;
+    miDHRColorVoxels: TMenuItem;
+    miDHRColorDots: TMenuItem;
+    miMonoRaster: TMenuItem;
+    miMonoVoxels: TMenuItem;
+    miMonoDots: TMenuItem;
+    miColorRaster: TMenuItem;
+    miColorVoxels: TMenuItem;
+    miColorDots: TMenuItem;
+    miGRVoxels: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    miGRRaster: TMenuItem;
+    miGRRenderMode: TMenuItem;
     miSLI9: TMenuItem;
     miSLI8: TMenuItem;
     miSLI7: TMenuItem;
@@ -82,14 +103,31 @@ type
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure Freeze;
+    procedure miColorDotsClick(Sender: TObject);
+    procedure miColorRasterClick(Sender: TObject);
+    procedure miColorVoxelsClick(Sender: TObject);
     procedure miD1BlankClick(Sender: TObject);
     procedure miD1FileClick(Sender: TObject);
     procedure miD2BlankClick(Sender: TObject);
     procedure miD2FileClick(Sender: TObject);
+    procedure miDHRColorDotsClick(Sender: TObject);
+    procedure miDHRColorRasterClick(Sender: TObject);
+    procedure miDHRColorVoxelsClick(Sender: TObject);
+    procedure miDHRMonoDotsClick(Sender: TObject);
+    procedure miDHRMonoRasterClick(Sender: TObject);
+    procedure miDHRMonoVoxelsClick(Sender: TObject);
     procedure miFileCatClick(Sender: TObject);
+    procedure miGRRasterClick(Sender: TObject);
+    procedure miGRVoxelsClick(Sender: TObject);
     procedure miIntFPClick(Sender: TObject);
     procedure miIntINTClick(Sender: TObject);
     procedure miIntLOGOClick(Sender: TObject);
+    procedure miMonoDotsClick(Sender: TObject);
+    procedure miMonoRasterClick(Sender: TObject);
+    procedure miMonoVoxelsClick(Sender: TObject);
+    procedure miSHRColorDotsClick(Sender: TObject);
+    procedure miSHRColorRasterClick(Sender: TObject);
+    procedure miSHRColorVoxelsClick(Sender: TObject);
     procedure miSLIClick(Sender: TObject);
     procedure miSPEjectClick(Sender: TObject);
     procedure miSPFileClick(Sender: TObject);
@@ -108,6 +146,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure ToolButton5Click(Sender: TObject);
     procedure InsertDisk(Filename: string; Drive: integer);
+    procedure UpdateConfig(path: string; value: string; persist: boolean);
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -153,7 +192,8 @@ begin
       exit;
 
      RepaintWindow;
-     HideM8;
+     if GetTitleOfActiveWindow <> 'microM8' then
+        HideM8;
      StatusBar1.SimpleText := GetTitleOfActiveWindow;
      //Memo1.Lines.Add('app is deactivating');
 end;
@@ -166,6 +206,21 @@ end;
 procedure TGUIForm.Freeze;
 begin
        self.hc.Get('http://localhost:38911/api/control/window/freeze');
+end;
+
+procedure TGUIForm.miColorDotsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.hgrmode',  '0', true );
+end;
+
+procedure TGUIForm.miColorRasterClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.hgrmode',  '2', true );
+end;
+
+procedure TGUIForm.miColorVoxelsClick(Sender: TObject);
+begin
+   UpdateConfig( 'video/init.video.hgrmode',  '1', true );
 end;
 
 procedure TGUIForm.miD1BlankClick(Sender: TObject);
@@ -200,9 +255,49 @@ begin
   ShowM8;
 end;
 
+procedure TGUIForm.miDHRColorDotsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.dhgrmode',  '0', true );
+end;
+
+procedure TGUIForm.miDHRColorRasterClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.dhgrmode',  '2', true );
+end;
+
+procedure TGUIForm.miDHRColorVoxelsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.dhgrmode',  '1', true );
+end;
+
+procedure TGUIForm.miDHRMonoDotsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.dhgrmode',  '4', true );
+end;
+
+procedure TGUIForm.miDHRMonoRasterClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.dhgrmode',  '5', true );
+end;
+
+procedure TGUIForm.miDHRMonoVoxelsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.dhgrmode',  '5', true );
+end;
+
 procedure TGUIForm.miFileCatClick(Sender: TObject);
 begin
     self.hc.Get('http://localhost:38911/api/control/system/catalog');
+end;
+
+procedure TGUIForm.miGRRasterClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.grmode',  '2', true );
+end;
+
+procedure TGUIForm.miGRVoxelsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.grmode',  '1', true );
 end;
 
 procedure TGUIForm.miIntFPClick(Sender: TObject);
@@ -220,9 +315,43 @@ begin
     self.hc.Get('http://localhost:38911/api/control/interpreter/logo');
 end;
 
-procedure TGUIForm.miSLIClick(Sender: TObject);
+procedure TGUIForm.miMonoDotsClick(Sender: TObject);
 begin
-      self.hc.Get('http://localhost:38911/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
+   UpdateConfig( 'video/init.video.hgrmode',  '3', true );
+end;
+
+procedure TGUIForm.miMonoRasterClick(Sender: TObject);
+begin
+   UpdateConfig( 'video/init.video.hgrmode',  '5', true );
+end;
+
+procedure TGUIForm.miMonoVoxelsClick(Sender: TObject);
+begin
+   UpdateConfig( 'video/init.video.hgrmode',  '4', true );
+end;
+
+procedure TGUIForm.miSHRColorDotsClick(Sender: TObject);
+begin
+  UpdateConfig( 'video/init.video.shrmode',  '0', true );
+end;
+
+procedure TGUIForm.miSHRColorRasterClick(Sender: TObject);
+begin
+    UpdateConfig( 'video/init.video.shrmode',  '2', true );
+
+end;
+
+procedure TGUIForm.miSHRColorVoxelsClick(Sender: TObject);
+begin
+    UpdateConfig( 'video/init.video.shrmode',  '1', true );
+end;
+
+procedure TGUIForm.miSLIClick(Sender: TObject);
+const
+        values: Array[0..9] of string = ('1', '0.88', '0.77', '0.66', '0.55', '0.44', '0.33', '0.22', '0.11', '0');
+begin
+     // self.hc.Get('http://localhost:38911/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
+      UpdateConfig( 'video/init.video.scanline',  values[StrToInt(TMenuItem(Sender).Caption)], true );
 end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
@@ -357,6 +486,26 @@ begin
              '}';
      Respo := TStringStream.Create('');
      self.hc.SimpleFormPost('http://localhost:38911/api/control/hardware/disk/insert',json,Respo);
+     S := Respo.DataString;
+     self.StatusBar1.SimpleText:=json;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.UpdateConfig(path: string; value: string; persist: boolean);
+var
+  json, S, pval: string;
+  Respo: TStringStream;
+  f: TReplaceFlags;
+begin
+     pval := 'false';
+     if persist then
+         pval := 'true';
+     json := '{"path":"' + path +
+             '","value":"'+ value +
+             '","persist":'+ pval +
+             '}';
+     Respo := TStringStream.Create('');
+     self.hc.SimpleFormPost('http://localhost:38911/api/control/settings/update',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;

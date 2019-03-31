@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2022
+  Left = 589
   Height = 491
-  Top = 124
+  Top = 177
   Width = 807
   AlphaBlendValue = 128
   Caption = 'MicroM8 Simple GUI Prototype'
@@ -64,7 +64,7 @@ object GUIForm: TGUIForm
   end
   object MainMenu1: TMainMenu
     left = 584
-    top = 320
+    top = 321
     object MenuItem1: TMenuItem
       Caption = 'File'
       OnClick = MenuItem1Click
@@ -183,6 +183,101 @@ object GUIForm: TGUIForm
         object miSLI9: TMenuItem
           Caption = '9'
           OnClick = miSLIClick
+        end
+      end
+      object miGRRenderMode: TMenuItem
+        Caption = 'GR Render Mode'
+        object miGRVoxels: TMenuItem
+          Caption = 'Color Voxels'
+          OnClick = miGRVoxelsClick
+        end
+        object miGRRaster: TMenuItem
+          Caption = 'Color Raster'
+          OnClick = miGRRasterClick
+        end
+      end
+      object MenuItem15: TMenuItem
+        Caption = 'HGR Render Mode'
+        object miColorDots: TMenuItem
+          Caption = 'Color Dots'
+          OnClick = miColorDotsClick
+        end
+        object miColorVoxels: TMenuItem
+          Caption = 'Color Voxels'
+          OnClick = miColorVoxelsClick
+        end
+        object miColorRaster: TMenuItem
+          Caption = 'Color Raster'
+          OnClick = miColorRasterClick
+        end
+        object miMonoDots: TMenuItem
+          Caption = 'Mono Dots'
+          OnClick = miMonoDotsClick
+        end
+        object miMonoVoxels: TMenuItem
+          Caption = 'Mono Voxels'
+          OnClick = miMonoVoxelsClick
+        end
+        object miMonoRaster: TMenuItem
+          Caption = 'Mono Raster'
+          OnClick = miMonoRasterClick
+        end
+      end
+      object MenuItem16: TMenuItem
+        Caption = 'DHGR Render Mode'
+        object miDHRColorDots: TMenuItem
+          Caption = 'Color Dots'
+          OnClick = miDHRColorDotsClick
+        end
+        object miDHRColorVoxels: TMenuItem
+          Caption = 'Color Voxels'
+          OnClick = miDHRColorVoxelsClick
+        end
+        object miDHRColorRaster: TMenuItem
+          Caption = 'Color Raster'
+          OnClick = miDHRColorRasterClick
+        end
+        object miDHRMonoDots: TMenuItem
+          Caption = 'Mono Dots'
+          OnClick = miDHRMonoDotsClick
+        end
+        object miDHRMonoVoxels: TMenuItem
+          Caption = 'Mono Voxels'
+          OnClick = miDHRMonoVoxelsClick
+        end
+        object miDHRMonoRaster: TMenuItem
+          Caption = 'Mono Raster'
+          OnClick = miDHRMonoRasterClick
+        end
+        object N1: TMenuItem
+          Caption = '-'
+        end
+        object MenuItem14: TMenuItem
+          Caption = 'Enhanced Mode'
+          object miDHREMAuto: TMenuItem
+            Caption = 'Autodetect'
+          end
+          object miDHREMOn: TMenuItem
+            Caption = 'On'
+          end
+          object miDHREMOff: TMenuItem
+            Caption = 'Off'
+          end
+        end
+      end
+      object miSHR: TMenuItem
+        Caption = 'SuperHires Render Mode'
+        object miSHRColorDots: TMenuItem
+          Caption = 'Color Dots'
+          OnClick = miSHRColorDotsClick
+        end
+        object miSHRColorVoxels: TMenuItem
+          Caption = 'Color Voxels'
+          OnClick = miSHRColorVoxelsClick
+        end
+        object miSHRColorRaster: TMenuItem
+          Caption = 'Color Raster'
+          OnClick = miSHRColorRasterClick
         end
       end
     end
