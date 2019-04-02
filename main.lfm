@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 589
+  Left = 2353
   Height = 491
-  Top = 177
+  Top = 125
   Width = 807
   AlphaBlendValue = 128
   Caption = 'MicroM8 Simple GUI Prototype'
@@ -144,140 +144,217 @@ object GUIForm: TGUIForm
       Caption = 'Video'
       object miScanLineInt: TMenuItem
         Caption = 'Scanline Intensity'
+        OnClick = miScanLineIntClick
         object miSLI0: TMenuItem
           Caption = '0'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI1: TMenuItem
           Caption = '1'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI2: TMenuItem
           Caption = '2'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI3: TMenuItem
           Caption = '3'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI4: TMenuItem
           Caption = '4'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI5: TMenuItem
           Caption = '5'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI6: TMenuItem
           Caption = '6'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI7: TMenuItem
           Caption = '7'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI8: TMenuItem
           Caption = '8'
+          RadioItem = True
           OnClick = miSLIClick
         end
         object miSLI9: TMenuItem
           Caption = '9'
+          RadioItem = True
           OnClick = miSLIClick
         end
       end
       object miGRRenderMode: TMenuItem
         Caption = 'GR Render Mode'
+        OnClick = miGRRenderModeClick
         object miGRVoxels: TMenuItem
           Caption = 'Color Voxels'
+          RadioItem = True
           OnClick = miGRVoxelsClick
         end
         object miGRRaster: TMenuItem
           Caption = 'Color Raster'
+          RadioItem = True
           OnClick = miGRRasterClick
         end
       end
       object MenuItem15: TMenuItem
         Caption = 'HGR Render Mode'
+        OnClick = MenuItem15Click
         object miColorDots: TMenuItem
           Caption = 'Color Dots'
+          RadioItem = True
           OnClick = miColorDotsClick
         end
         object miColorVoxels: TMenuItem
           Caption = 'Color Voxels'
+          RadioItem = True
           OnClick = miColorVoxelsClick
         end
         object miColorRaster: TMenuItem
           Caption = 'Color Raster'
+          RadioItem = True
           OnClick = miColorRasterClick
         end
         object miMonoDots: TMenuItem
           Caption = 'Mono Dots'
+          RadioItem = True
           OnClick = miMonoDotsClick
         end
         object miMonoVoxels: TMenuItem
           Caption = 'Mono Voxels'
+          RadioItem = True
           OnClick = miMonoVoxelsClick
         end
         object miMonoRaster: TMenuItem
           Caption = 'Mono Raster'
+          RadioItem = True
           OnClick = miMonoRasterClick
         end
       end
       object MenuItem16: TMenuItem
         Caption = 'DHGR Render Mode'
+        OnClick = MenuItem16Click
         object miDHRColorDots: TMenuItem
           Caption = 'Color Dots'
+          RadioItem = True
           OnClick = miDHRColorDotsClick
         end
         object miDHRColorVoxels: TMenuItem
           Caption = 'Color Voxels'
+          RadioItem = True
           OnClick = miDHRColorVoxelsClick
         end
         object miDHRColorRaster: TMenuItem
           Caption = 'Color Raster'
+          RadioItem = True
           OnClick = miDHRColorRasterClick
         end
         object miDHRMonoDots: TMenuItem
           Caption = 'Mono Dots'
+          RadioItem = True
           OnClick = miDHRMonoDotsClick
         end
         object miDHRMonoVoxels: TMenuItem
           Caption = 'Mono Voxels'
+          RadioItem = True
           OnClick = miDHRMonoVoxelsClick
         end
         object miDHRMonoRaster: TMenuItem
           Caption = 'Mono Raster'
+          RadioItem = True
           OnClick = miDHRMonoRasterClick
         end
         object N1: TMenuItem
           Caption = '-'
         end
-        object MenuItem14: TMenuItem
+        object miDHGREN: TMenuItem
           Caption = 'Enhanced Mode'
+          OnClick = miDHGRENClick
           object miDHREMAuto: TMenuItem
             Caption = 'Autodetect'
+            RadioItem = True
+            OnClick = miDHREMAutoClick
           end
           object miDHREMOn: TMenuItem
             Caption = 'On'
+            RadioItem = True
+            OnClick = miDHREMOnClick
           end
           object miDHREMOff: TMenuItem
             Caption = 'Off'
+            RadioItem = True
+            OnClick = miDHREMOffClick
           end
         end
       end
       object miSHR: TMenuItem
         Caption = 'SuperHires Render Mode'
+        OnClick = miSHRClick
         object miSHRColorDots: TMenuItem
           Caption = 'Color Dots'
+          RadioItem = True
           OnClick = miSHRColorDotsClick
         end
         object miSHRColorVoxels: TMenuItem
           Caption = 'Color Voxels'
+          RadioItem = True
           OnClick = miSHRColorVoxelsClick
         end
         object miSHRColorRaster: TMenuItem
           Caption = 'Color Raster'
+          RadioItem = True
           OnClick = miSHRColorRasterClick
+        end
+      end
+    end
+    object Input: TMenuItem
+      Caption = 'Input'
+      object miINPAllCaps: TMenuItem
+        Caption = 'All Caps'
+      end
+      object miINPJoystick: TMenuItem
+        Caption = 'Joystick'
+      end
+      object miINPMouseMode: TMenuItem
+        Caption = 'Mouse Mode'
+        OnClick = miINPMouseModeClick
+        object miINPMMJoystick: TMenuItem
+          Caption = 'Joystick'
+          RadioItem = True
+          OnClick = miINPMMJoystickClick
+        end
+        object miINPMMDPAD: TMenuItem
+          Caption = 'D-Pad'
+          RadioItem = True
+          OnClick = miINPMMDPADClick
+        end
+        object miINPMMGEOS: TMenuItem
+          Caption = 'GEOS'
+          RadioItem = True
+          OnClick = miINPMMGEOSClick
+        end
+        object miINPMMDDraw: TMenuItem
+          Caption = 'Dazzle Draw'
+          RadioItem = True
+          OnClick = miINPMMDDrawClick
+        end
+        object miINPMMOff: TMenuItem
+          Caption = 'Off'
+          RadioItem = True
+          OnClick = miINPMMOffClick
         end
       end
     end
@@ -2241,5 +2318,11 @@ object GUIForm: TGUIForm
     Filter = 'Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
     left = 111
     top = 327
+  end
+  object MouseTimer: TTimer
+    Interval = 50
+    OnTimer = MouseTimerTimer
+    left = 187
+    top = 387
   end
 end
