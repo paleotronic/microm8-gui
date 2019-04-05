@@ -18,8 +18,15 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
-    BackdropImage: TImage;
-    ImageList1: TImageList;
+    backdrop: TImage;
+    N2: TMenuItem;
+    miTintOff: TMenuItem;
+    miTintGrey: TMenuItem;
+    miTintGreen: TMenuItem;
+    miTintAmber: TMenuItem;
+    ToolTimer: TTimer;
+    TintMode: TPopupMenu;
+    ToolbarIcons: TImageList;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
@@ -100,7 +107,14 @@ type
     CheckTimer: TTimer;
     MouseTimer: TTimer;
     ToolBar1: TToolBar;
-    procedure BackdropImageClick(Sender: TObject);
+    tbTintMode: TToolButton;
+    tbRMVoxels: TToolButton;
+    tbRMDots: TToolButton;
+    tbRMRaster: TToolButton;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    tbRMColor: TToolButton;
+    procedure backdropClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CheckTimerTimer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -164,6 +178,11 @@ type
     procedure miSPEjectClick(Sender: TObject);
     procedure miSPFileClick(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
+    procedure tbRMClick(Sender: TObject);
+    procedure tbRMColorClick(Sender: TObject);
+    procedure tbTintModeClick(Sender: TObject);
+    procedure ToolTimerTimer(Sender: TObject);
+    procedure UpdateRenderMode;
     procedure UnFreeze;
     procedure HideM8;
     procedure menuRebootVMClick(Sender: TObject);
@@ -171,6 +190,8 @@ type
     procedure RebootVM;
     procedure ReposWindow;
     procedure RepaintWindow;
+    procedure UpdateColorMode;
+    procedure UpdateTintMode;
     function GetTitleOfActiveWindow: string;
     procedure SendKey(key: Integer; ScanCode: Integer; KeyAction: Integer; Mods: Integer);
     procedure tbDisk1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -199,6 +220,9 @@ var
   GUIForm: TGUIForm;
 
 implementation
+
+const
+  baseUrl: string = 'http://localhost:38911';
 
 {$R *.lfm}
 
@@ -236,12 +260,12 @@ end;
 
 procedure TGUIForm.RebootVM;
 begin
-       self.hc.Get('http://localhost:38911/api/control/system/reboot');
+       self.hc.Get(baseUrl + '/api/control/system/reboot');
 end;
 
 procedure TGUIForm.Freeze;
 begin
-       self.hc.Get('http://localhost:38911/api/control/window/freeze');
+       self.hc.Get(baseUrl + '/api/control/window/freeze');
 end;
 
 procedure TGUIForm.miColorDotsClick(Sender: TObject);
@@ -261,7 +285,7 @@ end;
 
 procedure TGUIForm.miD1BlankClick(Sender: TObject);
 begin
-        self.hc.Get('http://localhost:38911/api/control/hardware/disk/eject/0');
+        self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/0');
 end;
 
 procedure TGUIForm.miD1FileClick(Sender: TObject);
@@ -277,7 +301,7 @@ end;
 
 procedure TGUIForm.miD2BlankClick(Sender: TObject);
 begin
-         self.hc.Get('http://localhost:38911/api/control/hardware/disk/eject/1');
+         self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/1');
 end;
 
 procedure TGUIForm.miD2FileClick(Sender: TObject);
@@ -361,7 +385,7 @@ end;
 
 procedure TGUIForm.miFileCatClick(Sender: TObject);
 begin
-    self.hc.Get('http://localhost:38911/api/control/system/catalog');
+    self.hc.Get(baseUrl + '/api/control/system/catalog');
 end;
 
 procedure TGUIForm.miGRRasterClick(Sender: TObject);
@@ -449,17 +473,17 @@ end;
 
 procedure TGUIForm.miIntFPClick(Sender: TObject);
 begin
-    self.hc.Get('http://localhost:38911/api/control/interpreter/fp');
+    self.hc.Get(baseUrl + '/api/control/interpreter/fp');
 end;
 
 procedure TGUIForm.miIntINTClick(Sender: TObject);
 begin
-    self.hc.Get('http://localhost:38911/api/control/interpreter/int');
+    self.hc.Get(baseUrl + '/api/control/interpreter/int');
 end;
 
 procedure TGUIForm.miIntLOGOClick(Sender: TObject);
 begin
-    self.hc.Get('http://localhost:38911/api/control/interpreter/logo');
+    self.hc.Get(baseUrl + '/api/control/interpreter/logo');
 end;
 
 procedure TGUIForm.miMonoDotsClick(Sender: TObject);
@@ -538,13 +562,13 @@ procedure TGUIForm.miSLIClick(Sender: TObject);
 const
         values: Array[0..9] of string = ('1', '0.88', '0.77', '0.66', '0.55', '0.44', '0.33', '0.22', '0.11', '0');
 begin
-     // self.hc.Get('http://localhost:38911/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
+     // self.hc.Get(baseUrl + '/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
       UpdateConfig( 'video/init.video.scanline',  values[StrToInt(TMenuItem(Sender).Caption)], true );
 end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
 begin
-      self.hc.Get('http://localhost:38911/api/control/hardware/disk/eject/2');
+      self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/2');
 end;
 
 procedure TGUIForm.miSPFileClick(Sender: TObject);
@@ -581,9 +605,108 @@ begin
      end;
 end;
 
+procedure TGUIForm.UpdateRenderMode;
+var
+  t: integer;
+begin
+      t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+      case t of
+      0: tbRMDots.Down := true;
+      3: tbRMDots.Down := true;
+      1: tbRMVoxels.Down := true;
+      4: tbRMVoxels.Down := true;
+      2: tbRMRaster.Down := true;
+      5: tbRMVoxels.Down := true;
+      end;
+end;
+
+
+procedure TGUIForm.tbRMClick(Sender: TObject);
+var
+  t: integer;
+begin
+      t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+
+    case TToolButton(sender).Tag of
+    0:
+         if t >= 3 then
+            t := 3
+         else
+           t := 0;
+    1:
+         if t >= 3 then
+            t := 4
+         else
+           t := 1;
+    2:
+         if t >= 3 then
+            t := 5
+         else
+           t := 2;
+    end;
+
+    UpdateConfig( 'video/current.rendermode', IntToStr(t), false );
+    UpdateRenderMode;
+end;
+
+procedure TGUIForm.UpdateColorMode;
+var
+  t: integer;
+begin
+     t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+     tbRMColor.ImageIndex := 7 + (t div 3);
+end;
+
+procedure TGUIForm.tbRMColorClick(Sender: TObject);
+var
+  t: integer;
+begin
+
+     { increment video tint }
+     t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+
+     if t >= 3 then
+        t := t - 3
+     else
+        t := t + 3;
+
+     UpdateConfig( 'video/current.rendermode', IntToStr(t), false );
+     UpdateColorMode;
+end;
+
+procedure TGUIForm.UpdateTintMode;
+var
+  t: integer;
+begin
+  t := StrToInt( GetConfig( 'video/init.video.tintmode' ) );
+  tbTintMode.ImageIndex := t;
+end;
+
+procedure TGUIForm.tbTintModeClick(Sender: TObject);
+var
+  t: integer;
+begin
+
+     { increment video tint }
+     t := StrToInt( GetConfig( 'video/init.video.tintmode' ) );
+     inc(t);
+     if t > 3 then
+        t := 0;
+     UpdateConfig( 'video/init.video.tintmode', IntToStr(t), false );
+     UpdateTintMode;
+
+end;
+
+procedure TGUIForm.ToolTimerTimer(Sender: TObject);
+begin
+  UpdateRenderMode;
+  UpdateColorMode;
+  UpdateTintMode;
+end;
+
 procedure TGUIForm.UnFreeze;
 begin
-       self.hc.Get('http://localhost:38911/api/control/window/unfreeze');
+       self.hc.Get(baseUrl + '/api/control/window/unfreeze');
 end;
 
 procedure TGUIForm.HideM8;
@@ -591,7 +714,7 @@ begin
        if hidden then
          exit;
        //Memo1.Lines.Add('hiding m8 window');
-       self.hc.Get('http://localhost:38911/api/control/window/hide');
+       self.hc.Get(baseUrl + '/api/control/window/hide');
        lastHideTime := Now();
        hidden := true;
 end;
@@ -606,7 +729,7 @@ begin
        if not hidden then
           exit;
        //Memo1.Lines.Add('showing m8 window');
-       self.hc.Get('http://localhost:38911/api/control/window/show');
+       self.hc.Get(baseUrl + '/api/control/window/show');
        lastShowTime := Now();
        hidden := false;
 end;
@@ -617,13 +740,13 @@ var
   filename: string;
 begin
        S := TMemoryStream.Create();
-       self.hc.Get('http://localhost:38911/api/control/window/screen', S);
+       self.hc.Get(baseUrl + '/api/control/window/screen', S);
        if S.Size > 0 then
        begin
             filename := GetUserDir + PathSeparator + 'microm8scrn.png';
             StatusBar1.SimpleText:='Got '+IntToStr(S.Size)+' bytes of PNG data';
             S.SaveToFile(filename);
-            BackdropImage.Picture.LoadFromFile(filename);
+            backdrop.Picture.LoadFromFile(filename);
             S.Free;
        end;
 end;
@@ -657,7 +780,7 @@ begin
              ',"h":'+IntToStr(h) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost('http://localhost:38911/api/control/window/position',json,Respo);
+     self.hc.SimpleFormPost(baseUrl + '/api/control/window/position',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
@@ -672,7 +795,7 @@ begin
              ',"y":'+IntToStr(y) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost('http://localhost:38911/api/control/input/mouseevent',json,Respo);
+     self.hc.SimpleFormPost(baseUrl + '/api/control/input/mouseevent',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
@@ -692,7 +815,7 @@ begin
              ',"modifiers":'+IntToStr(Mods) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost('http://localhost:38911/api/control/input/keyevent',json,Respo);
+     self.hc.SimpleFormPost(baseUrl + '/api/control/input/keyevent',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
@@ -711,7 +834,7 @@ begin
              '","drive":'+IntToStr(Drive) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost('http://localhost:38911/api/control/hardware/disk/insert',json,Respo);
+     self.hc.SimpleFormPost(baseUrl + '/api/control/hardware/disk/insert',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
@@ -731,7 +854,7 @@ begin
              '","persist":'+ pval +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost('http://localhost:38911/api/control/settings/update',json,Respo);
+     self.hc.SimpleFormPost(baseUrl + '/api/control/settings/update',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
@@ -746,7 +869,7 @@ begin
      json := '{"path":"' + path +
              '"}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost('http://localhost:38911/api/control/settings/get',json,Respo);
+     self.hc.SimpleFormPost(baseUrl + '/api/control/settings/get',json,Respo);
      Result := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
@@ -790,7 +913,7 @@ begin
      self.ReposWindow;
 end;
 
-procedure TGUIForm.BackdropImageClick(Sender: TObject);
+procedure TGUIForm.backdropClick(Sender: TObject);
 begin
 
 end;
@@ -818,7 +941,7 @@ function TGUIForm.GetTitleOfActiveWindow: string;
 var s: string;
 begin
   Result := '';
-  s := self.hc.Get('http://localhost:38911/api/control/window/focused');
+  s := self.hc.Get(baseUrl + '/api/control/window/focused');
   if s = '1' then
      Result := 'microM8';
 end;
