@@ -19,11 +19,113 @@ type
 
   TGUIForm = class(TForm)
     backdrop: TImage;
+    Image1: TImage;
+    pnlContainer: TPanel;
+    SideImages: TImageList;
+    miWarp400: TMenuItem;
+    miWarp200: TMenuItem;
+    miWarp100: TMenuItem;
+    miWarp50: TMenuItem;
+    miWarp25: TMenuItem;
+    miCPU65c02: TMenuItem;
+    miCPU6502: TMenuItem;
+    miDisksSwap: TMenuItem;
+    miDisksDisableWarp: TMenuItem;
+    miDisksConvertWOZ: TMenuItem;
+    miPDFTO60s: TMenuItem;
+    miPDFTO45s: TMenuItem;
+    miPDFTO30s: TMenuItem;
+    miPDFTO15s: TMenuItem;
+    miPDFTO5s: TMenuItem;
+    miPrinterPDF: TMenuItem;
+    miCPUWarp: TMenuItem;
+    miCPUType: TMenuItem;
+    miSerialTelnetServer: TMenuItem;
+    miSerialVModem: TMenuItem;
+    miDisks: TMenuItem;
+    miPrinter: TMenuItem;
+    miCPU: TMenuItem;
+    miSerial: TMenuItem;
+    miHardware: TMenuItem;
+    miSVOL100: TMenuItem;
+    miSVOL090: TMenuItem;
+    miSVOL080: TMenuItem;
+    miSVOL070: TMenuItem;
+    miSVOL060: TMenuItem;
+    miSVOL050: TMenuItem;
+    miSVOL040: TMenuItem;
+    miSVOL030: TMenuItem;
+    miSVOL020: TMenuItem;
+    miSVOL010: TMenuItem;
+    miSVOL000: TMenuItem;
+    miMVOL100: TMenuItem;
+    miMVOL090: TMenuItem;
+    miMVOL080: TMenuItem;
+    miMVOL070: TMenuItem;
+    miMVOL060: TMenuItem;
+    miMVOL050: TMenuItem;
+    miMVOL040: TMenuItem;
+    miMVOL030: TMenuItem;
+    miMVOL020: TMenuItem;
+    miMVOL010: TMenuItem;
+    miMVOL000: TMenuItem;
+    miPSG0p100: TMenuItem;
+    miPSG0p75: TMenuItem;
+    miPSG0p50: TMenuItem;
+    miPSG0p25: TMenuItem;
+    miPSG0p0: TMenuItem;
+    miPSG0m25: TMenuItem;
+    miPSG0m50: TMenuItem;
+    miPSG0m75: TMenuItem;
+    miPSG0m100: TMenuItem;
+    miSNDPSG0: TMenuItem;
+    miPSG1p100: TMenuItem;
+    miPSG1p75: TMenuItem;
+    miPSG1p50: TMenuItem;
+    miPSG1p25: TMenuItem;
+    miPSG1p0: TMenuItem;
+    miPSG1m25: TMenuItem;
+    miPSG1m50: TMenuItem;
+    miPSG1m75: TMenuItem;
+    miPSG1m100: TMenuItem;
+    miSNDPSG1: TMenuItem;
+    miSNDMockingboard: TMenuItem;
+    miSNDSpeaker: TMenuItem;
+    miSNDMaster: TMenuItem;
+    miSNDMuted: TMenuItem;
+    miAudio: TMenuItem;
+    miJSYRev: TMenuItem;
+    miJSXRev: TMenuItem;
+    miJSAxisSwap: TMenuItem;
+    miVD9: TMenuItem;
+    miVD8: TMenuItem;
+    miVD7: TMenuItem;
+    miVD6: TMenuItem;
+    miVD5: TMenuItem;
+    miVD4: TMenuItem;
+    miVD3: TMenuItem;
+    miVD2: TMenuItem;
+    miVD1: TMenuItem;
+    miVD: TMenuItem;
+    miAR178: TMenuItem;
+    miAR162: TMenuItem;
+    miAR146: TMenuItem;
+    miAR100: TMenuItem;
+    miAR133: TMenuItem;
+    miAR: TMenuItem;
+    miTMAmber: TMenuItem;
+    miTMGreen: TMenuItem;
+    miTMGrey: TMenuItem;
+    miTMNone: TMenuItem;
+    miTintMode: TMenuItem;
+    N4: TMenuItem;
+    N3: TMenuItem;
     N2: TMenuItem;
     miTintOff: TMenuItem;
     miTintGrey: TMenuItem;
     miTintGreen: TMenuItem;
     miTintAmber: TMenuItem;
+    sidecarPanel: TPanel;
     ToolTimer: TTimer;
     TintMode: TPopupMenu;
     ToolbarIcons: TImageList;
@@ -129,11 +231,16 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
     procedure FormWindowStateChange(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure InputClick(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem16Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure Freeze;
+    procedure miAR100Click(Sender: TObject);
+    procedure miARClick(Sender: TObject);
+    procedure miAudioClick(Sender: TObject);
     procedure miColorDotsClick(Sender: TObject);
     procedure miColorRasterClick(Sender: TObject);
     procedure miColorVoxelsClick(Sender: TObject);
@@ -155,6 +262,8 @@ type
     procedure miGRRasterClick(Sender: TObject);
     procedure miGRRenderModeClick(Sender: TObject);
     procedure miGRVoxelsClick(Sender: TObject);
+    procedure miINPAllCapsClick(Sender: TObject);
+    procedure miINPJoystickClick(Sender: TObject);
     procedure miINPMMDDrawClick(Sender: TObject);
     procedure miINPMMDPADClick(Sender: TObject);
     procedure miINPMMGEOSClick(Sender: TObject);
@@ -166,18 +275,37 @@ type
     procedure miIntFPClick(Sender: TObject);
     procedure miIntINTClick(Sender: TObject);
     procedure miIntLOGOClick(Sender: TObject);
+    procedure miJSAxisSwapClick(Sender: TObject);
+    procedure miJSXRevClick(Sender: TObject);
+    procedure miJSYRevClick(Sender: TObject);
     procedure miMonoDotsClick(Sender: TObject);
     procedure miMonoRasterClick(Sender: TObject);
     procedure miMonoVoxelsClick(Sender: TObject);
+    procedure miMVOL000Click(Sender: TObject);
+    procedure miPSG0m100Click(Sender: TObject);
+    procedure miPSG1m100Click(Sender: TObject);
     procedure miScanLineIntClick(Sender: TObject);
+    procedure miSerialClick(Sender: TObject);
+    procedure miSerialVModemClick(Sender: TObject);
     procedure miSHRClick(Sender: TObject);
     procedure miSHRColorDotsClick(Sender: TObject);
     procedure miSHRColorRasterClick(Sender: TObject);
     procedure miSHRColorVoxelsClick(Sender: TObject);
     procedure miSLIClick(Sender: TObject);
+    procedure miSNDMasterClick(Sender: TObject);
+    procedure miSNDMutedClick(Sender: TObject);
+    procedure miSNDPSG0Click(Sender: TObject);
+    procedure miSNDPSG1Click(Sender: TObject);
+    procedure miSNDSpeakerClick(Sender: TObject);
     procedure miSPEjectClick(Sender: TObject);
     procedure miSPFileClick(Sender: TObject);
+    procedure miSVOL000Click(Sender: TObject);
+    procedure miTintModeClick(Sender: TObject);
+    procedure miTMNoneClick(Sender: TObject);
+    procedure miVD1Click(Sender: TObject);
+    procedure miVDClick(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
+    procedure sidecarPanelResize(Sender: TObject);
     procedure tbRMClick(Sender: TObject);
     procedure tbRMColorClick(Sender: TObject);
     procedure tbTintModeClick(Sender: TObject);
@@ -266,6 +394,32 @@ end;
 procedure TGUIForm.Freeze;
 begin
        self.hc.Get(baseUrl + '/api/control/window/freeze');
+end;
+
+procedure TGUIForm.miAR100Click(Sender: TObject);
+begin
+   UpdateConfig( 'video/init.aspect', TMenuItem(sender).Caption, true );
+end;
+
+procedure TGUIForm.miARClick(Sender: TObject);
+var
+  aspect: string;
+begin
+  //
+  aspect := GetConfig( 'video/init.aspect' );
+  case aspect of
+  '1.00': miAR100.Checked := true;
+  '1.33': miAR133.Checked := true;
+  '1.46': miAR146.Checked := true;
+  '1.62': miAR162.Checked := true;
+  '1.78': miAR178.Checked := true;
+  end;
+end;
+
+procedure TGUIForm.miAudioClick(Sender: TObject);
+begin
+   // muted
+   miSNDMuted.Checked := GetConfig('audio/init.master.mute') = '1';
 end;
 
 procedure TGUIForm.miColorDotsClick(Sender: TObject);
@@ -370,7 +524,7 @@ end;
 
 procedure TGUIForm.miDHRMonoDotsClick(Sender: TObject);
 begin
-  UpdateConfig( 'video/init.video.dhgrmode',  '4', true );
+  UpdateConfig( 'video/init.video.dhgrmode',  '3', true );
 end;
 
 procedure TGUIForm.miDHRMonoRasterClick(Sender: TObject);
@@ -380,7 +534,7 @@ end;
 
 procedure TGUIForm.miDHRMonoVoxelsClick(Sender: TObject);
 begin
-  UpdateConfig( 'video/init.video.dhgrmode',  '5', true );
+  UpdateConfig( 'video/init.video.dhgrmode',  '4', true );
 end;
 
 procedure TGUIForm.miFileCatClick(Sender: TObject);
@@ -412,6 +566,26 @@ end;
 procedure TGUIForm.miGRVoxelsClick(Sender: TObject);
 begin
   UpdateConfig( 'video/init.video.grmode',  '1', true );
+end;
+
+procedure TGUIForm.miINPAllCapsClick(Sender: TObject);
+var
+  mi: TMenuItem;
+begin
+     mi := TMenuItem(sender);
+     mi.Checked := not mi.Checked;
+     if mi.Checked then
+        UpdateConfig( 'input/init.uppercase', '1', true )
+     else
+       UpdateConfig( 'input/init.uppercase', '0', true );
+end;
+
+procedure TGUIForm.miINPJoystickClick(Sender: TObject);
+begin
+  // setup joystick menu
+  miJSXRev.Checked := GetConfig( 'input/init.joystick.reversex' ) = '1';
+  miJSYRev.Checked := GetConfig( 'input/init.joystick.reversey' ) = '1';
+  miJSAxisSwap.Checked := GetConfig( 'input/init.joystick.axis0' ) = '1';
 end;
 
 procedure TGUIForm.miINPMMJoystickClick(Sender: TObject);
@@ -486,6 +660,38 @@ begin
     self.hc.Get(baseUrl + '/api/control/interpreter/logo');
 end;
 
+procedure TGUIForm.miJSAxisSwapClick(Sender: TObject);
+var
+  p0, p1: string;
+begin
+  p0 := GetConfig( 'input/init.joystick.axis0' );
+  p1 := GetConfig( 'input/init.joystick.axis1' );
+  UpdateConfig( 'input/init.joystick.axis0', p1, true );
+  UpdateConfig( 'input/init.joystick.axis1', p0, true );
+end;
+
+procedure TGUIForm.miJSXRevClick(Sender: TObject);
+var
+  p0: string;
+begin
+  p0 := GetConfig( 'input/init.joystick.reversex' );
+  if p0 = '1' then
+        UpdateConfig( 'input/init.joystick.reversex', '0', true )
+  else
+       UpdateConfig( 'input/init.joystick.reversex', '1', true );
+end;
+
+procedure TGUIForm.miJSYRevClick(Sender: TObject);
+var
+  p0: string;
+begin
+  p0 := GetConfig( 'input/init.joystick.reversey' );
+  if p0 = '1' then
+        UpdateConfig( 'input/init.joystick.reversey', '0', true )
+  else
+       UpdateConfig( 'input/init.joystick.reversey', '1', true );
+end;
+
 procedure TGUIForm.miMonoDotsClick(Sender: TObject);
 begin
    UpdateConfig( 'video/init.video.hgrmode',  '3', true );
@@ -499,6 +705,53 @@ end;
 procedure TGUIForm.miMonoVoxelsClick(Sender: TObject);
 begin
    UpdateConfig( 'video/init.video.hgrmode',  '4', true );
+end;
+
+procedure TGUIForm.miMVOL000Click(Sender: TObject);
+begin
+  case TMenuItem(sender).Caption of
+  '0': UpdateConfig( 'audio/init.master.volume', '0.0', true );
+  '1': UpdateConfig( 'audio/init.master.volume', '0.1', true );
+  '2': UpdateConfig( 'audio/init.master.volume', '0.2', true );
+  '3': UpdateConfig( 'audio/init.master.volume', '0.3', true );
+  '4': UpdateConfig( 'audio/init.master.volume', '0.4', true );
+  '5': UpdateConfig( 'audio/init.master.volume', '0.5', true );
+  '6': UpdateConfig( 'audio/init.master.volume', '0.6', true );
+  '7': UpdateConfig( 'audio/init.master.volume', '0.7', true );
+  '8': UpdateConfig( 'audio/init.master.volume', '0.8', true );
+  '9': UpdateConfig( 'audio/init.master.volume', '0.9', true );
+  '10': UpdateConfig( 'audio/init.master.volume', '1.0', true );
+  end;
+end;
+
+procedure TGUIForm.miPSG0m100Click(Sender: TObject);
+begin
+     case TMenuItem(sender).Tag of
+     -100: UpdateConfig( 'audio/init.mockingboard.psg0balance', '-1.00', true );
+     -75: UpdateConfig( 'audio/init.mockingboard.psg0balance', '-0.75', true );
+     -50: UpdateConfig( 'audio/init.mockingboard.psg0balance', '-0.50', true );
+     -25: UpdateConfig( 'audio/init.mockingboard.psg0balance', '-0.25', true );
+     0: UpdateConfig( 'audio/init.mockingboard.psg0balance', '0.00', true );
+     25: UpdateConfig( 'audio/init.mockingboard.psg0balance', '0.25', true );
+     50: UpdateConfig( 'audio/init.mockingboard.psg0balance', '0.50', true );
+     75: UpdateConfig( 'audio/init.mockingboard.psg0balance', '0.75', true );
+     100: UpdateConfig( 'audio/init.mockingboard.psg0balance', '1.00', true );
+     end;
+end;
+
+procedure TGUIForm.miPSG1m100Click(Sender: TObject);
+begin
+     case TMenuItem(sender).Tag of
+     -100: UpdateConfig( 'audio/init.mockingboard.psg1balance', '-1.00', true );
+     -75: UpdateConfig( 'audio/init.mockingboard.psg1balance', '-0.75', true );
+     -50: UpdateConfig( 'audio/init.mockingboard.psg1balance', '-0.50', true );
+     -25: UpdateConfig( 'audio/init.mockingboard.psg1balance', '-0.25', true );
+     0: UpdateConfig( 'audio/init.mockingboard.psg1balance', '0.00', true );
+     25: UpdateConfig( 'audio/init.mockingboard.psg1balance', '0.25', true );
+     50: UpdateConfig( 'audio/init.mockingboard.psg1balance', '0.50', true );
+     75: UpdateConfig( 'audio/init.mockingboard.psg1balance', '0.75', true );
+     100: UpdateConfig( 'audio/init.mockingboard.psg1balance', '1.00', true );
+     end;
 end;
 
 procedure TGUIForm.miScanLineIntClick(Sender: TObject);
@@ -523,6 +776,32 @@ begin
        '0.00': miSLI9.Checked := true;
        end;
   end;
+end;
+
+procedure TGUIForm.miSerialClick(Sender: TObject);
+var
+  mode: string;
+  ovr: string;
+begin
+  { get serial card option }
+  mode := GetConfig( 'hardware/init.serial.mode' );
+  ovr := GetConfig( 'override/ssc.disable.telnet' );
+  if ovr = '1' then
+  begin
+       miSerialVModem.Checked := true;
+       miSerialTelnetServer.Visible := false;
+  end
+  else
+  begin
+       miSerialVModem.Checked := (mode = '0');
+       miSerialTelnetServer.Visible := true;
+       miSerialTelnetServer.Checked := (mode = '1');
+  end;
+end;
+
+procedure TGUIForm.miSerialVModemClick(Sender: TObject);
+begin
+       UpdateConfig( 'hardware/init.serial.mode', IntToStr(TMenuItem(sender).Tag), true );
 end;
 
 procedure TGUIForm.miSHRClick(Sender: TObject);
@@ -566,6 +845,80 @@ begin
       UpdateConfig( 'video/init.video.scanline',  values[StrToInt(TMenuItem(Sender).Caption)], true );
 end;
 
+procedure TGUIForm.miSNDMasterClick(Sender: TObject);
+begin
+  case GetConfig( 'audio/init.master.volume' ) of
+  '0.00': miMVOL000.Checked := true;
+  '0.10': miMVOL010.Checked := true;
+  '0.20': miMVOL020.Checked := true;
+  '0.30': miMVOL030.Checked := true;
+  '0.40': miMVOL040.Checked := true;
+  '0.50': miMVOL050.Checked := true;
+  '0.60': miMVOL060.Checked := true;
+  '0.70': miMVOL070.Checked := true;
+  '0.80': miMVOL080.Checked := true;
+  '0.90': miMVOL090.Checked := true;
+  '1.00': miMVOL100.Checked := true;
+  end;
+end;
+
+procedure TGUIForm.miSNDMutedClick(Sender: TObject);
+begin
+  if GetConfig('audio/init.master.mute') = '1' then
+     UpdateConfig( 'audio/init.master.mute', '0', false )
+  else
+     UpdateConfig( 'audio/init.master.mute', '1', false );
+end;
+
+procedure TGUIForm.miSNDPSG0Click(Sender: TObject);
+begin
+  // get psg 1 balance ...
+  case GetConfig( 'audio/init.mockingboard.psg0balance' ) of
+  '-1.00': miPSG0m100.Checked := true;
+  '-0.75': miPSG0m75.Checked := true;
+  '-0.50': miPSG0m50.Checked := true;
+  '-0.25': miPSG0m25.Checked := true;
+  '0.00': miPSG0p0.Checked := true;
+  '0.25': miPSG0p25.Checked := true;
+  '0.50': miPSG0p50.Checked := true;
+  '0.75': miPSG0p75.Checked := true;
+  '1.00': miPSG0p100.Checked := true;
+  end;
+end;
+
+procedure TGUIForm.miSNDPSG1Click(Sender: TObject);
+begin
+  // get psg 1 balance ...
+  case GetConfig( 'audio/init.mockingboard.psg1balance' ) of
+  '-1.00': miPSG1m100.Checked := true;
+  '-0.75': miPSG1m75.Checked := true;
+  '-0.50': miPSG1m50.Checked := true;
+  '-0.25': miPSG1m25.Checked := true;
+  '0.00': miPSG1p0.Checked := true;
+  '0.25': miPSG1p25.Checked := true;
+  '0.50': miPSG1p50.Checked := true;
+  '0.75': miPSG1p75.Checked := true;
+  '1.00': miPSG1p100.Checked := true;
+  end;
+end;
+
+procedure TGUIForm.miSNDSpeakerClick(Sender: TObject);
+begin
+    case GetConfig( 'audio/init.speaker.volume' ) of
+  '0.00': miSVOL000.Checked := true;
+  '0.10': miSVOL010.Checked := true;
+  '0.20': miSVOL020.Checked := true;
+  '0.30': miSVOL030.Checked := true;
+  '0.40': miSVOL040.Checked := true;
+  '0.50': miSVOL050.Checked := true;
+  '0.60': miSVOL060.Checked := true;
+  '0.70': miSVOL070.Checked := true;
+  '0.80': miSVOL080.Checked := true;
+  '0.90': miSVOL090.Checked := true;
+  '1.00': miSVOL100.Checked := true;
+  end;
+end;
+
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
 begin
       self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/2');
@@ -580,6 +933,79 @@ begin
        InsertDisk( 'local:'+odDiskImages.Filename, 2 );
   end;
   ShowM8;
+end;
+
+procedure TGUIForm.miSVOL000Click(Sender: TObject);
+begin
+    case TMenuItem(sender).Caption of
+  '0': UpdateConfig( 'audio/init.speaker.volume', '0.0', true );
+  '1': UpdateConfig( 'audio/init.speaker.volume', '0.1', true );
+  '2': UpdateConfig( 'audio/init.speaker.volume', '0.2', true );
+  '3': UpdateConfig( 'audio/init.speaker.volume', '0.3', true );
+  '4': UpdateConfig( 'audio/init.speaker.volume', '0.4', true );
+  '5': UpdateConfig( 'audio/init.speaker.volume', '0.5', true );
+  '6': UpdateConfig( 'audio/init.speaker.volume', '0.6', true );
+  '7': UpdateConfig( 'audio/init.speaker.volume', '0.7', true );
+  '8': UpdateConfig( 'audio/init.speaker.volume', '0.8', true );
+  '9': UpdateConfig( 'audio/init.speaker.volume', '0.9', true );
+  '10': UpdateConfig( 'audio/init.speaker.volume', '1.0', true );
+  end;
+end;
+
+procedure TGUIForm.miTintModeClick(Sender: TObject);
+var
+  t: integer;
+begin
+      t := StrToInt( GetConfig( 'video/init.video.tintmode') );
+      case t of
+      0: miTMNone.Checked := true;
+      1: miTMGrey.Checked := true;
+      2: miTMGreen.Checked := true;
+      3: miTMAmber.Checked := true;
+      end;
+end;
+
+procedure TGUIForm.miTMNoneClick(Sender: TObject);
+var
+  t: integer;
+  s: TMenuItem;
+begin
+  t := 0;
+  s := TMenuItem(sender);
+  if s.Caption = 'Grey' then
+     t := 1
+  else if s.Caption = 'Green' then
+     t := 2
+  else if s.Caption = 'Amber' then
+     t := 3;
+  UpdateConfig( 'video/init.video.tintmode', IntToStr(t), true );
+  UpdateTintMode;
+end;
+
+procedure TGUIForm.miVD1Click(Sender: TObject);
+var
+  i: integer;
+begin
+     i := StrToInt(Copy( TMenuItem(sender).Caption, 1, 1 )) - 1;
+     UpdateConfig( 'video/init.video.voxeldepth', IntToStr(i), true );
+end;
+
+procedure TGUIForm.miVDClick(Sender: TObject);
+var
+  i: integer;
+begin
+    i := StrToInt( GetConfig('video/init.video.voxeldepth') );
+    case i of
+    0: miVD1.Checked := true;
+    1: miVD2.Checked := true;
+    2: miVD3.Checked := true;
+    3: miVD4.Checked := true;
+    4: miVD5.Checked := true;
+    5: miVD6.Checked := true;
+    6: miVD7.Checked := true;
+    7: miVD8.Checked := true;
+    8: miVD9.Checked := true;
+    end;
 end;
 
 procedure TGUIForm.MouseTimerTimer(Sender: TObject);
@@ -603,6 +1029,14 @@ begin
                SendMouseState( x - longint(p.X), y - longint(p.Y) );
           end;
      end;
+end;
+
+procedure TGUIForm.sidecarPanelResize(Sender: TObject);
+var
+  h: double;
+begin
+  h := sidecarPanel.Height;
+  sidecarPanel.Width := Round(0.34 * h);
 end;
 
 procedure TGUIForm.UpdateRenderMode;
@@ -904,7 +1338,11 @@ begin
 end;
 
 procedure TGUIForm.FormChangeBounds(Sender: TObject);
+var
+  h: double;
 begin
+  h := sidecarPanel.Height;
+  sidecarPanel.Width := Round(0.34 * h);
   self.ReposWindow;
 end;
 
@@ -965,6 +1403,7 @@ begin
      //StatusBar1.SimpleText := 'App is refocussing';
      lastShowTime := Now();
    end;
+  ReposWindow;
 end;
 
 procedure TGUIForm.FormCreate(Sender: TObject);
@@ -1120,8 +1559,11 @@ begin
 end;
 
 procedure TGUIForm.FormResize(Sender: TObject);
+var
+  h: double;
 begin
-  // on form resize we need to send a size request
+  h := sidecarPanel.Height;
+  sidecarPanel.Width := Round(0.34 * h);
   ReposWindow;
 end;
 
@@ -1143,6 +1585,19 @@ begin
      HideM8
   else
     ShowM8;
+end;
+
+procedure TGUIForm.Image1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TGUIForm.InputClick(Sender: TObject);
+var
+  value: string;
+begin
+  // setup item states
+  miINPAllCaps.Checked := (GetConfig( 'input/init.uppercase' ) = '1');
 end;
 
 procedure TGUIForm.MenuItem15Click(Sender: TObject);
