@@ -6,11 +6,11 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls,
-  ExtCtrls, StdCtrls, fphttpclient, LCLType, Buttons, DateUtils,
+  ExtCtrls, StdCtrls, fphttpclient, LCLType, Buttons, AsyncProcess, DateUtils,
 {$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
-  Sockets
+  Sockets, StrUtils
   ;
 
 type
@@ -18,9 +18,43 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
+    MenuItem14: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
+    miApps816Paint: TMenuItem;
+    miAppsPrintShop: TMenuItem;
+    miAppsTerminal: TMenuItem;
+    miToolsWebDebugger: TMenuItem;
+    miToolsTracker: TMenuItem;
+    miTools: TMenuItem;
+    miApps: TMenuItem;
+    miRECDisableSlowRew: TMenuItem;
+    miRECAutoLiveRewind: TMenuItem;
+    N9: TMenuItem;
+    miRECResume: TMenuItem;
+    miRECPlay: TMenuItem;
+    miRECRewind: TMenuItem;
+    N8: TMenuItem;
+    miRECLiveRewind: TMenuItem;
+    miRECStop: TMenuItem;
+    miRECStartFile: TMenuItem;
+    miVCR: TMenuItem;
+    miSaveFreeze: TMenuItem;
+    miOpenFreeze: TMenuItem;
+    N7: TMenuItem;
+    N6: TMenuItem;
+    miPRFIIplus: TMenuItem;
+    miPRFIIe: TMenuItem;
+    miPRFIIeEnhancedSoftcard: TMenuItem;
+    miPRFIIeEnhanced: TMenuItem;
+    miProfiles: TMenuItem;
+    N5: TMenuItem;
+    MicroM8Process: TAsyncProcess;
     backdrop: TImage;
     Image1: TImage;
+    odFreezeFiles: TOpenDialog;
     pnlContainer: TPanel;
+    sdFreezeFiles: TSaveDialog;
     SideImages: TImageList;
     miWarp400: TMenuItem;
     miWarp200: TMenuItem;
@@ -126,6 +160,15 @@ type
     miTintGreen: TMenuItem;
     miTintAmber: TMenuItem;
     sidecarPanel: TPanel;
+    FSTimer: TTimer;
+    ToolButton10: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
     ToolTimer: TTimer;
     TintMode: TPopupMenu;
     ToolbarIcons: TImageList;
@@ -205,7 +248,7 @@ type
     DiskMenu: TPopupMenu;
     odDiskImages: TOpenDialog;
     StatusBar1: TStatusBar;
-    hc: TFPHttpClient;
+    httpc: TFPHttpClient;
     CheckTimer: TTimer;
     MouseTimer: TTimer;
     ToolBar1: TToolBar;
@@ -219,8 +262,11 @@ type
     procedure backdropClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CheckTimerTimer(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
+    procedure DiskMenuClose(Sender: TObject);
+    procedure DiskMenuPopup(Sender: TObject);
+  //  procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
     procedure FormHide(Sender: TObject);
@@ -231,19 +277,36 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
     procedure FormWindowStateChange(Sender: TObject);
+    procedure FSTimerTimer(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Image1DblClick(Sender: TObject);
+    procedure Image1DragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure InputClick(Sender: TObject);
+    procedure MenuItem10Click(Sender: TObject);
+    procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem16Click(Sender: TObject);
-    procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem17Click(Sender: TObject);
+    procedure MenuItem18Click(Sender: TObject);
+   // procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure Freeze;
+    procedure miApps816PaintClick(Sender: TObject);
+    procedure miAppsPrintShopClick(Sender: TObject);
+    procedure miAppsTerminalClick(Sender: TObject);
     procedure miAR100Click(Sender: TObject);
     procedure miARClick(Sender: TObject);
     procedure miAudioClick(Sender: TObject);
     procedure miColorDotsClick(Sender: TObject);
     procedure miColorRasterClick(Sender: TObject);
     procedure miColorVoxelsClick(Sender: TObject);
+    procedure miCPU6502Click(Sender: TObject);
+    procedure miCPUTypeClick(Sender: TObject);
+    procedure miCPUWarpClick(Sender: TObject);
     procedure miD1BlankClick(Sender: TObject);
     procedure miD1FileClick(Sender: TObject);
     procedure miD2BlankClick(Sender: TObject);
@@ -258,6 +321,10 @@ type
     procedure miDHRMonoDotsClick(Sender: TObject);
     procedure miDHRMonoRasterClick(Sender: TObject);
     procedure miDHRMonoVoxelsClick(Sender: TObject);
+    procedure miDisksClick(Sender: TObject);
+    procedure miDisksConvertWOZClick(Sender: TObject);
+    procedure miDisksDisableWarpClick(Sender: TObject);
+    procedure miDisksSwapClick(Sender: TObject);
     procedure miFileCatClick(Sender: TObject);
     procedure miGRRasterClick(Sender: TObject);
     procedure miGRRenderModeClick(Sender: TObject);
@@ -282,8 +349,25 @@ type
     procedure miMonoRasterClick(Sender: TObject);
     procedure miMonoVoxelsClick(Sender: TObject);
     procedure miMVOL000Click(Sender: TObject);
+    procedure miOpenFreezeClick(Sender: TObject);
+    procedure miPDFTO5sClick(Sender: TObject);
+    procedure miPRFIIeClick(Sender: TObject);
+    procedure miPRFIIeEnhancedClick(Sender: TObject);
+    procedure miPRFIIeEnhancedSoftcardClick(Sender: TObject);
+    procedure miPRFIIplusClick(Sender: TObject);
+    procedure miPrinterPDFClick(Sender: TObject);
+    procedure miProfilesClick(Sender: TObject);
     procedure miPSG0m100Click(Sender: TObject);
     procedure miPSG1m100Click(Sender: TObject);
+    procedure miRECAutoLiveRewindClick(Sender: TObject);
+    procedure miRECDisableSlowRewClick(Sender: TObject);
+    procedure miRECLiveRewindClick(Sender: TObject);
+    procedure miRECPlayClick(Sender: TObject);
+    procedure miRECResumeClick(Sender: TObject);
+    procedure miRECRewindClick(Sender: TObject);
+    procedure miRECStartFileClick(Sender: TObject);
+    procedure miRECStopClick(Sender: TObject);
+    procedure miSaveFreezeClick(Sender: TObject);
     procedure miScanLineIntClick(Sender: TObject);
     procedure miSerialClick(Sender: TObject);
     procedure miSerialVModemClick(Sender: TObject);
@@ -302,8 +386,12 @@ type
     procedure miSVOL000Click(Sender: TObject);
     procedure miTintModeClick(Sender: TObject);
     procedure miTMNoneClick(Sender: TObject);
+    procedure miToolsTrackerClick(Sender: TObject);
+    procedure miToolsWebDebuggerClick(Sender: TObject);
+    procedure miVCRClick(Sender: TObject);
     procedure miVD1Click(Sender: TObject);
     procedure miVDClick(Sender: TObject);
+    procedure miWarp25Click(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
     procedure sidecarPanelResize(Sender: TObject);
     procedure tbRMClick(Sender: TObject);
@@ -320,6 +408,11 @@ type
     procedure RepaintWindow;
     procedure UpdateColorMode;
     procedure UpdateTintMode;
+    function SimpleGet(url:String): string;
+    procedure LaunchDisk(disk: string);
+    procedure LaunchCommand(dialect: string; path: string; command: string);
+    procedure SimpleFormPost(url: String; body: string; var resp: TStringStream);
+    procedure SimpleGetStream(url:string; var S: TMemoryStream);
     function GetTitleOfActiveWindow: string;
     procedure SendKey(key: Integer; ScanCode: Integer; KeyAction: Integer; Mods: Integer);
     procedure tbDisk1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -331,12 +424,17 @@ type
     procedure UpdateConfig(path: string; value: string; persist: boolean);
     function GetConfig(path: string): string;
     procedure SendMouseState(x, y: longint);
+    procedure BootFreeze(Filename: string);
+    procedure SaveFreeze(Filename: string);
+    procedure LaunchSP(disk: string);
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
     lastHideTime: TDateTime;
     hidden: boolean;
     lastMouseX, lastMouseY: longint;
+    inPopup: boolean;
+    isFS: boolean;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -355,6 +453,30 @@ const
 {$R *.lfm}
 
 { TGUIForm }
+
+type
+  TMouseBtnType = (mbtLeft, mbtMiddle, mbtRight);
+
+const
+  MOUSE_BTN_VKEYS: Array [TMouseBtnType] of Integer = (VK_LBUTTON, VK_MBUTTON, VK_RBUTTON);
+
+(* This function returns true when the specified mouse button is pressed *)
+function IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
+begin
+  Result := GetAsyncKeyState(MOUSE_BTN_VKEYS[AMouseBtn])
+            AND $8000 <> 0;
+end;
+
+
+(* This function returns true when any of the mouse button is pressed *)
+function IsMouseBtnDown: Boolean;
+begin
+  Result := (GetAsyncKeyState(VK_LBUTTON)
+             OR GetAsyncKeyState(VK_MBUTTON)
+             OR GetAsyncKeyState(VK_RBUTTON)
+             )
+            AND $8000 <> 0;
+end;
 
 constructor TGUIForm.Create(TheOwner: TComponent);
 begin
@@ -388,12 +510,131 @@ end;
 
 procedure TGUIForm.RebootVM;
 begin
-       self.hc.Get(baseUrl + '/api/control/system/reboot');
+       SimpleGet(baseUrl + '/api/control/system/reboot');
+end;
+
+procedure TGUIForm.Image1Click(Sender: TObject);
+begin
+     //
+end;
+
+procedure TGUIForm.Image1DblClick(Sender: TObject);
+begin
+     //
+end;
+
+procedure TGUIForm.Image1DragDrop(Sender, Source: TObject; X, Y: Integer);
+begin
+  // cheese biscuits
+end;
+
+procedure TGUIForm.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+      // nothing much
+end;
+
+procedure TGUIForm.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  p, q: TPoint;
+  py, bi: integer;
+begin
+     if inPopup then
+        exit;
+
+     //p := TPoint.create(0,0);
+     //q := sidecarPanel.ClientToScreen(p);
+     //py := (Mouse.CursorPos.Y - q.Y);
+     if (y >= 0) and (y < sideCarPanel.Height) then
+     begin
+         bi := y div Round(sideCarPanel.Height / 5);
+         StatusBar1.SimpleText := IntToStr(bi);
+         Image1.PopupMenu := nil;
+           case bi of
+           0: begin
+                      if Button = mbRight then
+                      begin
+                        DiskMenu.Tag := 0;
+                        DiskMenu.PopUp;
+                      end
+                      else
+                      begin
+                             RepaintWindow;
+                             HideM8;
+                             if odDiskImages.Execute then
+                             begin
+                                  InsertDisk( 'local:'+odDiskImages.Filename, 0 );
+                             end;
+                             ShowM8;
+                      end;
+           end;
+           1: begin
+                      if Button = mbRight then
+                      begin
+                        DiskMenu.Tag := 1;
+                        DiskMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+                      end
+                        else
+                         begin
+                                RepaintWindow;
+                                HideM8;
+                                if odDiskImages.Execute then
+                                begin
+                                     InsertDisk( 'local:'+odDiskImages.Filename, 1 );
+                                end;
+                                ShowM8;
+                         end;
+                      end;
+           2: begin
+               SimpleGet(baseUrl + '/api/control/hardware/disk/swap');
+           end;
+
+           3: begin
+                      {smart port}
+                      if Button = mbRight then
+                      begin
+                        DiskMenu.Tag := 2;
+                        DiskMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+                      end
+                        else
+                         begin
+                                RepaintWindow;
+                                HideM8;
+                                if odDiskImages.Execute then
+                                begin
+                                     InsertDisk( 'local:'+odDiskImages.Filename, 2 );
+                                end;
+                                ShowM8;
+                         end;
+           end;
+
+           4: begin
+                  SimpleGet(baseUrl + '/api/control/system/reboot');
+           end;
+
+           end;
+     end;
 end;
 
 procedure TGUIForm.Freeze;
 begin
-       self.hc.Get(baseUrl + '/api/control/window/freeze');
+       SimpleGet(baseUrl + '/api/control/window/freeze');
+end;
+
+procedure TGUIForm.miApps816PaintClick(Sender: TObject);
+begin
+     LaunchSP( '/appleii/disk images/2mg_hdv/816paint.po' );
+end;
+
+procedure TGUIForm.miAppsPrintShopClick(Sender: TObject);
+begin
+     LaunchDisk( '/appleii/disk images/applications/print shop/the print shop (color version).nib' );
+end;
+
+procedure TGUIForm.miAppsTerminalClick(Sender: TObject);
+begin
+    BootFreeze( '/boot/apps/proterm.frz' );
 end;
 
 procedure TGUIForm.miAR100Click(Sender: TObject);
@@ -437,9 +678,33 @@ begin
    UpdateConfig( 'video/init.video.hgrmode',  '1', true );
 end;
 
+procedure TGUIForm.miCPU6502Click(Sender: TObject);
+begin
+  UpdateConfig('hardware/current.cpu.model', TMenuItem(sender).Caption, false );
+end;
+
+procedure TGUIForm.miCPUTypeClick(Sender: TObject);
+begin
+  case GetConfig('hardware/current.cpu.model') of
+  '6502': miCPU6502.Checked := true;
+  '65C02': miCPU65c02.Checked := true;
+  end;
+end;
+
+procedure TGUIForm.miCPUWarpClick(Sender: TObject);
+begin
+     case GetConfig('hardware/current.cpu.warp') of
+     '0.25': miWarp25.Checked := true;
+     '0.50': miWarp50.Checked := true;
+     '1.00': miWarp100.Checked := true;
+     '2.00': miWarp200.Checked := true;
+     '4.00': miWarp400.Checked := true;
+     end;
+end;
+
 procedure TGUIForm.miD1BlankClick(Sender: TObject);
 begin
-        self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/0');
+        SimpleGet(baseUrl + '/api/control/hardware/disk/eject/0');
 end;
 
 procedure TGUIForm.miD1FileClick(Sender: TObject);
@@ -455,7 +720,7 @@ end;
 
 procedure TGUIForm.miD2BlankClick(Sender: TObject);
 begin
-         self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/1');
+         SimpleGet(baseUrl + '/api/control/hardware/disk/eject/1');
 end;
 
 procedure TGUIForm.miD2FileClick(Sender: TObject);
@@ -537,9 +802,37 @@ begin
   UpdateConfig( 'video/init.video.dhgrmode',  '4', true );
 end;
 
+procedure TGUIForm.miDisksClick(Sender: TObject);
+begin
+  { disk menu }
+  miDisksDisableWarp.Checked := (GetConfig( 'hardware/init.apple2.disk.nowarp' ) = '1');
+  miDisksConvertWOZ.Checked := (GetConfig( 'hardware/init.apple2.disk.nodskwoz' ) = '0');
+end;
+
+procedure TGUIForm.miDisksConvertWOZClick(Sender: TObject);
+begin
+   if TMenuItem(sender).Checked then
+      UpdateConfig( 'hardware/init.apple2.disk.nodskwoz', '0', true)
+   else
+      UpdateConfig( 'hardware/init.apple2.disk.nodskwoz', '1', true);
+end;
+
+procedure TGUIForm.miDisksDisableWarpClick(Sender: TObject);
+begin
+   if TMenuItem(sender).Checked then
+      UpdateConfig( 'hardware/init.apple2.disk.nowarp', '1', true)
+   else
+      UpdateConfig( 'hardware/init.apple2.disk.nowarp', '0', true);
+end;
+
+procedure TGUIForm.miDisksSwapClick(Sender: TObject);
+begin
+     SimpleGet(baseUrl + '/api/control/hardware/disk/swap');
+end;
+
 procedure TGUIForm.miFileCatClick(Sender: TObject);
 begin
-    self.hc.Get(baseUrl + '/api/control/system/catalog');
+    SimpleGet(baseUrl + '/api/control/system/catalog');
 end;
 
 procedure TGUIForm.miGRRasterClick(Sender: TObject);
@@ -647,17 +940,17 @@ end;
 
 procedure TGUIForm.miIntFPClick(Sender: TObject);
 begin
-    self.hc.Get(baseUrl + '/api/control/interpreter/fp');
+    SimpleGet(baseUrl + '/api/control/interpreter/fp');
 end;
 
 procedure TGUIForm.miIntINTClick(Sender: TObject);
 begin
-    self.hc.Get(baseUrl + '/api/control/interpreter/int');
+    SimpleGet(baseUrl + '/api/control/interpreter/int');
 end;
 
 procedure TGUIForm.miIntLOGOClick(Sender: TObject);
 begin
-    self.hc.Get(baseUrl + '/api/control/interpreter/logo');
+    SimpleGet(baseUrl + '/api/control/interpreter/logo');
 end;
 
 procedure TGUIForm.miJSAxisSwapClick(Sender: TObject);
@@ -724,6 +1017,73 @@ begin
   end;
 end;
 
+procedure TGUIForm.miOpenFreezeClick(Sender: TObject);
+var
+  d: string;
+begin
+  { open dialog for freezes }
+  odFreezeFiles.InitialDir := ReplaceStr( GetConfig('system/current.freezedir'), '/', DirectorySeparator);
+  RepaintWindow;
+  HideM8;
+  if odFreezeFiles.Execute then
+  begin
+       { /api/control/system/freeze/restore
+
+         path: ""
+
+       }
+       BootFreeze( odFreezeFiles.FileName );
+  end;
+  ShowM8;
+end;
+
+procedure TGUIForm.miPDFTO5sClick(Sender: TObject);
+begin
+  UpdateConfig( 'hardware/init.printer.timeout', TMenuItem(sender).Caption, true );
+end;
+
+procedure TGUIForm.miPRFIIeClick(Sender: TObject);
+begin
+      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e' );
+end;
+
+procedure TGUIForm.miPRFIIeEnhancedClick(Sender: TObject);
+begin
+     SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e-en' );
+end;
+
+procedure TGUIForm.miPRFIIeEnhancedSoftcardClick(Sender: TObject);
+begin
+     SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e-en-cpm' );
+end;
+
+procedure TGUIForm.miPRFIIplusClick(Sender: TObject);
+begin
+    SimpleGet( baseUrl+'/api/control/system/profile/set/apple2plus' );
+end;
+
+procedure TGUIForm.miPrinterPDFClick(Sender: TObject);
+begin
+  case GetConfig( 'hardware/init.printer.timeout' ) of
+  '5': miPDFTO5s.Checked := true;
+  '15': miPDFTO15s.Checked := true;
+  '30': miPDFTO30s.Checked := true;
+  '45': miPDFTO45s.Checked := true;
+  '60': miPDFTO60s.Checked := true;
+  end;
+end;
+
+procedure TGUIForm.miProfilesClick(Sender: TObject);
+begin
+  { get profile }
+  case SimpleGet( baseUrl+'/api/control/system/profile/get' ) of
+  'apple2e-en': miPRFIIeEnhanced.Checked := true;
+  'apple2e-en-cpm': miPRFIIeEnhancedSoftcard.Checked := true;
+  'apple2e': miPRFIIe.Checked := true;
+  'apple2plus': miPRFIIplus.Checked := true;
+  end;
+end;
+
 procedure TGUIForm.miPSG0m100Click(Sender: TObject);
 begin
      case TMenuItem(sender).Tag of
@@ -752,6 +1112,72 @@ begin
      75: UpdateConfig( 'audio/init.mockingboard.psg1balance', '0.75', true );
      100: UpdateConfig( 'audio/init.mockingboard.psg1balance', '1.00', true );
      end;
+end;
+
+procedure TGUIForm.miRECAutoLiveRewindClick(Sender: TObject);
+begin
+    if GetConfig( 'hardware/init.liverecording' ) = '1' then
+       UpdateConfig('hardware/init.liverecording', '0', true)
+    else
+       UpdateConfig('hardware/init.liverecording', '1', true);
+end;
+
+procedure TGUIForm.miRECDisableSlowRewClick(Sender: TObject);
+begin
+    if GetConfig( 'hardware/init.disablefractionalrewind' ) = '1' then
+       UpdateConfig('hardware/init.disablefractionalrewind', '0', true)
+    else
+       UpdateConfig('hardware/init.disablefractionalrewind', '1', true);
+end;
+
+procedure TGUIForm.miRECLiveRewindClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/recorder/start-live-recording' );
+end;
+
+procedure TGUIForm.miRECPlayClick(Sender: TObject);
+begin
+   SimpleGet( baseUrl+'/api/control/recorder/play' );
+end;
+
+procedure TGUIForm.miRECResumeClick(Sender: TObject);
+begin
+    SimpleGet( baseUrl+'/api/control/recorder/resume' );
+end;
+
+procedure TGUIForm.miRECRewindClick(Sender: TObject);
+begin
+   SimpleGet( baseUrl+'/api/control/recorder/rewind' );
+end;
+
+procedure TGUIForm.miRECStartFileClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/recorder/start-file-recording' );
+end;
+
+procedure TGUIForm.miRECStopClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/recorder/stop-recording' );
+end;
+
+procedure TGUIForm.miSaveFreezeClick(Sender: TObject);
+var
+  d: string;
+begin
+  { open dialog for freezes }
+  sdFreezeFiles.InitialDir := ReplaceStr( GetConfig('system/current.freezedir'), '/', DirectorySeparator);
+  RepaintWindow;
+  HideM8;
+  if sdFreezeFiles.Execute then
+  begin
+       { /api/control/system/freeze/restore
+
+         path: ""
+
+       }
+       SaveFreeze( sdFreezeFiles.FileName );
+  end;
+  ShowM8;
 end;
 
 procedure TGUIForm.miScanLineIntClick(Sender: TObject);
@@ -841,7 +1267,7 @@ procedure TGUIForm.miSLIClick(Sender: TObject);
 const
         values: Array[0..9] of string = ('1', '0.88', '0.77', '0.66', '0.55', '0.44', '0.33', '0.22', '0.11', '0');
 begin
-     // self.hc.Get(baseUrl + '/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
+     // SimpleGet(baseUrl + '/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
       UpdateConfig( 'video/init.video.scanline',  values[StrToInt(TMenuItem(Sender).Caption)], true );
 end;
 
@@ -921,7 +1347,7 @@ end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
 begin
-      self.hc.Get(baseUrl + '/api/control/hardware/disk/eject/2');
+      SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
 end;
 
 procedure TGUIForm.miSPFileClick(Sender: TObject);
@@ -982,6 +1408,22 @@ begin
   UpdateTintMode;
 end;
 
+procedure TGUIForm.miToolsTrackerClick(Sender: TObject);
+begin
+  LaunchCommand( 'fp', '/local', '@music.edit{}' );
+end;
+
+procedure TGUIForm.miToolsWebDebuggerClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl + '/api/control/debug/attach' );
+end;
+
+procedure TGUIForm.miVCRClick(Sender: TObject);
+begin
+   miRECAutoLiveRewind.Checked := (GetConfig( 'hardware/init.liverecording' ) = '1');
+   miRECDisableSlowRew.Checked := (GetConfig( 'hardware/init.disablefractionalrewind' ) = '1');
+end;
+
 procedure TGUIForm.miVD1Click(Sender: TObject);
 var
   i: integer;
@@ -1006,6 +1448,11 @@ begin
     7: miVD8.Checked := true;
     8: miVD9.Checked := true;
     end;
+end;
+
+procedure TGUIForm.miWarp25Click(Sender: TObject);
+begin
+  UpdateConfig( 'hardware/current.cpu.warp', TMenuItem(sender).Caption, false);
 end;
 
 procedure TGUIForm.MouseTimerTimer(Sender: TObject);
@@ -1140,7 +1587,7 @@ end;
 
 procedure TGUIForm.UnFreeze;
 begin
-       self.hc.Get(baseUrl + '/api/control/window/unfreeze');
+       SimpleGet(baseUrl + '/api/control/window/unfreeze');
 end;
 
 procedure TGUIForm.HideM8;
@@ -1148,7 +1595,7 @@ begin
        if hidden then
          exit;
        //Memo1.Lines.Add('hiding m8 window');
-       self.hc.Get(baseUrl + '/api/control/window/hide');
+       SimpleGet(baseUrl + '/api/control/window/hide');
        lastHideTime := Now();
        hidden := true;
 end;
@@ -1163,7 +1610,7 @@ begin
        if not hidden then
           exit;
        //Memo1.Lines.Add('showing m8 window');
-       self.hc.Get(baseUrl + '/api/control/window/show');
+       SimpleGet(baseUrl + '/api/control/window/show');
        lastShowTime := Now();
        hidden := false;
 end;
@@ -1174,7 +1621,7 @@ var
   filename: string;
 begin
        S := TMemoryStream.Create();
-       self.hc.Get(baseUrl + '/api/control/window/screen', S);
+       SimpleGetStream(baseUrl + '/api/control/window/screen', S);
        if S.Size > 0 then
        begin
             filename := GetUserDir + PathSeparator + 'microm8scrn.png';
@@ -1192,6 +1639,9 @@ var
   Respo: TStringStream;
   p, q: TPoint;
 begin
+     if isFS then
+     exit;
+
      q.X := 0;
      q.Y := 0;
      p := embedPanel.ClientToScreen(q);
@@ -1214,7 +1664,51 @@ begin
              ',"h":'+IntToStr(h) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost(baseUrl + '/api/control/window/position',json,Respo);
+     SimpleFormPost(baseUrl + '/api/control/window/position',json,Respo);
+     S := Respo.DataString;
+     self.StatusBar1.SimpleText:=S;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.LaunchSP(disk: string);
+var
+  json, S: string;
+  Respo: TStringStream;
+begin
+     json := '{"smartport": "' + disk +
+             '"}';
+     Respo := TStringStream.Create('');
+     SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
+     S := Respo.DataString;
+     self.StatusBar1.SimpleText:=S;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.LaunchCommand(dialect: string; path: string; command: string);
+var
+  json, S: string;
+  Respo: TStringStream;
+begin
+     json := '{"runcommand": "' + command +
+             '","dialect": "'+ dialect +
+             '","workingdir": "'+ path +
+             '"}';
+     Respo := TStringStream.Create('');
+     SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
+     S := Respo.DataString;
+     self.StatusBar1.SimpleText:=S;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.LaunchDisk(disk: string);
+var
+  json, S: string;
+  Respo: TStringStream;
+begin
+     json := '{"disks": ["' + disk +
+             '"]}';
+     Respo := TStringStream.Create('');
+     SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
@@ -1229,10 +1723,36 @@ begin
              ',"y":'+IntToStr(y) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost(baseUrl + '/api/control/input/mouseevent',json,Respo);
+     SimpleFormPost(baseUrl + '/api/control/input/mouseevent',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
+end;
+
+function TGUIForm.SimpleGet(url:string): string;
+begin
+  result := '';
+  try
+     result := self.httpc.Get(url)
+  finally
+  end;
+end;
+
+procedure TGUIForm.SimpleGetStream(url:string; var S: TMemoryStream);
+begin
+  try
+     self.httpc.Get(url, S)
+  finally
+  end;
+end;
+
+
+procedure TGUIForm.SimpleFormPost( url: string; body: string; var resp: TStringStream );
+begin
+     try
+       self.httpc.SimpleFormPost(url,body,resp)
+     finally
+     end;
 end;
 
 procedure TGUIForm.SendKey(key: Integer; ScanCode: Integer; KeyAction: Integer; Mods: Integer);
@@ -1249,7 +1769,7 @@ begin
              ',"modifiers":'+IntToStr(Mods) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost(baseUrl + '/api/control/input/keyevent',json,Respo);
+     SimpleFormPost(baseUrl + '/api/control/input/keyevent',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
@@ -1268,7 +1788,7 @@ begin
              '","drive":'+IntToStr(Drive) +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost(baseUrl + '/api/control/hardware/disk/insert',json,Respo);
+     SimpleFormPost(baseUrl + '/api/control/hardware/disk/insert',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
@@ -1288,7 +1808,7 @@ begin
              '","persist":'+ pval +
              '}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost(baseUrl + '/api/control/settings/update',json,Respo);
+     SimpleFormPost(baseUrl + '/api/control/settings/update',json,Respo);
      S := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
@@ -1303,8 +1823,47 @@ begin
      json := '{"path":"' + path +
              '"}';
      Respo := TStringStream.Create('');
-     self.hc.SimpleFormPost(baseUrl + '/api/control/settings/get',json,Respo);
+     SimpleFormPost(baseUrl + '/api/control/settings/get',json,Respo);
      Result := Respo.DataString;
+     self.StatusBar1.SimpleText:=json;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.SaveFreeze(Filename: string);
+var
+  json, S: string;
+  Respo: TStringStream;
+  f: TReplaceFlags;
+begin
+     f := [rfReplaceAll];
+     Filename := StringReplace( Filename, '\', '/', f);
+
+     if RightStr(Filename, 4) <> '.frz' then
+        Filename := Filename + '.frz';
+
+     json := '{"path":"' + Filename +
+             '"}';
+     Respo := TStringStream.Create('');
+     SimpleFormPost(baseUrl + '/api/control/system/freeze/save',json,Respo);
+     S := Respo.DataString;
+     self.StatusBar1.SimpleText:=json;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.BootFreeze(Filename: string);
+var
+  json, S: string;
+  Respo: TStringStream;
+  f: TReplaceFlags;
+begin
+     f := [rfReplaceAll];
+     Filename := StringReplace( Filename, '\', '/', f);
+
+     json := '{"path":"' + Filename +
+             '"}';
+     Respo := TStringStream.Create('');
+     SimpleFormPost(baseUrl + '/api/control/system/freeze/restore',json,Respo);
+     S := Respo.DataString;
      self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
@@ -1328,15 +1887,6 @@ begin
   RebootVM;
 end;
 
-procedure TGUIForm.MenuItem1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TGUIForm.FormActivate(Sender: TObject);
-begin
-end;
-
 procedure TGUIForm.FormChangeBounds(Sender: TObject);
 var
   h: double;
@@ -1344,6 +1894,11 @@ begin
   h := sidecarPanel.Height;
   sidecarPanel.Width := Round(0.34 * h);
   self.ReposWindow;
+end;
+
+procedure TGUIForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  MicroM8Process.Active := false;
 end;
 
 procedure TGUIForm.Button1Click(Sender: TObject);
@@ -1379,7 +1934,7 @@ function TGUIForm.GetTitleOfActiveWindow: string;
 var s: string;
 begin
   Result := '';
-  s := self.hc.Get(baseUrl + '/api/control/window/focused');
+  s := SimpleGet(baseUrl + '/api/control/window/focused');
   if s = '1' then
      Result := 'microM8';
 end;
@@ -1387,6 +1942,8 @@ end;
 
 procedure TGUIForm.CheckTimerTimer(Sender: TObject);
 begin
+  if isFS then
+     exit;
   //if MilliSecondsBetween(Now(), lastShowTime) < 500 then
   //   exit;
   if WindowState = wsMinimized then
@@ -1395,6 +1952,10 @@ begin
   //   exit;
   if GetTitleOfActiveWindow = 'microM8' then
    begin
+
+     if IsMouseBtnDown then
+      exit;
+
      //Application.Restore;
      Application.BringToFront;
      {$IFDEF WINDOWS}
@@ -1406,10 +1967,26 @@ begin
   ReposWindow;
 end;
 
+procedure TGUIForm.DiskMenuClose(Sender: TObject);
+begin
+  inPopup := false;
+end;
+
+procedure TGUIForm.DiskMenuPopup(Sender: TObject);
+begin
+  inPopup := true;
+end;
+
 procedure TGUIForm.FormCreate(Sender: TObject);
 begin
-     self.hc := TFPHttpClient.Create(Nil);
+     self.httpc := TFPHttpClient.Create(Nil);
+     MicroM8Process.Active := true;
+     Sleep(1000);
+     CheckTimer.Enabled:=true;
+     ToolTimer.Enabled := true;
+     MouseTimer.Enabled := true;
      hidden := true;
+     isFS := false;
 end;
 
 procedure TGUIForm.FormDeactivate(Sender: TObject);
@@ -1587,9 +2164,9 @@ begin
     ShowM8;
 end;
 
-procedure TGUIForm.Image1Click(Sender: TObject);
+procedure TGUIForm.FSTimerTimer(Sender: TObject);
 begin
-
+  isFS := (GetConfig( 'video/current.fullscreen' ) = '1');
 end;
 
 procedure TGUIForm.InputClick(Sender: TObject);
@@ -1598,6 +2175,25 @@ var
 begin
   // setup item states
   miINPAllCaps.Checked := (GetConfig( 'input/init.uppercase' ) = '1');
+end;
+
+procedure TGUIForm.MenuItem10Click(Sender: TObject);
+begin
+  { disk insert }
+   RepaintWindow;
+   HideM8;
+   if odDiskImages.Execute then
+   begin
+        InsertDisk( 'local:'+odDiskImages.Filename, DiskMenu.Tag );
+   end;
+   ShowM8;
+end;
+
+procedure TGUIForm.MenuItem14Click(Sender: TObject);
+begin
+  { do fullscreen here }
+  UpdateConfig('video/current.fullscreen', '1', false);
+  isFS := true;
 end;
 
 procedure TGUIForm.MenuItem15Click(Sender: TObject);
@@ -1638,6 +2234,16 @@ begin
        '5': miDHRMonoRaster.Checked := true;
        end;
   end;
+end;
+
+procedure TGUIForm.MenuItem17Click(Sender: TObject);
+begin
+  SimpleGet(baseUrl + '/api/control/hardware/disk/blank/0');
+end;
+
+procedure TGUIForm.MenuItem18Click(Sender: TObject);
+begin
+  SimpleGet(baseUrl + '/api/control/hardware/disk/blank/1');
 end;
 
 procedure TGUIForm.MenuItem2Click(Sender: TObject);

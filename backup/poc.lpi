@@ -53,6 +53,7 @@
         <Filename Value="mixer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMixer"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit2>
     </Units>
