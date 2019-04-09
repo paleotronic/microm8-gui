@@ -161,7 +161,17 @@ type
     miTintAmber: TMenuItem;
     sidecarPanel: TPanel;
     FSTimer: TTimer;
+    ToolButton1: TToolButton;
     ToolButton10: TToolButton;
+    tbJoystickAxisSwitch: TToolButton;
+    tbCapsMode: TToolButton;
+    tbScanlines: TToolButton;
+    tbWebDebugger: TToolButton;
+    ToolButton15: TToolButton;
+    ToolButton16: TToolButton;
+    ToolButton17: TToolButton;
+    ToolButton18: TToolButton;
+    ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
@@ -256,9 +266,9 @@ type
     tbRMVoxels: TToolButton;
     tbRMDots: TToolButton;
     tbRMRaster: TToolButton;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
     tbRMColor: TToolButton;
+    tbMasterVolume: TTrackBar;
+    TrackBar2: TTrackBar;
     procedure backdropClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CheckTimerTimer(Sender: TObject);
@@ -267,6 +277,7 @@ type
   //  procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
     procedure FormHide(Sender: TObject);
@@ -394,10 +405,15 @@ type
     procedure miWarp25Click(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
     procedure sidecarPanelResize(Sender: TObject);
+    procedure tbCapsModeClick(Sender: TObject);
+    procedure tbJoystickAxisSwitchClick(Sender: TObject);
     procedure tbRMClick(Sender: TObject);
     procedure tbRMColorClick(Sender: TObject);
+    procedure tbScanlinesClick(Sender: TObject);
     procedure tbTintModeClick(Sender: TObject);
     procedure ToolTimerTimer(Sender: TObject);
+    procedure tbMasterVolumeChange(Sender: TObject);
+    procedure TrackBar2Change(Sender: TObject);
     procedure UpdateRenderMode;
     procedure UnFreeze;
     procedure HideM8;
@@ -427,6 +443,11 @@ type
     procedure BootFreeze(Filename: string);
     procedure SaveFreeze(Filename: string);
     procedure LaunchSP(disk: string);
+    procedure UpdateJoystickAxis;
+    procedure UpdateVolSlider;
+    procedure UpdateWarpSlider;
+    procedure UpdateAllCaps;
+    procedure UpdateScanlines;
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -1486,6 +1507,34 @@ begin
   sidecarPanel.Width := Round(0.34 * h);
 end;
 
+procedure TGUIForm.tbCapsModeClick(Sender: TObject);
+begin
+  miINPAllCapsClick(sender);
+  UpdateAllCaps;
+end;
+
+procedure TGUIForm.UpdateAllCaps;
+begin
+   case GetConfig( 'input/init.uppercase' ) of
+   '0': tbCapsMode.ImageIndex := 17;
+   '1': tbCapsMode.ImageIndex := 18;
+   end;
+end;
+
+procedure TGUIForm.tbJoystickAxisSwitchClick(Sender: TObject);
+begin
+  miJSAxisSwapClick(sender);
+  UpdateJoystickAxis;
+end;
+
+procedure TGUIForm.UpdateJoystickAxis;
+begin
+     case GetConfig( 'input/init.joystick.axis0' ) of
+     '0': tbJoystickAxisSwitch.ImageIndex := 21;
+     '1': tbJoystickAxisSwitch.ImageIndex := 22;
+     end;
+end;
+
 procedure TGUIForm.UpdateRenderMode;
 var
   t: integer;
@@ -1555,6 +1604,23 @@ begin
      UpdateColorMode;
 end;
 
+procedure TGUIForm.tbScanlinesClick(Sender: TObject);
+begin
+   case GetConfig( 'video/init.video.scanlinedisable' ) of
+   '0': UpdateConfig( 'video/init.video.scanlinedisable', '1', false );
+   '1': UpdateConfig( 'video/init.video.scanlinedisable', '0', false );
+   end;
+   UpdateScanlines;
+end;
+
+procedure TGUIForm.UpdateScanlines;
+begin
+     case GetConfig( 'video/init.video.scanlinedisable' ) of
+     '0': tbScanlines.ImageIndex := 20;
+     '1': tbScanlines.ImageIndex := 19;
+     end;
+end;
+
 procedure TGUIForm.UpdateTintMode;
 var
   t: integer;
@@ -1583,6 +1649,67 @@ begin
   UpdateRenderMode;
   UpdateColorMode;
   UpdateTintMode;
+  UpdateJoystickAxis;
+  UpdateVolSlider;
+  UpdateWarpSlider;
+  UpdateAllCaps;
+  UpdateScanlines;
+end;
+
+procedure TGUIForm.tbMasterVolumeChange(Sender: TObject);
+begin
+  case TTrackBar(sender).Position of
+  0: UpdateConfig( 'audio/init.master.volume', '0.0', false );
+  1: UpdateConfig( 'audio/init.master.volume', '0.1', false );
+  2: UpdateConfig( 'audio/init.master.volume', '0.2', false );
+  3: UpdateConfig( 'audio/init.master.volume', '0.3', false );
+  4: UpdateConfig( 'audio/init.master.volume', '0.4', false );
+  5: UpdateConfig( 'audio/init.master.volume', '0.5', false );
+  6: UpdateConfig( 'audio/init.master.volume', '0.6', false );
+  7: UpdateConfig( 'audio/init.master.volume', '0.7', false );
+  8: UpdateConfig( 'audio/init.master.volume', '0.8', false );
+  9: UpdateConfig( 'audio/init.master.volume', '0.9', false );
+  10: UpdateConfig( 'audio/init.master.volume', '1.0', false );
+  end;
+end;
+
+procedure TGUIForm.UpdateWarpSlider;
+begin
+   case GetConfig('hardware/current.cpu.warp') of
+   '0.25': TrackBar2.Position := 0;
+   '0.50': TrackBar2.Position := 1;
+   '1.00': TrackBar2.Position := 2;
+   '2.00': TrackBar2.Position := 3;
+   '4.00': TrackBar2.Position := 4;
+   end;
+end;
+
+procedure TGUIForm.UpdateVolSlider;
+begin
+  case GetConfig( 'audio/init.master.volume' ) of
+  '0.00': tbMasterVolume.Position := 0;
+  '0.10': tbMasterVolume.Position := 1;
+  '0.20': tbMasterVolume.Position := 2;
+  '0.30': tbMasterVolume.Position := 3;
+  '0.40': tbMasterVolume.Position := 4;
+  '0.50': tbMasterVolume.Position := 5;
+  '0.60': tbMasterVolume.Position := 6;
+  '0.70': tbMasterVolume.Position := 7;
+  '0.80': tbMasterVolume.Position := 8;
+  '0.90': tbMasterVolume.Position := 9;
+  '1.00': tbMasterVolume.Position := 10;
+  end;
+end;
+
+procedure TGUIForm.TrackBar2Change(Sender: TObject);
+begin
+  case TTrackBar(sender).Position of
+  0: UpdateConfig( 'hardware/current.cpu.warp', '0.25', false);
+  1: UpdateConfig( 'hardware/current.cpu.warp', '0.50', false);
+  2: UpdateConfig( 'hardware/current.cpu.warp', '1.00', false);
+  3: UpdateConfig( 'hardware/current.cpu.warp', '2.00', false);
+  4: UpdateConfig( 'hardware/current.cpu.warp', '4.00', false);
+  end;
 end;
 
 procedure TGUIForm.UnFreeze;
@@ -1731,10 +1858,13 @@ end;
 
 function TGUIForm.SimpleGet(url:string): string;
 begin
-  result := '';
+  result := '0';
   try
      result := self.httpc.Get(url)
-  finally
+  except
+        on e: Exception do begin
+             // nothing much
+        end;
   end;
 end;
 
@@ -1742,7 +1872,10 @@ procedure TGUIForm.SimpleGetStream(url:string; var S: TMemoryStream);
 begin
   try
      self.httpc.Get(url, S)
-  finally
+  except
+        on e: Exception do begin
+             // nothing much
+        end;
   end;
 end;
 
@@ -1751,7 +1884,10 @@ procedure TGUIForm.SimpleFormPost( url: string; body: string; var resp: TStringS
 begin
      try
        self.httpc.SimpleFormPost(url,body,resp)
-     finally
+     except
+        on e: Exception do begin
+             // nothing much
+        end;
      end;
 end;
 
@@ -1898,7 +2034,16 @@ end;
 
 procedure TGUIForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  CheckTimer.Enabled:=false;
+  ToolTimer.Enabled := false;
+  MouseTimer.Enabled := false;
   MicroM8Process.Active := false;
+end;
+
+procedure TGUIForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+    SimpleGet( baseUrl+'/api/control/quit' );
+    CanClose := true;
 end;
 
 procedure TGUIForm.Button1Click(Sender: TObject);
@@ -1980,8 +2125,13 @@ end;
 procedure TGUIForm.FormCreate(Sender: TObject);
 begin
      self.httpc := TFPHttpClient.Create(Nil);
-     MicroM8Process.Active := true;
-     Sleep(1000);
+
+     //if SimpleGet( baseUrl+'/api/control/health' ) <> 'ok' then
+     //begin
+            MicroM8Process.Active := true;
+            sleep(1000);
+     //end;
+
      CheckTimer.Enabled:=true;
      ToolTimer.Enabled := true;
      MouseTimer.Enabled := true;
@@ -2248,6 +2398,7 @@ end;
 
 procedure TGUIForm.MenuItem2Click(Sender: TObject);
 begin
+  SimpleGet( baseUrl+'/api/control/quit' );
   Application.Terminate();
 end;
 
