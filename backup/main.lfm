@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2369
+  Left = 2072
   Height = 574
-  Top = 205
+  Top = 321
   Width = 945
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -167,11 +167,12 @@ object GUIForm: TGUIForm
       Caption = 'ToolButton15'
       Enabled = False
     end
-    object ToolButton1: TToolButton
+    object tbVolDown: TToolButton
       Left = 213
       Top = 2
-      Caption = 'ToolButton1'
+      Caption = 'tbVolDown'
       ImageIndex = 23
+      OnClick = tbVolDownClick
     end
     object tbMasterVolume: TTrackBar
       Left = 249
@@ -185,11 +186,12 @@ object GUIForm: TGUIForm
       OnKeyUp = FormKeyUp
       TabOrder = 0
     end
-    object ToolButton2: TToolButton
+    object tbVolUp: TToolButton
       Left = 313
       Top = 2
-      Caption = 'ToolButton2'
+      Caption = 'tbVolUp'
       ImageIndex = 24
+      OnClick = tbVolUpClick
     end
     object ToolButton3: TToolButton
       Left = 349
@@ -197,11 +199,12 @@ object GUIForm: TGUIForm
       Caption = 'ToolButton3'
       Enabled = False
     end
-    object ToolButton16: TToolButton
+    object tbSpeedDown: TToolButton
       Left = 381
       Top = 2
-      Caption = 'ToolButton16'
+      Caption = 'tbSpeedDown'
       ImageIndex = 25
+      OnClick = tbSpeedDownClick
     end
     object TrackBar2: TTrackBar
       Left = 417
@@ -215,11 +218,12 @@ object GUIForm: TGUIForm
       OnKeyUp = FormKeyUp
       TabOrder = 1
     end
-    object ToolButton17: TToolButton
+    object tbSpeedUp: TToolButton
       Left = 481
       Top = 2
-      Caption = 'ToolButton17'
+      Caption = 'tbSpeedUp'
       ImageIndex = 26
+      OnClick = tbSpeedUpClick
     end
     object ToolButton18: TToolButton
       Left = 517

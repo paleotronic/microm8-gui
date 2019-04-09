@@ -161,17 +161,17 @@ type
     miTintAmber: TMenuItem;
     sidecarPanel: TPanel;
     FSTimer: TTimer;
-    ToolButton1: TToolButton;
+    tbVolDown: TToolButton;
     ToolButton10: TToolButton;
     tbJoystickAxisSwitch: TToolButton;
     tbCapsMode: TToolButton;
     tbScanlines: TToolButton;
     tbWebDebugger: TToolButton;
     ToolButton15: TToolButton;
-    ToolButton16: TToolButton;
-    ToolButton17: TToolButton;
+    tbSpeedDown: TToolButton;
+    tbSpeedUp: TToolButton;
     ToolButton18: TToolButton;
-    ToolButton2: TToolButton;
+    tbVolUp: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
@@ -410,7 +410,12 @@ type
     procedure tbRMClick(Sender: TObject);
     procedure tbRMColorClick(Sender: TObject);
     procedure tbScanlinesClick(Sender: TObject);
+    procedure tbSpeedDownClick(Sender: TObject);
+    procedure tbSpeedUpClick(Sender: TObject);
     procedure tbTintModeClick(Sender: TObject);
+    procedure tbVolDownClick(Sender: TObject);
+    procedure tbVolUpClick(Sender: TObject);
+    procedure ToolButton9Click(Sender: TObject);
     procedure ToolTimerTimer(Sender: TObject);
     procedure tbMasterVolumeChange(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
@@ -1613,6 +1618,18 @@ begin
    UpdateScanlines;
 end;
 
+procedure TGUIForm.tbSpeedDownClick(Sender: TObject);
+begin
+     SimpleGet( baseUrl+'/api/control/cpu/warp/down' );
+     UpdateWarpSlider;
+end;
+
+procedure TGUIForm.tbSpeedUpClick(Sender: TObject);
+begin
+     SimpleGet( baseUrl+'/api/control/cpu/warp/up' );
+     UpdateWarpSlider;
+end;
+
 procedure TGUIForm.UpdateScanlines;
 begin
      case GetConfig( 'video/init.video.scanlinedisable' ) of
@@ -1642,6 +1659,23 @@ begin
      UpdateConfig( 'video/init.video.tintmode', IntToStr(t), false );
      UpdateTintMode;
 
+end;
+
+procedure TGUIForm.tbVolDownClick(Sender: TObject);
+begin
+     SimpleGet( baseUrl+'/api/control/audio/master/down' );
+     UpdateVolSlider;
+end;
+
+procedure TGUIForm.tbVolUpClick(Sender: TObject);
+begin
+     SimpleGet( baseUrl+'/api/control/audio/master/up' );
+     UpdateVolSlider;
+end;
+
+procedure TGUIForm.ToolButton9Click(Sender: TObject);
+begin
+     SimpleGet(baseUrl+'/api/control/pause');
 end;
 
 procedure TGUIForm.ToolTimerTimer(Sender: TObject);
