@@ -15,6 +15,9 @@ uses
 
 type
 
+  TMouseBtnType = (mbtLeft, mbtMiddle, mbtRight);
+
+
   { TGUIForm }
 
   TGUIForm = class(TForm)
@@ -453,6 +456,8 @@ type
     procedure UpdateWarpSlider;
     procedure UpdateAllCaps;
     procedure UpdateScanlines;
+    function  IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
+    function  IsMouseBtnDown: Boolean;
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -480,22 +485,31 @@ const
 
 { TGUIForm }
 
-type
-  TMouseBtnType = (mbtLeft, mbtMiddle, mbtRight);
-
 const
   MOUSE_BTN_VKEYS: Array [TMouseBtnType] of Integer = (VK_LBUTTON, VK_MBUTTON, VK_RBUTTON);
 
 (* This function returns true when the specified mouse button is pressed *)
-function IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
+{$IFDEF WINDOWS}
+function TGUIForm.IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
 begin
   Result := GetAsyncKeyState(MOUSE_BTN_VKEYS[AMouseBtn])
             AND $8000 <> 0;
 end;
-
+{$ELSE}
+function TGUIForm.IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
+var
+  mstate: integer;
+  s: string;
+begin
+  s := GetConfig( baseUrl+'/api/control/mouse/buttonstate' );
+  mstate := StrToInt( s );
+  result := (mstate and integer(AMouseBtn)) <> 0;
+end;
+{$ENDIF}
 
 (* This function returns true when any of the mouse button is pressed *)
-function IsMouseBtnDown: Boolean;
+{$IFDEF WINDOWS}
+function TGUIForm.IsMouseBtnDown: Boolean;
 begin
   Result := (GetAsyncKeyState(VK_LBUTTON)
              OR GetAsyncKeyState(VK_MBUTTON)
@@ -503,6 +517,15 @@ begin
              )
             AND $8000 <> 0;
 end;
+{$ELSE}
+function TGUIForm.IsMouseBtnDown: Boolean;
+var
+  mstate: integer;
+begin
+  mstate := StrToInt( GetConfig( baseUrl+'/api/control/mouse/buttonstate' ) );
+  result := mstate <> 0;
+end;
+{$ENDIF}
 
 constructor TGUIForm.Create(TheOwner: TComponent);
 begin
