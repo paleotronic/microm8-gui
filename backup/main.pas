@@ -24,6 +24,15 @@ type
     MenuItem14: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem18: TMenuItem;
+    miVM8: TMenuItem;
+    miVM7: TMenuItem;
+    miVM6: TMenuItem;
+    miVM5: TMenuItem;
+    miVM4: TMenuItem;
+    miVM3: TMenuItem;
+    miVM2: TMenuItem;
+    miVM1: TMenuItem;
+    miVM: TMenuItem;
     miApps816Paint: TMenuItem;
     miAppsPrintShop: TMenuItem;
     miAppsTerminal: TMenuItem;
@@ -405,6 +414,8 @@ type
     procedure miVCRClick(Sender: TObject);
     procedure miVD1Click(Sender: TObject);
     procedure miVDClick(Sender: TObject);
+    procedure miVM1Click(Sender: TObject);
+    procedure miVMClick(Sender: TObject);
     procedure miWarp25Click(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
     procedure sidecarPanelResize(Sender: TObject);
@@ -1497,6 +1508,25 @@ begin
     7: miVD8.Checked := true;
     8: miVD9.Checked := true;
     end;
+end;
+
+procedure TGUIForm.miVM1Click(Sender: TObject);
+begin
+  SimpleGet(baseUrl+'/api/control/vm/'+TMenuItem(sender).Caption);
+end;
+
+procedure TGUIForm.miVMClick(Sender: TObject);
+begin
+  case SimpleGet( baseUrl+'/api/control/vm' ) of
+  '1': miVM1.Checked := true;
+  '2': miVM2.Checked := true;
+  '3': miVM3.Checked := true;
+  '4': miVM4.Checked := true;
+  '5': miVM5.Checked := true;
+  '6': miVM6.Checked := true;
+  '7': miVM7.Checked := true;
+  '8': miVM8.Checked := true;
+  end;
 end;
 
 procedure TGUIForm.miWarp25Click(Sender: TObject);

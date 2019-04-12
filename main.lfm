@@ -182,7 +182,9 @@ object GUIForm: TGUIForm
       Width = 64
       OnChange = tbMasterVolumeChange
       Position = 0
-      TickStyle = tsNone
+      ScalePos = trBottom
+      TickMarks = tmBoth
+      TickStyle = tsManual
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 0
@@ -215,7 +217,9 @@ object GUIForm: TGUIForm
       Max = 4
       OnChange = TrackBar2Change
       Position = 0
-      TickStyle = tsNone
+      ScalePos = trBottom
+      TickMarks = tmBoth
+      TickStyle = tsManual
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 1
@@ -5421,6 +5425,58 @@ object GUIForm: TGUIForm
         object miIntLOGO: TMenuItem
           Caption = '3D Logo'
           OnClick = miIntLOGOClick
+        end
+      end
+      object miVM: TMenuItem
+        Caption = 'VM'
+        OnClick = miVMClick
+        object miVM1: TMenuItem
+          Caption = '1'
+          RadioItem = True
+          ShortCut = 24625
+          OnClick = miVM1Click
+        end
+        object miVM2: TMenuItem
+          Caption = '2'
+          RadioItem = True
+          ShortCut = 24626
+          OnClick = miVM1Click
+        end
+        object miVM3: TMenuItem
+          Caption = '3'
+          RadioItem = True
+          ShortCut = 24627
+          OnClick = miVM1Click
+        end
+        object miVM4: TMenuItem
+          Caption = '4'
+          RadioItem = True
+          ShortCut = 24628
+          OnClick = miVM1Click
+        end
+        object miVM5: TMenuItem
+          Caption = '5'
+          RadioItem = True
+          ShortCut = 24629
+          OnClick = miVM1Click
+        end
+        object miVM6: TMenuItem
+          Caption = '6'
+          RadioItem = True
+          ShortCut = 24630
+          OnClick = miVM1Click
+        end
+        object miVM7: TMenuItem
+          Caption = '7'
+          RadioItem = True
+          ShortCut = 24631
+          OnClick = miVM1Click
+        end
+        object miVM8: TMenuItem
+          Caption = '8'
+          RadioItem = True
+          ShortCut = 24632
+          OnClick = miVM1Click
         end
       end
       object N7: TMenuItem

@@ -1,5 +1,5 @@
 object GUIForm: TGUIForm
-  Left = 2271
+  Left = 2270
   Height = 574
   Top = 247
   Width = 945
@@ -182,7 +182,9 @@ object GUIForm: TGUIForm
       Width = 64
       OnChange = tbMasterVolumeChange
       Position = 0
-      TickStyle = tsNone
+      ScalePos = trBottom
+      TickMarks = tmBoth
+      TickStyle = tsManual
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 0
@@ -215,7 +217,9 @@ object GUIForm: TGUIForm
       Max = 4
       OnChange = TrackBar2Change
       Position = 0
-      TickStyle = tsNone
+      ScalePos = trBottom
+      TickMarks = tmBoth
+      TickStyle = tsManual
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 1
@@ -5421,6 +5425,50 @@ object GUIForm: TGUIForm
         object miIntLOGO: TMenuItem
           Caption = '3D Logo'
           OnClick = miIntLOGOClick
+        end
+      end
+      object miVM: TMenuItem
+        Caption = 'VM'
+        OnClick = miVMClick
+        object miVM1: TMenuItem
+          Caption = '1'
+          ShortCut = 24625
+          OnClick = miVM1Click
+        end
+        object miVM2: TMenuItem
+          Caption = '2'
+          ShortCut = 24626
+          OnClick = miVM1Click
+        end
+        object miVM3: TMenuItem
+          Caption = '3'
+          ShortCut = 24627
+          OnClick = miVM1Click
+        end
+        object miVM4: TMenuItem
+          Caption = '4'
+          ShortCut = 24628
+          OnClick = miVM1Click
+        end
+        object miVM5: TMenuItem
+          Caption = '5'
+          ShortCut = 24629
+          OnClick = miVM1Click
+        end
+        object miVM6: TMenuItem
+          Caption = '6'
+          ShortCut = 24630
+          OnClick = miVM1Click
+        end
+        object miVM7: TMenuItem
+          Caption = '7'
+          ShortCut = 24631
+          OnClick = miVM1Click
+        end
+        object miVM8: TMenuItem
+          Caption = '8'
+          ShortCut = 24632
+          OnClick = miVM1Click
         end
       end
       object N7: TMenuItem
