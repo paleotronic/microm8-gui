@@ -500,6 +500,7 @@ type
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
     lastHideTime: TDateTime;
+    lastFocusLostTime: TDateTime;
     hidden: boolean;
     lastMouseX, lastMouseY: longint;
     inPopup: boolean;
@@ -2289,8 +2290,8 @@ procedure TGUIForm.CheckTimerTimer(Sender: TObject);
 begin
   if isFS then
      exit;
-  //if MilliSecondsBetween(Now(), lastShowTime) < 500 then
-  //   exit;
+  if MilliSecondsBetween(Now(), lastFocusLostTime) < 250 then
+     exit;
   if WindowState = wsMinimized then
      exit;
   //if hidden then
@@ -2358,6 +2359,8 @@ end;
 
 procedure TGUIForm.FormDeactivate(Sender: TObject);
 begin
+  StatusBar1.SimpleText := 'focus lost';
+  lastFocusLostTime:=Now();
 end;
 
 procedure TGUIForm.FormHide(Sender: TObject);
