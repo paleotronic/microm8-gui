@@ -5474,6 +5474,7 @@ object GUIForm: TGUIForm
     top = 48
     object MenuItem1: TMenuItem
       Caption = 'File'
+      OnClick = MenuItem1Click
       object miProfiles: TMenuItem
         Caption = 'Profiles'
         OnClick = miProfilesClick
@@ -5648,6 +5649,13 @@ object GUIForm: TGUIForm
         OnClick = menuRebootVMClick
       end
       object MenuItem6: TMenuItem
+        Caption = '-'
+      end
+      object miDisableFocusStealing: TMenuItem
+        Caption = 'Disable GUI Focus Stealing'
+        OnClick = miDisableFocusStealingClick
+      end
+      object N11: TMenuItem
         Caption = '-'
       end
       object MenuItem2: TMenuItem

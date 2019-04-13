@@ -21,6 +21,8 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
+    N11: TMenuItem;
+    miDisableFocusStealing: TMenuItem;
     miDisk2WPToggle: TMenuItem;
     miDisk1WPToggle: TMenuItem;
     MenuItem14: TMenuItem;
@@ -337,6 +339,7 @@ type
     procedure MenuItem16Click(Sender: TObject);
     procedure MenuItem17Click(Sender: TObject);
     procedure MenuItem18Click(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
    // procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure Freeze;
@@ -368,6 +371,7 @@ type
     procedure miDHRMonoDotsClick(Sender: TObject);
     procedure miDHRMonoRasterClick(Sender: TObject);
     procedure miDHRMonoVoxelsClick(Sender: TObject);
+    procedure miDisableFocusStealingClick(Sender: TObject);
     procedure miDisk1WPToggleClick(Sender: TObject);
     procedure miDisk2WPToggleClick(Sender: TObject);
     procedure miDiskMenuWPClick(Sender: TObject);
@@ -511,6 +515,7 @@ type
     lastMouseX, lastMouseY: longint;
     inPopup: boolean;
     isFS: boolean;
+    disableFocusStealing: boolean;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -921,6 +926,11 @@ end;
 procedure TGUIForm.miDHRMonoVoxelsClick(Sender: TObject);
 begin
   UpdateConfig( 'video/init.video.dhgrmode',  '4', true );
+end;
+
+procedure TGUIForm.miDisableFocusStealingClick(Sender: TObject);
+begin
+  disableFocusStealing:=(not disableFocusStealing);
 end;
 
 procedure TGUIForm.miDisk1WPToggleClick(Sender: TObject);
@@ -2310,6 +2320,8 @@ begin
      exit;
   if WindowState = wsMinimized then
      exit;
+  if disableFocusStealing then
+     exit;
   //if hidden then
   //   exit;
   if GetTitleOfActiveWindow = 'microM8' then
@@ -2661,6 +2673,12 @@ end;
 procedure TGUIForm.MenuItem18Click(Sender: TObject);
 begin
   SimpleGet(baseUrl + '/api/control/hardware/disk/blank/1');
+end;
+
+procedure TGUIForm.MenuItem1Click(Sender: TObject);
+begin
+  { focus stealing }
+  miDisableFocusStealing.Checked := disableFocusStealing;
 end;
 
 procedure TGUIForm.MenuItem2Click(Sender: TObject);
