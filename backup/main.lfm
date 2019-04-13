@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2255
+  Left = 2040
   Height = 668
-  Top = 312
+  Top = 171
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -5439,14 +5439,14 @@ object GUIForm: TGUIForm
       end
     end
     object embedPanel: TPanel
-      Left = 150
+      Left = 0
       Height = 589
       Top = 0
-      Width = 694
+      Width = 844
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 589
-      ClientWidth = 694
+      ClientWidth = 844
       Color = clBlack
       Font.Color = clWhite
       ParentColor = False
@@ -5459,22 +5459,13 @@ object GUIForm: TGUIForm
         Left = 0
         Height = 589
         Top = 0
-        Width = 694
+        Width = 844
         Align = alClient
         OnClick = backdropClick
+        OnMouseDown = FormMouseDown
+        OnMouseUp = FormMouseUp
         Stretch = True
       end
-    end
-    object log: TMemo
-      Left = 0
-      Height = 589
-      Top = 0
-      Width = 150
-      Align = alLeft
-      Lines.Strings = (
-        'log'
-      )
-      TabOrder = 2
     end
   end
   object MainMenu1: TMainMenu

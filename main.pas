@@ -21,7 +21,6 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
-    log: TMemo;
     miDisk2WPToggle: TMenuItem;
     miDisk1WPToggle: TMenuItem;
     MenuItem14: TMenuItem;
@@ -2314,8 +2313,10 @@ begin
   if GetTitleOfActiveWindow = 'microM8' then
    begin
 
+     {$IFDEF WINDOWS}
      if IsMouseBtnDown then
       exit;
+     {$ENDIF}
 
      // another hack: disable mouse buttons on refocus
      SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
@@ -2540,13 +2541,13 @@ end;
 procedure TGUIForm.FormMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  log.Lines.Add('mouse button down at '+IntToStr(x)+', '+IntToStr(y));
+  //log.Lines.Add('mouse button down at '+IntToStr(x)+', '+IntToStr(y));
 end;
 
 procedure TGUIForm.FormMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  log.Lines.Add('mouse button up at '+IntToStr(x)+', '+IntToStr(y));
+  //log.Lines.Add('mouse button up at '+IntToStr(x)+', '+IntToStr(y));
 end;
 
 procedure TGUIForm.FormResize(Sender: TObject);
