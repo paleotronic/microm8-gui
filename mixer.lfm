@@ -1,0 +1,100 @@
+object frmMixer: TfrmMixer
+  Left = 2730
+  Height = 162
+  Top = 470
+  Width = 320
+  Caption = 'microM8 Audio Mixer'
+  ClientHeight = 162
+  ClientWidth = 320
+  LCLVersion = '2.0.0.4'
+  object tbMasterVol: TTrackBar
+    Left = 104
+    Height = 25
+    Top = 8
+    Width = 204
+    Position = 0
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 6
+    Height = 15
+    Top = 8
+    Width = 82
+    Caption = 'Master Volume:'
+    ParentColor = False
+  end
+  object TrackBar1: TTrackBar
+    Left = 104
+    Height = 25
+    Top = 40
+    Width = 204
+    Position = 0
+    TabOrder = 1
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 38
+    Width = 44
+    Caption = 'Speaker:'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 15
+    Top = 96
+    Width = 74
+    Caption = 'PSG0 Balance:'
+    ParentColor = False
+  end
+  object TrackBar2: TTrackBar
+    Left = 106
+    Height = 25
+    Top = 96
+    Width = 204
+    Max = 8
+    Position = 0
+    TabOrder = 2
+  end
+  object TrackBar3: TTrackBar
+    Left = 106
+    Height = 25
+    Top = 128
+    Width = 204
+    Max = 8
+    Position = 0
+    TabOrder = 3
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 15
+    Top = 128
+    Width = 74
+    Caption = 'PSG1 Balance:'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 106
+    Height = 15
+    Top = 77
+    Width = 20
+    Caption = 'Left'
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 280
+    Height = 15
+    Top = 77
+    Width = 28
+    Caption = 'Right'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 192
+    Height = 15
+    Top = 77
+    Width = 35
+    Caption = 'Center'
+    ParentColor = False
+  end
+end
