@@ -1,13 +1,13 @@
 object GUIForm: TGUIForm
-  Left = 2270
-  Height = 574
-  Top = 247
-  Width = 945
+  Left = 2260
+  Height = 668
+  Top = 311
+  Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
-  ClientHeight = 549
-  ClientWidth = 945
-  Constraints.MinWidth = 945
+  ClientHeight = 648
+  ClientWidth = 1014
+  Constraints.MinWidth = 1014
   DoubleBuffered = False
   Menu = MainMenu1
   OnChangeBounds = FormChangeBounds
@@ -27,16 +27,16 @@ object GUIForm: TGUIForm
   LCLVersion = '2.0.0.4'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 19
-    Top = 530
-    Width = 945
+    Height = 23
+    Top = 625
+    Width = 1014
     Panels = <>
   end
   object ToolBar1: TToolBar
     Left = 0
     Height = 36
     Top = 0
-    Width = 945
+    Width = 1014
     ButtonHeight = 32
     ButtonWidth = 32
     Caption = 'ToolBar1'
@@ -44,89 +44,123 @@ object GUIForm: TGUIForm
     TabOrder = 1
     object tbTintMode: TToolButton
       Left = 1
+      Hint = 'Tint mode'
       Top = 2
       Caption = 'tbTintMode'
       ImageIndex = 0
       OnClick = tbTintModeClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object tbRMVoxels: TToolButton
       Tag = 1
       Left = 549
+      Hint = 'Voxel Render'
       Top = 2
       Caption = 'Voxels'
       Down = True
       Grouped = True
       ImageIndex = 4
       OnClick = tbRMClick
+      ParentShowHint = False
+      PopupMenu = RecordingMenu
+      ShowHint = True
       Style = tbsCheck
     end
     object tbRMDots: TToolButton
       Left = 585
+      Hint = 'Dot Render'
       Top = 2
       Caption = 'Dots'
       Grouped = True
       ImageIndex = 5
       OnClick = tbRMClick
+      ParentShowHint = False
+      ShowHint = True
       Style = tbsCheck
     end
     object tbRMRaster: TToolButton
       Tag = 2
       Left = 621
+      Hint = 'Raster Render'
       Top = 2
       Caption = 'Raster'
       Grouped = True
       ImageIndex = 6
       OnClick = tbRMClick
+      ParentShowHint = False
+      ShowHint = True
       Style = tbsCheck
     end
     object tbRMColor: TToolButton
       Left = 657
+      Hint = 'Toggle Color/Mono'
       Top = 2
       Caption = 'tbRMColor'
       ImageIndex = 7
       OnClick = tbRMColorClick
+      ParentShowHint = False
+      ShowHint = True
     end
-    object ToolButton4: TToolButton
+    object tbRECState: TToolButton
       Left = 725
+      Hint = 'Start Recording'
       Top = 2
-      Caption = 'ToolButton4'
+      Caption = 'tbRECState'
+      DropdownMenu = RecordingMenu
       ImageIndex = 9
-      OnClick = miRECStartFileClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton5: TToolButton
       Left = 761
+      Hint = 'Rewind'
       Top = 2
       Caption = 'ToolButton5'
       ImageIndex = 12
       OnClick = miRECRewindClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton6: TToolButton
       Left = 797
+      Hint = 'Forwards'
       Top = 2
       Caption = 'ToolButton6'
       ImageIndex = 13
       OnClick = miRECPlayClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton7: TToolButton
       Left = 833
+      Hint = 'Resume'
       Top = 2
       Caption = 'ToolButton7'
       ImageIndex = 14
       OnClick = miRECResumeClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton8: TToolButton
       Left = 869
+      Hint = 'Stop Recording'
       Top = 2
       Caption = 'ToolButton8'
       ImageIndex = 15
       OnClick = miRECStopClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton9: TToolButton
       Left = 905
+      Hint = 'Pause'
       Top = 2
       Caption = 'ToolButton9'
       ImageIndex = 16
       OnClick = ToolButton9Click
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton10: TToolButton
       Left = 693
@@ -136,31 +170,43 @@ object GUIForm: TGUIForm
     end
     object tbJoystickAxisSwitch: TToolButton
       Left = 37
+      Hint = 'Swap Joystick Axis'
       Top = 2
       Caption = 'tbJoystickAxisSwitch'
       ImageIndex = 21
       OnClick = tbJoystickAxisSwitchClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object tbCapsMode: TToolButton
       Left = 73
+      Hint = 'Toggle CAPS mode'
       Top = 2
       Caption = 'tbCapsMode'
       ImageIndex = 17
       OnClick = tbCapsModeClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object tbScanlines: TToolButton
       Left = 109
+      Hint = 'Toggle Interlacing'
       Top = 2
       Caption = 'tbScanlines'
       ImageIndex = 19
       OnClick = tbScanlinesClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object tbWebDebugger: TToolButton
       Left = 145
+      Hint = 'Web Debugger'
       Top = 2
       Caption = 'tbWebDebugger'
       ImageIndex = 28
       OnClick = miToolsWebDebuggerClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton15: TToolButton
       Left = 181
@@ -170,19 +216,23 @@ object GUIForm: TGUIForm
     end
     object tbVolDown: TToolButton
       Left = 213
+      Hint = 'Volume Down'
       Top = 2
       Caption = 'tbVolDown'
       ImageIndex = 23
       OnClick = tbVolDownClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object tbMasterVolume: TTrackBar
       Left = 249
-      Height = 38
+      Height = 32
       Top = 2
       Width = 64
       OnChange = tbMasterVolumeChange
       Position = 0
       ScalePos = trBottom
+      TabStop = False
       TickMarks = tmBoth
       TickStyle = tsManual
       OnKeyDown = FormKeyDown
@@ -191,10 +241,13 @@ object GUIForm: TGUIForm
     end
     object tbVolUp: TToolButton
       Left = 313
+      Hint = 'Volume Up'
       Top = 2
       Caption = 'tbVolUp'
       ImageIndex = 24
       OnClick = tbVolUpClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton3: TToolButton
       Left = 349
@@ -204,20 +257,24 @@ object GUIForm: TGUIForm
     end
     object tbSpeedDown: TToolButton
       Left = 381
+      Hint = 'CPU Speed Down'
       Top = 2
       Caption = 'tbSpeedDown'
       ImageIndex = 25
       OnClick = tbSpeedDownClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object TrackBar2: TTrackBar
       Left = 417
-      Height = 38
+      Height = 32
       Top = 2
       Width = 64
       Max = 4
       OnChange = TrackBar2Change
       Position = 0
       ScalePos = trBottom
+      TabStop = False
       TickMarks = tmBoth
       TickStyle = tsManual
       OnKeyDown = FormKeyDown
@@ -226,10 +283,13 @@ object GUIForm: TGUIForm
     end
     object tbSpeedUp: TToolButton
       Left = 481
+      Hint = 'CPU Speed Up'
       Top = 2
       Caption = 'tbSpeedUp'
       ImageIndex = 26
       OnClick = tbSpeedUpClick
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton18: TToolButton
       Left = 517
@@ -237,35 +297,51 @@ object GUIForm: TGUIForm
       Caption = 'ToolButton18'
       Enabled = False
     end
+    object ToolButton1: TToolButton
+      Left = 941
+      Top = 2
+      Caption = 'ToolButton1'
+      Enabled = False
+    end
+    object tbFullscreen: TToolButton
+      Left = 973
+      Hint = 'Fullscreen'
+      Top = 2
+      Caption = 'tbFullscreen'
+      ImageIndex = 29
+      OnClick = tbFullscreenClick
+      ParentShowHint = False
+      ShowHint = True
+    end
   end
   object pnlContainer: TPanel
     Left = 0
-    Height = 494
+    Height = 589
     Top = 36
-    Width = 945
+    Width = 1014
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 494
-    ClientWidth = 945
+    ClientHeight = 589
+    ClientWidth = 1014
     Color = clAqua
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
-      Left = 775
-      Height = 494
+      Left = 844
+      Height = 589
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 494
+      ClientHeight = 589
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 494
+        Height = 589
         Top = 0
         Width = 170
         Align = alClient
@@ -5358,13 +5434,13 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 494
+      Height = 589
       Top = 0
-      Width = 775
+      Width = 844
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 494
-      ClientWidth = 775
+      ClientHeight = 589
+      ClientWidth = 844
       Color = clBlack
       Font.Color = clWhite
       ParentColor = False
@@ -5372,9 +5448,9 @@ object GUIForm: TGUIForm
       TabOrder = 1
       object backdrop: TImage
         Left = 0
-        Height = 494
+        Height = 589
         Top = 0
-        Width = 775
+        Width = 844
         Align = alClient
         OnClick = backdropClick
         Stretch = True
@@ -5432,41 +5508,49 @@ object GUIForm: TGUIForm
         OnClick = miVMClick
         object miVM1: TMenuItem
           Caption = '1'
+          RadioItem = True
           ShortCut = 24625
           OnClick = miVM1Click
         end
         object miVM2: TMenuItem
           Caption = '2'
+          RadioItem = True
           ShortCut = 24626
           OnClick = miVM1Click
         end
         object miVM3: TMenuItem
           Caption = '3'
+          RadioItem = True
           ShortCut = 24627
           OnClick = miVM1Click
         end
         object miVM4: TMenuItem
           Caption = '4'
+          RadioItem = True
           ShortCut = 24628
           OnClick = miVM1Click
         end
         object miVM5: TMenuItem
           Caption = '5'
+          RadioItem = True
           ShortCut = 24629
           OnClick = miVM1Click
         end
         object miVM6: TMenuItem
           Caption = '6'
+          RadioItem = True
           ShortCut = 24630
           OnClick = miVM1Click
         end
         object miVM7: TMenuItem
           Caption = '7'
+          RadioItem = True
           ShortCut = 24631
           OnClick = miVM1Click
         end
         object miVM8: TMenuItem
           Caption = '8'
+          RadioItem = True
           ShortCut = 24632
           OnClick = miVM1Click
         end
@@ -5847,6 +5931,14 @@ object GUIForm: TGUIForm
         Caption = 'Fullscreen'
         ShortCut = 32781
         OnClick = MenuItem14Click
+      end
+      object N10: TMenuItem
+        Caption = '-'
+      end
+      object miVideoScreenshot: TMenuItem
+        Caption = 'Take Screenshot'
+        ShortCut = 24796
+        OnClick = miVideoScreenshotClick
       end
     end
     object Input: TMenuItem
@@ -6275,10 +6367,12 @@ object GUIForm: TGUIForm
       end
       object miRECRewind: TMenuItem
         Caption = 'Rewind'
+        ShortCut = 24795
         OnClick = miRECRewindClick
       end
       object miRECPlay: TMenuItem
         Caption = 'Play'
+        ShortCut = 24797
         OnClick = miRECPlayClick
       end
       object miRECResume: TMenuItem
@@ -6314,13 +6408,23 @@ object GUIForm: TGUIForm
     end
     object miTools: TMenuItem
       Caption = 'Tools'
+      OnClick = miToolsClick
       object miToolsTracker: TMenuItem
         Caption = 'microTracker'
         OnClick = miToolsTrackerClick
       end
       object miToolsWebDebugger: TMenuItem
         Caption = 'Web Debugger'
+        ShortCut = 24642
         OnClick = miToolsWebDebuggerClick
+      end
+    end
+    object miHelp: TMenuItem
+      Caption = 'Help'
+      object miMMHelp: TMenuItem
+        Caption = 'microM8 Help'
+        ShortCut = 24648
+        OnClick = miMMHelpClick
       end
     end
   end
@@ -6331,7 +6435,7 @@ object GUIForm: TGUIForm
     left = 96
     top = 48
     Bitmap = {
-      4C691D0000002000000020000000CA9BCA00B16DB100B16DB100B16DB100B16D
+      4C691E0000002000000020000000CA9BCA00B16DB100B16DB100B16DB100B16D
       B100B16DB100B16DB100B16DB100B16DB100B16DB100B16DB100AD72BB0E8C68
       D54C6E5CEA805A52F69F5353FFB15353FFB15A52F69F6E5CEA808C68D54CAD72
       BB0EB16DB100B16DB100FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -10043,7 +10147,135 @@ object GUIForm: TGUIForm
       ED0028C6ED0028C6ED0028C6ED0028C6ED0028C6ED0028C6ED002D99B33C28C6
       ED0028C6ED0028C6ED0028C6ED0028C6ED0028C6ED0028C6ED0028C6ED0028C6
       ED002B9EBB3528C6ED00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0070107137660068DD660068F76600
+      68F7660068F7660068F7660068F7660068F7660068F7660068F7660068D06600
+      68226600680066006800660068006600680066006800660068006600681A6600
+      68C9660068F7660068F7660068F7660068F7660068F7660068F7660068F76600
+      68F7660068E266006842FFFFFF00FFFFFF00701071CD660068FF660068FF6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      6891660068006600680066006800660068006600680066006800660068816600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      68FF660068FF660068DDFFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      6871660068006600680066006800660068006600680066006800660068616600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068BD6600688E6600688E6600688E660068686600
+      6802660068006600680066006800660068006600680066006800660068016600
+      68616600688E6600688E6600688E660068B6660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068EF660068346600680066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      680066006800660068006600682A660068E8660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068FF660068EE6600683466006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      6800660068006600682A660068E8660068FF660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68C6660068E8660068FF660068FF660068FF660068EE66006834660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      68006600682A660068E8660068FF660068FF660068FF660068EE660068BF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68A26600682A660068E8660068FF660068FF660068FF660068EE660068346600
+      6800660068006600680066006800660068006600680066006800660068006600
+      682A660068E8660068FF660068FF660068FF660068EE66006834660068926600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68A1660068006600682A660068E8660068FF660068FF660068FF660068EE6600
+      68346600680066006800660068006600680066006800660068006600682A6600
+      68E8660068FF660068FF660068FF660068EE6600683466006800660068916600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68A266006800660068006600682A660068E8660068FF660068FF660068FF6600
+      68EE66006825660068006600680066006800660068006600681C660068E86600
+      68FF660068FF660068FF660068EE660068346600680066006800660068926600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071BE660068FF660068FF6600
+      687D6600680066006800660068006600682A660068E8660068FF660068FF6600
+      68FF660068776600680066006800660068006600680066006867660068FF6600
+      68FF660068FF660068EE660068346600680066006800660068006600686D6600
+      68FF660068FF660068CEFFFFFF00FFFFFF007010711C660068906600687C6600
+      6807660068006600680066006800660068006600682A660068E8660068FF6600
+      68F9660068346600680066006800660068006600680066006828660068F56600
+      68FF660068EE660068348C408E008C408E008C408E008C408E008C408E038C40
+      8E768C408E948C408E23FFFFFF00FFFFFF007010710066006800660068006600
+      68006600680066006800660068006600680066006800660068206600687B6600
+      683A660068006600680066006800660068006600680066006800660068326600
+      687C6600682666006800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007010710066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      68006600680066006800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007010710066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      68006600680066006800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007010710066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      68006600680066006800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007010710066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      6800660068006600680066006800660068006600680066006800660068006600
+      68006600680066006800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007010710066006800660068006600
+      6800660068006600680066006800660068006600680066006803660068336600
+      680E6600680066006800660068006600680066006800660068006600680C6600
+      68346600680566006800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00701071036600684C660068386600
+      6800660068006600680066006800660068006600680C660068C0660068FF6600
+      68ED6600682F6600680066006800660068006600680066006825660068E76600
+      68FF660068CA66006811BC90BD00BC90BD00BC90BD00BC90BD00BC90BD00BC90
+      BD32BC90BD4FBC90BD06FFFFFF00FFFFFF007010719A660068FF660068FF6600
+      68596600680066006800660068006600680C660068C2660068FF660068FF6600
+      68FF6600688D660068006600680066006800660068006600687D660068FF6600
+      68FF660068FF660068CC660068116600680066006800660068006600684A6600
+      68FE660068FF660068AAFFFFFF00FFFFFF00701071E2660068FF660068FF6600
+      689F66006800660068006600680C660068C2660068FF660068FF660068FF6600
+      68FE6600684B660068006600680066006800660068006600683D660068FC6600
+      68FF660068FF660068FF660068CC6600681166006800660068006600688F6600
+      68FF660068FF660068F2FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68A1660068006600680C660068C2660068FF660068FF660068FF660068FE7B24
+      7D67D9C0DA00D9C0DA00D9C0DA00D9C0DA00D9C0DA00D9C0DA00833084596600
+      68FC660068FF660068FF660068FF660068CC6600681166006800660068916600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68A16600680C660068C2660068FF660068FF660068FF660068FE660068678330
+      8400FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E006600
+      6859660068FC660068FF660068FF660068FF660068CC66006811660068916600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68AD660068C2660068FF660068FF660068FF660068FE66006867660068008330
+      8400FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E006600
+      680066006859660068FC660068FF660068FF660068FF660068CC660068A36600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068FF660068FE6600686766006800660068008330
+      8400FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E006600
+      68006600680066006859660068FC660068FF660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068FE660068676600680066006800660068008330
+      8400FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E006600
+      6800660068006600680066006859660068FC660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068BD660068606600686066006860660068428330
+      8400FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E006600
+      683D660068606600686066006860660068B3660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071E4660068FF660068FF6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF8330
+      846DFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E5E6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      68FF660068FF660068F4FFFFFF00FFFFFF00701071DE660068FF660068FF6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF8330
+      84ACFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E9C6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      68FF660068FF660068EEFFFFFF00FFFFFF0070107157660068F5660068FF6600
+      68FF660068FF660068FF660068FF660068FF660068FF660068FF660068F78330
+      8448FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008C408E3C6600
+      68F3660068FF660068FF660068FF660068FF660068FF660068FF660068FF6600
+      68FF660068F866006865FFFFFF00FFFFFF00E5D3E500E3D0E30FE3D0E325E3D0
+      E325E3D0E325E3D0E325E3D0E325E3D0E325E3D0E325E3D0E325E3D0E30FE8D9
+      E800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00EADCEA00E3D0
+      E30DE3D0E325E3D0E325E3D0E325E3D0E325E3D0E325E3D0E325E3D0E325E3D0
+      E325E3D0E312E3D0E300FFFFFF00
     }
   end
   object DiskMenu: TPopupMenu
@@ -10163,5 +10395,43 @@ object GUIForm: TGUIForm
     Filter = 'MicroM8 Freeze|*.frz'
     left = 24
     top = 216
+  end
+  object RecordingMenu: TPopupMenu
+    Images = ToolbarIcons
+    ImagesWidth = 32
+    left = 96
+    top = 216
+    object miStartDiskRec: TMenuItem
+      Caption = 'Start Disk Recording'
+      ImageIndex = 10
+      SubMenuImages = ToolbarIcons
+      OnClick = miRECStartFileClick
+    end
+    object miStartLiveRewindRecord: TMenuItem
+      Caption = 'Enable Live Rewind'
+      ImageIndex = 11
+      SubMenuImages = ToolbarIcons
+      OnClick = miRECLiveRewindClick
+    end
+  end
+  object ProfileMenu: TPopupMenu
+    left = 168
+    top = 216
+    object miPMApple2eEnh: TMenuItem
+      Caption = 'Apple //e Enhanced'
+      OnClick = miPRFIIeEnhancedClick
+    end
+    object miPMApple2eEnhCPM: TMenuItem
+      Caption = 'Apple //e Enhanced (Softcard)'
+      OnClick = miPRFIIeEnhancedSoftcardClick
+    end
+    object miPMApple2e: TMenuItem
+      Caption = 'Apple //e'
+      OnClick = miPRFIIeClick
+    end
+    object miPMApple2plus: TMenuItem
+      Caption = 'Apple ][+'
+      OnClick = miPRFIIplusClick
+    end
   end
 end

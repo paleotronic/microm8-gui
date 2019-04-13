@@ -24,6 +24,16 @@ type
     MenuItem14: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem18: TMenuItem;
+    miVideoScreenshot: TMenuItem;
+    N10: TMenuItem;
+    miPMApple2plus: TMenuItem;
+    miPMApple2e: TMenuItem;
+    miPMApple2eEnhCPM: TMenuItem;
+    miPMApple2eEnh: TMenuItem;
+    miStartLiveRewindRecord: TMenuItem;
+    miStartDiskRec: TMenuItem;
+    miMMHelp: TMenuItem;
+    miHelp: TMenuItem;
     miVM8: TMenuItem;
     miVM7: TMenuItem;
     miVM6: TMenuItem;
@@ -66,6 +76,8 @@ type
     Image1: TImage;
     odFreezeFiles: TOpenDialog;
     pnlContainer: TPanel;
+    ProfileMenu: TPopupMenu;
+    RecordingMenu: TPopupMenu;
     sdFreezeFiles: TSaveDialog;
     SideImages: TImageList;
     miWarp400: TMenuItem;
@@ -174,6 +186,7 @@ type
     sidecarPanel: TPanel;
     FSTimer: TTimer;
     tbVolDown: TToolButton;
+    ToolButton1: TToolButton;
     ToolButton10: TToolButton;
     tbJoystickAxisSwitch: TToolButton;
     tbCapsMode: TToolButton;
@@ -184,8 +197,9 @@ type
     tbSpeedUp: TToolButton;
     ToolButton18: TToolButton;
     tbVolUp: TToolButton;
+    tbFullscreen: TToolButton;
     ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
+    tbRECState: TToolButton;
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
@@ -368,6 +382,7 @@ type
     procedure miJSAxisSwapClick(Sender: TObject);
     procedure miJSXRevClick(Sender: TObject);
     procedure miJSYRevClick(Sender: TObject);
+    procedure miMMHelpClick(Sender: TObject);
     procedure miMonoDotsClick(Sender: TObject);
     procedure miMonoRasterClick(Sender: TObject);
     procedure miMonoVoxelsClick(Sender: TObject);
@@ -409,17 +424,20 @@ type
     procedure miSVOL000Click(Sender: TObject);
     procedure miTintModeClick(Sender: TObject);
     procedure miTMNoneClick(Sender: TObject);
+    procedure miToolsClick(Sender: TObject);
     procedure miToolsTrackerClick(Sender: TObject);
     procedure miToolsWebDebuggerClick(Sender: TObject);
     procedure miVCRClick(Sender: TObject);
     procedure miVD1Click(Sender: TObject);
     procedure miVDClick(Sender: TObject);
+    procedure miVideoScreenshotClick(Sender: TObject);
     procedure miVM1Click(Sender: TObject);
     procedure miVMClick(Sender: TObject);
     procedure miWarp25Click(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
     procedure sidecarPanelResize(Sender: TObject);
     procedure tbCapsModeClick(Sender: TObject);
+    procedure tbFullscreenClick(Sender: TObject);
     procedure tbJoystickAxisSwitchClick(Sender: TObject);
     procedure tbRMClick(Sender: TObject);
     procedure tbRMColorClick(Sender: TObject);
@@ -467,6 +485,7 @@ type
     procedure UpdateWarpSlider;
     procedure UpdateAllCaps;
     procedure UpdateScanlines;
+    procedure UpdateRecordState;
     function  IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
     function  IsMouseBtnDown: Boolean;
   private
@@ -564,7 +583,7 @@ begin
      RepaintWindow;
      if GetTitleOfActiveWindow <> 'microM8' then
         HideM8;
-     StatusBar1.SimpleText := GetTitleOfActiveWindow;
+     //StatusBar1.SimpleText := GetTitleOfActiveWindow;
      //Memo1.Lines.Add('app is deactivating');
 end;
 
@@ -609,7 +628,7 @@ begin
      if (y >= 0) and (y < sideCarPanel.Height) then
      begin
          bi := y div Round(sideCarPanel.Height / 5);
-         StatusBar1.SimpleText := IntToStr(bi);
+         //StatusBar1.SimpleText := IntToStr(bi);
          Image1.PopupMenu := nil;
            case bi of
            0: begin
@@ -670,7 +689,16 @@ begin
            end;
 
            4: begin
-                  SimpleGet(baseUrl + '/api/control/system/reboot');
+
+                      if Button = mbRight then
+                      begin
+                        ProfileMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+                      end
+                      else
+                      begin
+                           SimpleGet(baseUrl + '/api/control/system/reboot');
+                      end;
+
            end;
 
            end;
@@ -800,7 +828,7 @@ var
 begin
   // DHGR Enhanced menu
   value := GetConfig('video/init.video.dhgrhighbit');
-  StatusBar1.SimpleText := value;
+  //.SimpleText := value;
   if value <> '' then
   begin
        case value of
@@ -906,7 +934,7 @@ var
 begin
   // GR Render Mode menu
   value := GetConfig('video/init.video.grmode');
-  StatusBar1.SimpleText := value;
+ // StatusBar1.SimpleText := value;
   if value <> '' then
   begin
        case value of
@@ -978,7 +1006,7 @@ begin
 	MM_MOUSE_OFF      = 4
   }
   value := GetConfig('input/init.mouse');
-  StatusBar1.SimpleText := value;
+  //StatusBar1.SimpleText := value;
   if value <> '' then
   begin
        case value of
@@ -1043,6 +1071,11 @@ begin
         UpdateConfig( 'input/init.joystick.reversey', '0', true )
   else
        UpdateConfig( 'input/init.joystick.reversey', '1', true );
+end;
+
+procedure TGUIForm.miMMHelpClick(Sender: TObject);
+begin
+  SimpleGet(baseUrl + '/api/control/system/help');
 end;
 
 procedure TGUIForm.miMonoDotsClick(Sender: TObject);
@@ -1119,7 +1152,7 @@ end;
 
 procedure TGUIForm.miPRFIIplusClick(Sender: TObject);
 begin
-    SimpleGet( baseUrl+'/api/control/system/profile/set/apple2plus' );
+    SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-plus' );
 end;
 
 procedure TGUIForm.miPrinterPDFClick(Sender: TObject);
@@ -1246,7 +1279,7 @@ var
 begin
   // SHR Render Mode menu
   value := GetConfig('video/init.video.scanline');
-  StatusBar1.SimpleText := value;
+  //StatusBar1.SimpleText := value;
   if value <> '' then
   begin
        case value of
@@ -1296,7 +1329,7 @@ var
 begin
   // SHR Render Mode menu
   value := GetConfig('video/init.video.shrmode');
-  StatusBar1.SimpleText := value;
+  //StatusBar1.SimpleText := value;
   if value <> '' then
   begin
        case value of
@@ -1468,6 +1501,11 @@ begin
   UpdateTintMode;
 end;
 
+procedure TGUIForm.miToolsClick(Sender: TObject);
+begin
+
+end;
+
 procedure TGUIForm.miToolsTrackerClick(Sender: TObject);
 begin
   LaunchCommand( 'fp', '/local', '@music.edit{}' );
@@ -1508,6 +1546,17 @@ begin
     7: miVD8.Checked := true;
     8: miVD9.Checked := true;
     end;
+end;
+
+procedure TGUIForm.miVideoScreenshotClick(Sender: TObject);
+var
+  s: string;
+begin
+  s := SimpleGet(baseUrl+'/api/control/window/screenshot');
+  if s <> '' then
+     StatusBar1.SimpleText := 'Screenshot saved: ' + s;
+
+  SendKey( $e092, $e092, 1, 0 );
 end;
 
 procedure TGUIForm.miVM1Click(Sender: TObject);
@@ -1569,6 +1618,12 @@ procedure TGUIForm.tbCapsModeClick(Sender: TObject);
 begin
   miINPAllCapsClick(sender);
   UpdateAllCaps;
+end;
+
+procedure TGUIForm.tbFullscreenClick(Sender: TObject);
+begin
+  UpdateConfig('video/current.fullscreen', '1', false);
+  isFS := true;
 end;
 
 procedure TGUIForm.UpdateAllCaps;
@@ -1731,6 +1786,24 @@ begin
      SimpleGet(baseUrl+'/api/control/pause');
 end;
 
+procedure TGUIForm.UpdateRecordState;
+begin
+  case SimpleGet(baseUrl+'/api/control/recorder' ) of
+  '0': begin
+       tbRECState.ImageIndex := 9;
+       tbRECState.Caption := 'Start Recording';
+      end;
+  '1': begin
+             tbRECState.ImageIndex := 11;
+             tbRECState.Caption := 'Live Rewind Active';
+       end;
+  '2': begin
+             tbRECState.ImageIndex := 10;
+             tbRECState.Caption := 'Disk Recording Active';
+       end;
+  end;
+end;
+
 procedure TGUIForm.ToolTimerTimer(Sender: TObject);
 begin
   UpdateRenderMode;
@@ -1741,6 +1814,7 @@ begin
   UpdateWarpSlider;
   UpdateAllCaps;
   UpdateScanlines;
+  UpdateRecordState;
 end;
 
 procedure TGUIForm.tbMasterVolumeChange(Sender: TObject);
@@ -1839,7 +1913,7 @@ begin
        if S.Size > 0 then
        begin
             filename := GetUserDir + PathSeparator + 'microm8scrn.png';
-            StatusBar1.SimpleText:='Got '+IntToStr(S.Size)+' bytes of PNG data';
+            //StatusBar1.SimpleText:='Got '+IntToStr(S.Size)+' bytes of PNG data';
             S.SaveToFile(filename);
             backdrop.Picture.LoadFromFile(filename);
             S.Free;
@@ -1880,7 +1954,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/window/position',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -1894,7 +1968,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -1910,7 +1984,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -1924,7 +1998,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -1939,7 +2013,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/input/mouseevent',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -1994,7 +2068,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/input/keyevent',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -2013,7 +2087,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/hardware/disk/insert',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=json;
+     //self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
 
@@ -2033,7 +2107,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/settings/update',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=json;
+     //self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
 
@@ -2048,7 +2122,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/settings/get',json,Respo);
      Result := Respo.DataString;
-     self.StatusBar1.SimpleText:=json;
+     //self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
 
@@ -2069,7 +2143,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/freeze/save',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=json;
+     //self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
 
@@ -2087,7 +2161,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/freeze/restore',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=json;
+     //self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
 
@@ -2095,14 +2169,14 @@ procedure TGUIForm.tbDisk1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
    DiskMenu.Tag := TToolButton(Sender).Tag;
-   StatusBar1.SimpleText := 'Disk 1';
+   //StatusBar1.SimpleText := 'Disk 1';
 end;
 
 procedure TGUIForm.tbDisk2MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   DiskMenu.Tag := TToolButton(Sender).Tag;
-  StatusBar1.SimpleText := 'Disk 2';
+  //StatusBar1.SimpleText := 'Disk 2';
 end;
 
 procedure TGUIForm.ToolButton5Click(Sender: TObject);
@@ -2185,8 +2259,10 @@ begin
   if GetTitleOfActiveWindow = 'microM8' then
    begin
 
+     {$IFNDEF WINDOWS}
      if IsMouseBtnDown then
       exit;
+     {$ENDIF}
 
      //Application.Restore;
      Application.BringToFront;
@@ -2209,9 +2285,21 @@ begin
   inPopup := true;
 end;
 
+{$IFDEF WINDOWS}
+const
+  EXENAME: string = 'microm8.exe';
+{$ELSE}
+const
+  EXENAME: string = 'microm8';
+{$ENDIF}
+
+
 procedure TGUIForm.FormCreate(Sender: TObject);
 begin
      self.httpc := TFPHttpClient.Create(Nil);
+
+     //ShowMessage( ExtractFilePath(Application.ExeName) + EXENAME );
+     MicroM8Process.Executable :=  ExtractFilePath(Application.ExeName) + EXENAME;
 
      //if SimpleGet( baseUrl+'/api/control/health' ) <> 'ok' then
      //begin
@@ -2324,7 +2412,9 @@ begin
   end;
   VK_A..VK_Z:
   begin
-             if ssShift in Shift then
+             if (ssCtrl in Shift) and (ssShift in Shift) then
+              Result := Integer(Key)
+             else if ssShift in Shift then
               Result := Integer(Key)
              else if ssCtrl in Shift then
              begin
@@ -2369,7 +2459,7 @@ end;
 procedure TGUIForm.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   SendKey( MapKeyCode(Key, Shift), 0, 0, MapShiftState(Key, Shift) );
-  StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
+  //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
 end;
 
 procedure TGUIForm.FormResize(Sender: TObject);
@@ -2439,7 +2529,7 @@ var
 begin
   // HGR Render Mode menu
   value := GetConfig('video/init.video.hgrmode');
-  StatusBar1.SimpleText := value;
+  //StatusBar1.SimpleText := value;
   if value <> '' then
   begin
        case value of
@@ -2459,7 +2549,7 @@ var
 begin
   // DHGR Render Mode menu
   value := GetConfig('video/init.video.dhgrmode');
-  StatusBar1.SimpleText := value;
+  //StatusBar1.SimpleText := value;
   if value <> '' then
   begin
        case value of
