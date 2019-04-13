@@ -19,6 +19,8 @@ object GUIForm: TGUIForm
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnKeyUp = FormKeyUp
+  OnMouseDown = FormMouseDown
+  OnMouseUp = FormMouseUp
   OnResize = FormResize
   OnShow = FormShow
   OnUTF8KeyPress = FormUTF8KeyPress
@@ -5433,14 +5435,14 @@ object GUIForm: TGUIForm
       end
     end
     object embedPanel: TPanel
-      Left = 0
+      Left = 150
       Height = 589
       Top = 0
-      Width = 844
+      Width = 694
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 589
-      ClientWidth = 844
+      ClientWidth = 694
       Color = clBlack
       Font.Color = clWhite
       ParentColor = False
@@ -5450,11 +5452,22 @@ object GUIForm: TGUIForm
         Left = 0
         Height = 589
         Top = 0
-        Width = 844
+        Width = 694
         Align = alClient
         OnClick = backdropClick
         Stretch = True
       end
+    end
+    object log: TMemo
+      Left = 0
+      Height = 589
+      Top = 0
+      Width = 150
+      Align = alLeft
+      Lines.Strings = (
+        'log'
+      )
+      TabOrder = 2
     end
   end
   object MainMenu1: TMainMenu

@@ -21,6 +21,7 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
+    log: TMemo;
     miDisk2WPToggle: TMenuItem;
     miDisk1WPToggle: TMenuItem;
     MenuItem14: TMenuItem;
@@ -312,6 +313,10 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure FormMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
@@ -579,7 +584,7 @@ begin
      if MillisecondsBetween(Now(), lastHideTime) < 1000 then
       exit;
      ShowM8;
-     //Memo1.Lines.Add('app is activating');
+     //log.Lines.Add('app is activating');
 end;
 
 procedure TGUIForm.AppDeactivate(Sender: TObject);
@@ -601,7 +606,7 @@ begin
             SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
        end;
      //StatusBar1.SimpleText := GetTitleOfActiveWindow;
-     //Memo1.Lines.Add('app is deactivating');
+     //log.Lines.Add('app is deactivating');
 end;
 
 procedure TGUIForm.RebootVM;
@@ -1918,7 +1923,7 @@ procedure TGUIForm.HideM8;
 begin
        if hidden then
          exit;
-       //Memo1.Lines.Add('hiding m8 window');
+       //log.Lines.Add('hiding m8 window');
        SimpleGet(baseUrl + '/api/control/window/hide');
        lastHideTime := Now();
        hidden := true;
@@ -1933,7 +1938,7 @@ procedure TGUIForm.ShowM8;
 begin
        if not hidden then
           exit;
-       //Memo1.Lines.Add('showing m8 window');
+       //log.Lines.Add('showing m8 window');
        SimpleGet(baseUrl + '/api/control/window/show');
        lastShowTime := Now();
        hidden := false;
@@ -2310,6 +2315,9 @@ begin
      if IsMouseBtnDown then
       exit;
 
+     // another hack: disable mouse buttons on refocus
+     SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
+
      //Application.Restore;
      StatusBar1.SimpleText := 'trying to focus '+DateTimeToStr(Now);
      Application.BringToFront;
@@ -2519,6 +2527,18 @@ begin
   //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
 end;
 
+procedure TGUIForm.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  log.Lines.Add('mouse button down at '+IntToStr(x)+', '+IntToStr(y));
+end;
+
+procedure TGUIForm.FormMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  log.Lines.Add('mouse button up at '+IntToStr(x)+', '+IntToStr(y));
+end;
+
 procedure TGUIForm.FormResize(Sender: TObject);
 var
   h: double;
@@ -2541,7 +2561,7 @@ end;
 
 procedure TGUIForm.FormWindowStateChange(Sender: TObject);
 begin
-  //Memo1.Lines.Add('window state has changed');
+  //log.Lines.Add('window state has changed');
   if WindowState = wsMinimized then
      HideM8
   else
