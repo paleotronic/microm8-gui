@@ -469,6 +469,7 @@ type
     procedure UpdateColorMode;
     procedure UpdateTintMode;
     function SimpleGet(url:String): string;
+    function SimpleGetInt(url:String): integer;
     procedure LaunchDisk(disk: string);
     procedure LaunchCommand(dialect: string; path: string; command: string);
     procedure SimpleFormPost(url: String; body: string; var resp: TStringStream);
@@ -2046,6 +2047,10 @@ end;
 function TGUIForm.SimpleGet(url:string): string;
 begin
   result := '0';
+
+  if not MicroM8Process.Active then
+     exit;
+
   try
      result := self.httpc.Get(url)
   except
@@ -2055,8 +2060,28 @@ begin
   end;
 end;
 
+function TGUIForm.SimpleGetInt(url:string): integer;
+begin
+  result := 0;
+
+    if not MicroM8Process.Active then
+     exit;
+
+  try
+     result := StrToInt(self.httpc.Get(url))
+  except
+        on e: Exception do begin
+             // nothing much
+        end;
+  end;
+end;
+
 procedure TGUIForm.SimpleGetStream(url:string; var S: TMemoryStream);
 begin
+
+  if not MicroM8Process.Active then
+    exit;
+
   try
      self.httpc.Get(url, S)
   except
@@ -2069,6 +2094,8 @@ end;
 
 procedure TGUIForm.SimpleFormPost( url: string; body: string; var resp: TStringStream );
 begin
+     if not MicroM8Process.Active then
+       exit;
      try
        self.httpc.SimpleFormPost(url,body,resp)
      except
