@@ -538,6 +538,18 @@ const
 const
   MOUSE_BTN_VKEYS: Array [TMouseBtnType] of Integer = (VK_LBUTTON, VK_MBUTTON, VK_RBUTTON);
 
+function StrToIntSafe(s: string): integer;
+begin
+  result := 0;
+  try
+    result := StrToInt(s)
+  except
+     on e: Exception do begin
+          // nothing much
+     end;
+  end;
+end;
+
 (* This function returns true when the specified mouse button is pressed *)
 {$IFDEF WINDOWS}
 function TGUIForm.IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
@@ -2319,6 +2331,8 @@ begin
   if MilliSecondsBetween(Now(), lastFocusLostTime) < 250 then
      exit;
   if WindowState = wsMinimized then
+     exit;
+  if disableFocusStealing then
      exit;
   //if hidden then
   //   exit;

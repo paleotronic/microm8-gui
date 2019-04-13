@@ -538,6 +538,18 @@ const
 const
   MOUSE_BTN_VKEYS: Array [TMouseBtnType] of Integer = (VK_LBUTTON, VK_MBUTTON, VK_RBUTTON);
 
+function StrToIntSafe(s: string): integer;
+begin
+  result := 0;
+  try
+    result := StrToInt(s)
+  except
+     on e: Exception do begin
+          // nothing much
+     end;
+  end;
+end;
+
 (* This function returns true when the specified mouse button is pressed *)
 {$IFDEF WINDOWS}
 function TGUIForm.IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
@@ -552,7 +564,7 @@ var
   s: string;
 begin
   s := SimpleGet( baseUrl+'/api/control/mouse/buttonstate' );
-  mstate := StrToInt( s );
+  mstate := StrToIntSafe( s );
   result := (mstate and integer(AMouseBtn)) <> 0;
 end;
 {$ENDIF}
@@ -572,7 +584,7 @@ function TGUIForm.IsMouseBtnDown: Boolean;
 var
   mstate: integer;
 begin
-  mstate := StrToInt( SimpleGet( baseUrl+'/api/control/mouse/buttonstate' ) );
+  mstate := StrToIntSafe( SimpleGet( baseUrl+'/api/control/mouse/buttonstate' ) );
   result := mstate <> 0;
 end;
 {$ENDIF}
@@ -1533,7 +1545,7 @@ procedure TGUIForm.miTintModeClick(Sender: TObject);
 var
   t: integer;
 begin
-      t := StrToInt( GetConfig( 'video/init.video.tintmode') );
+      t := StrToIntSafe( GetConfig( 'video/init.video.tintmode') );
       case t of
       0: miTMNone.Checked := true;
       1: miTMGrey.Checked := true;
@@ -1584,7 +1596,7 @@ procedure TGUIForm.miVD1Click(Sender: TObject);
 var
   i: integer;
 begin
-     i := StrToInt(Copy( TMenuItem(sender).Caption, 1, 1 )) - 1;
+     i := StrToIntSafe(Copy( TMenuItem(sender).Caption, 1, 1 )) - 1;
      UpdateConfig( 'video/init.video.voxeldepth', IntToStr(i), true );
 end;
 
@@ -1592,7 +1604,7 @@ procedure TGUIForm.miVDClick(Sender: TObject);
 var
   i: integer;
 begin
-    i := StrToInt( GetConfig('video/init.video.voxeldepth') );
+    i := StrToIntSafe( GetConfig('video/init.video.voxeldepth') );
     case i of
     0: miVD1.Checked := true;
     1: miVD2.Checked := true;
@@ -1706,7 +1718,7 @@ procedure TGUIForm.UpdateRenderMode;
 var
   t: integer;
 begin
-      t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+      t := StrToIntSafe( GetConfig( 'video/current.rendermode' ) );
       case t of
       0: tbRMDots.Down := true;
       3: tbRMDots.Down := true;
@@ -1722,7 +1734,7 @@ procedure TGUIForm.tbRMClick(Sender: TObject);
 var
   t: integer;
 begin
-      t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+      t := StrToIntSafe( GetConfig( 'video/current.rendermode' ) );
 
     case TToolButton(sender).Tag of
     0:
@@ -1750,7 +1762,7 @@ procedure TGUIForm.UpdateColorMode;
 var
   t: integer;
 begin
-     t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+     t := StrToIntSafe( GetConfig( 'video/current.rendermode' ) );
      tbRMColor.ImageIndex := 7 + (t div 3);
 end;
 
@@ -1760,7 +1772,7 @@ var
 begin
 
      { increment video tint }
-     t := StrToInt( GetConfig( 'video/current.rendermode' ) );
+     t := StrToIntSafe( GetConfig( 'video/current.rendermode' ) );
 
      if t >= 3 then
         t := t - 3
@@ -1804,7 +1816,7 @@ procedure TGUIForm.UpdateTintMode;
 var
   t: integer;
 begin
-  t := StrToInt( GetConfig( 'video/init.video.tintmode' ) );
+  t := StrToIntSafe( GetConfig( 'video/init.video.tintmode' ) );
   tbTintMode.ImageIndex := t;
 end;
 
@@ -1814,7 +1826,7 @@ var
 begin
 
      { increment video tint }
-     t := StrToInt( GetConfig( 'video/init.video.tintmode' ) );
+     t := StrToIntSafe( GetConfig( 'video/init.video.tintmode' ) );
      inc(t);
      if t > 3 then
         t := 0;
