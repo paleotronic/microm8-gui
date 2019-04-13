@@ -21,6 +21,8 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
+    miDisk2WPToggle: TMenuItem;
+    miDisk1WPToggle: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem18: TMenuItem;
@@ -213,7 +215,7 @@ type
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
-    MenuItem13: TMenuItem;
+    miDiskMenuWP: TMenuItem;
     miDHGREN: TMenuItem;
     Input: TMenuItem;
     miINPMMOff: TMenuItem;
@@ -332,6 +334,8 @@ type
    // procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure Freeze;
+    procedure MenuItem4Click(Sender: TObject);
+    procedure MenuItem5Click(Sender: TObject);
     procedure miApps816PaintClick(Sender: TObject);
     procedure miAppsPrintShopClick(Sender: TObject);
     procedure miAppsTerminalClick(Sender: TObject);
@@ -358,6 +362,9 @@ type
     procedure miDHRMonoDotsClick(Sender: TObject);
     procedure miDHRMonoRasterClick(Sender: TObject);
     procedure miDHRMonoVoxelsClick(Sender: TObject);
+    procedure miDisk1WPToggleClick(Sender: TObject);
+    procedure miDisk2WPToggleClick(Sender: TObject);
+    procedure miDiskMenuWPClick(Sender: TObject);
     procedure miDisksClick(Sender: TObject);
     procedure miDisksConvertWOZClick(Sender: TObject);
     procedure miDisksDisableWarpClick(Sender: TObject);
@@ -710,6 +717,16 @@ begin
        SimpleGet(baseUrl + '/api/control/window/freeze');
 end;
 
+procedure TGUIForm.MenuItem4Click(Sender: TObject);
+begin
+  miDisk1WPToggle.Checked := (SimpleGet( baseUrl + '/api/control/hardware/disk/wp/0') = '1');
+end;
+
+procedure TGUIForm.MenuItem5Click(Sender: TObject);
+begin
+  miDisk2WPToggle.Checked := (SimpleGet( baseUrl + '/api/control/hardware/disk/wp/1') = '1');
+end;
+
 procedure TGUIForm.miApps816PaintClick(Sender: TObject);
 begin
      LaunchSP( '/appleii/disk images/2mg_hdv/816paint.po' );
@@ -888,6 +905,21 @@ end;
 procedure TGUIForm.miDHRMonoVoxelsClick(Sender: TObject);
 begin
   UpdateConfig( 'video/init.video.dhgrmode',  '4', true );
+end;
+
+procedure TGUIForm.miDisk1WPToggleClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl + '/api/control/hardware/disk/wp/0/toggle' );
+end;
+
+procedure TGUIForm.miDisk2WPToggleClick(Sender: TObject);
+begin
+    SimpleGet( baseUrl + '/api/control/hardware/disk/wp/1/toggle' );
+end;
+
+procedure TGUIForm.miDiskMenuWPClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl + '/api/control/hardware/disk/wp/'+IntToStr(DiskMenu.Tag)+'/toggle' );
 end;
 
 procedure TGUIForm.miDisksClick(Sender: TObject);
@@ -2277,6 +2309,10 @@ end;
 procedure TGUIForm.DiskMenuPopup(Sender: TObject);
 begin
   inPopup := true;
+  case SimpleGet(baseUrl+'/api/control/hardware/disk/wp/'+IntToStr(TMenuItem(sender).Tag)) of
+  '0': miDiskMenuWP.Checked := false;
+  '1': miDiskMenuWP.Checked := true;
+  end;
 end;
 
 {$IFDEF WINDOWS}

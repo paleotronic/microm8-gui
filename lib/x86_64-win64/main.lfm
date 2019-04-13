@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2260
+  Left = 2255
   Height = 668
-  Top = 311
+  Top = 312
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -5571,6 +5571,7 @@ object GUIForm: TGUIForm
       end
       object MenuItem4: TMenuItem
         Caption = 'Drive 1'
+        OnClick = MenuItem4Click
         object miD1Blank: TMenuItem
           Caption = 'Eject'
           OnClick = miD1BlankClick
@@ -5583,9 +5584,14 @@ object GUIForm: TGUIForm
           Caption = 'Insert Blank'
           OnClick = MenuItem17Click
         end
+        object miDisk1WPToggle: TMenuItem
+          Caption = 'Write Protected'
+          OnClick = miDisk1WPToggleClick
+        end
       end
       object MenuItem5: TMenuItem
         Caption = 'Drive 2'
+        OnClick = MenuItem5Click
         object miD2Blank: TMenuItem
           Caption = 'Eject'
           OnClick = miD2BlankClick
@@ -5597,6 +5603,10 @@ object GUIForm: TGUIForm
         object MenuItem18: TMenuItem
           Caption = 'Insert Blank'
           OnClick = MenuItem18Click
+        end
+        object miDisk2WPToggle: TMenuItem
+          Caption = 'Write Protected'
+          OnClick = miDisk2WPToggleClick
         end
       end
       object MenuItem8: TMenuItem
@@ -10293,9 +10303,10 @@ object GUIForm: TGUIForm
     object MenuItem12: TMenuItem
       Caption = 'Eject'
     end
-    object MenuItem13: TMenuItem
+    object miDiskMenuWP: TMenuItem
       Caption = 'Write Protected'
       Checked = True
+      OnClick = miDiskMenuWPClick
     end
   end
   object CheckTimer: TTimer
