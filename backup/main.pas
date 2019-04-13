@@ -2078,6 +2078,10 @@ end;
 
 procedure TGUIForm.SimpleGetStream(url:string; var S: TMemoryStream);
 begin
+
+  if not MicroM8Process.Active then
+    exit;
+
   try
      self.httpc.Get(url, S)
   except
@@ -2090,6 +2094,8 @@ end;
 
 procedure TGUIForm.SimpleFormPost( url: string; body: string; var resp: TStringStream );
 begin
+     if not MicroM8Process.Active then
+       exit;
      try
        self.httpc.SimpleFormPost(url,body,resp)
      except

@@ -2047,10 +2047,6 @@ end;
 function TGUIForm.SimpleGet(url:string): string;
 begin
   result := '0';
-
-  if not MicroM8Process.Active then
-     exit;
-
   try
      result := self.httpc.Get(url)
   except
@@ -2063,10 +2059,6 @@ end;
 function TGUIForm.SimpleGetInt(url:string): integer;
 begin
   result := 0;
-
-    if not MicroM8Process.Active then
-     exit;
-
   try
      result := StrToInt(self.httpc.Get(url))
   except
@@ -2078,10 +2070,6 @@ end;
 
 procedure TGUIForm.SimpleGetStream(url:string; var S: TMemoryStream);
 begin
-
-  if not MicroM8Process.Active then
-    exit;
-
   try
      self.httpc.Get(url, S)
   except
@@ -2094,8 +2082,6 @@ end;
 
 procedure TGUIForm.SimpleFormPost( url: string; body: string; var resp: TStringStream );
 begin
-     if not MicroM8Process.Active then
-       exit;
      try
        self.httpc.SimpleFormPost(url,body,resp)
      except
