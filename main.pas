@@ -2325,6 +2325,7 @@ const
 	CSR_UP    = $e002;
 	CSR_DOWN  = $e003;
         CTRL_A = $e041;
+        SHIFT_CTRL_A = $e071;
 begin
   case Key of
   219:
@@ -2407,7 +2408,10 @@ begin
   VK_A..VK_Z:
   begin
              if (ssCtrl in Shift) and (ssShift in Shift) then
-              Result := Integer(Key)
+             begin
+              //StatusBar1.SimpleText := 'Shift+Ctrl+'+char(Key);
+              Result := (Integer(Key) - 65) + SHIFT_CTRL_A;
+             end
              else if ssShift in Shift then
               Result := Integer(Key)
              else if ssCtrl in Shift then
@@ -2415,7 +2419,7 @@ begin
                 if Key = 67 then
                   Result := 3
                 else
-                  Result := CTRL_A + Integer(Key-64);
+                  Result := CTRL_A + Integer(Key-65);
              end
              else
                Result := Integer(Key)+32;
