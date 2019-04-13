@@ -1432,6 +1432,7 @@ const
 begin
      // SimpleGet(baseUrl + '/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
       UpdateConfig( 'video/init.video.scanline',  values[StrToInt(TMenuItem(Sender).Caption)], true );
+      UpdateConfig( 'video/init.video.scanlinedisable', '0', false );
 end;
 
 procedure TGUIForm.miSNDMasterClick(Sender: TObject);
