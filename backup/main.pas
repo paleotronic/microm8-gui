@@ -586,6 +586,8 @@ procedure TGUIForm.AppDeactivate(Sender: TObject);
 begin
      // if we have deactivated because of a click on the main window
      // then sort it...
+     lastFocusLostTime:=Now();
+
      if MillisecondsBetween(Now(), lastShowTime) < 1000 then
       exit;
 
@@ -2290,8 +2292,8 @@ procedure TGUIForm.CheckTimerTimer(Sender: TObject);
 begin
   if isFS then
      exit;
-  //if MilliSecondsBetween(Now(), lastShowTime) < 500 then
-  //   exit;
+  if MilliSecondsBetween(Now(), lastFocusLostTime) < 250 then
+     exit;
   if WindowState = wsMinimized then
      exit;
   //if hidden then
