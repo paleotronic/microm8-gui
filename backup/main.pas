@@ -2304,7 +2304,7 @@ begin
      {$ENDIF}
 
      //Application.Restore;
-     StatusBar1.SimpleText := 'trying to focus';
+     StatusBar1.SimpleText := 'trying to focus '+DateTimeToStr(Now);
      Application.BringToFront;
      {$IFDEF WINDOWS}
      SetForegroundWindow(Application.MainForm.Handle);
