@@ -539,7 +539,7 @@ var
   mstate: integer;
   s: string;
 begin
-  s := GetConfig( baseUrl+'/api/control/mouse/buttonstate' );
+  s := SimpleGet( baseUrl+'/api/control/mouse/buttonstate' );
   mstate := StrToInt( s );
   result := (mstate and integer(AMouseBtn)) <> 0;
 end;
@@ -560,7 +560,7 @@ function TGUIForm.IsMouseBtnDown: Boolean;
 var
   mstate: integer;
 begin
-  mstate := StrToInt( GetConfig( baseUrl+'/api/control/mouse/buttonstate' ) );
+  mstate := StrToInt( SimpleGet( baseUrl+'/api/control/mouse/buttonstate' ) );
   result := mstate <> 0;
 end;
 {$ENDIF}

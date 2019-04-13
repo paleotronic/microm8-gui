@@ -2298,10 +2298,8 @@ begin
   if GetTitleOfActiveWindow = 'microM8' then
    begin
 
-     {$IFDEF WINDOWS}
      if IsMouseBtnDown then
       exit;
-     {$ENDIF}
 
      //Application.Restore;
      StatusBar1.SimpleText := 'trying to focus '+DateTimeToStr(Now);
