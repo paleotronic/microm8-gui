@@ -44,6 +44,8 @@ object GUIForm: TGUIForm
     Caption = 'ToolBar1'
     Images = ToolbarIcons
     TabOrder = 1
+    OnMouseDown = FormMouseDown
+    OnMouseUp = FormMouseUp
     object tbTintMode: TToolButton
       Left = 1
       Hint = 'Tint mode'
@@ -169,6 +171,8 @@ object GUIForm: TGUIForm
       Top = 2
       Caption = 'ToolButton10'
       Enabled = False
+      OnMouseDown = FormMouseDown
+      OnMouseUp = FormMouseUp
     end
     object tbJoystickAxisSwitch: TToolButton
       Left = 37
@@ -5449,6 +5453,7 @@ object GUIForm: TGUIForm
       ParentFont = False
       TabOrder = 1
       OnMouseDown = FormMouseDown
+      OnMouseMove = embedPanelMouseMove
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
@@ -5457,6 +5462,8 @@ object GUIForm: TGUIForm
         Width = 694
         Align = alClient
         OnClick = backdropClick
+        OnMouseDown = FormMouseDown
+        OnMouseUp = FormMouseUp
         Stretch = True
       end
     end
@@ -5469,6 +5476,8 @@ object GUIForm: TGUIForm
       Lines.Strings = (
         'log'
       )
+      OnMouseDown = FormMouseDown
+      OnMouseUp = FormMouseUp
       TabOrder = 2
     end
   end

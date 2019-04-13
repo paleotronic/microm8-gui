@@ -303,6 +303,8 @@ type
     procedure CheckTimerTimer(Sender: TObject);
     procedure DiskMenuClose(Sender: TObject);
     procedure DiskMenuPopup(Sender: TObject);
+    procedure embedPanelMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
   //  procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -2344,6 +2346,12 @@ begin
   end;
 end;
 
+procedure TGUIForm.embedPanelMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+
+end;
+
 {$IFDEF WINDOWS}
 const
   EXENAME: string = 'microm8.exe';
@@ -2356,6 +2364,8 @@ const
 procedure TGUIForm.FormCreate(Sender: TObject);
 begin
      self.httpc := TFPHttpClient.Create(Nil);
+
+
 
      //ShowMessage( ExtractFilePath(Application.ExeName) + EXENAME );
      MicroM8Process.Executable :=  ExtractFilePath(Application.ExeName) + EXENAME;
