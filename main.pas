@@ -1630,6 +1630,8 @@ var
   x, y: longint;
   p, q: TPoint;
 begin
+     if isFS then
+       exit;
      x := Mouse.CursorPos.x;
      y := Mouse.CursorPos.y;
      if (x <> lastMouseX) or (y <> lastMouseY) then

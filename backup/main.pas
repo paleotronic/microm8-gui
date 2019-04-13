@@ -2313,8 +2313,10 @@ begin
   if GetTitleOfActiveWindow = 'microM8' then
    begin
 
+     {$IFDEF WINDOWS}
      if IsMouseBtnDown then
       exit;
+     {$ENDIF}
 
      // another hack: disable mouse buttons on refocus
      SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );

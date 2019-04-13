@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2040
+  Left = 2434
   Height = 668
-  Top = 171
+  Top = 239
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
