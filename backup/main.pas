@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls,
   ExtCtrls, StdCtrls, fphttpclient, LCLType, Buttons, AsyncProcess, DateUtils,
+  Clipbrd,
 {$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
@@ -21,6 +22,8 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
+    miPasteText: TMenuItem;
+    N12: TMenuItem;
     N11: TMenuItem;
     miDisableFocusStealing: TMenuItem;
     miDisk2WPToggle: TMenuItem;
@@ -405,6 +408,7 @@ type
     procedure miMonoVoxelsClick(Sender: TObject);
     procedure miMVOL000Click(Sender: TObject);
     procedure miOpenFreezeClick(Sender: TObject);
+    procedure miPasteTextClick(Sender: TObject);
     procedure miPDFTO5sClick(Sender: TObject);
     procedure miPRFIIeClick(Sender: TObject);
     procedure miPRFIIeEnhancedClick(Sender: TObject);
@@ -1200,6 +1204,13 @@ begin
   ShowM8;
 end;
 
+procedure TGUIForm.miPasteTextClick(Sender: TObject);
+var
+  s: string;
+begin
+  s := ClipBoard.AsText;
+end;
+
 procedure TGUIForm.miPDFTO5sClick(Sender: TObject);
 begin
   UpdateConfig( 'hardware/init.printer.timeout', TMenuItem(sender).Caption, true );
@@ -1432,7 +1443,7 @@ const
 begin
      // SimpleGet(baseUrl + '/api/control/input/meta/key/i/value/'+TMenuItem(Sender).Caption);
       UpdateConfig( 'video/init.video.scanline',  values[StrToInt(TMenuItem(Sender).Caption)], true );
-      UpdateConfig( 'video/init.video.scanlinedisable', '0', false )
+      UpdateConfig( 'video/init.video.scanlinedisable', '0', false );
 end;
 
 procedure TGUIForm.miSNDMasterClick(Sender: TObject);

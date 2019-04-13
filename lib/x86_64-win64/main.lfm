@@ -6022,6 +6022,13 @@ object GUIForm: TGUIForm
           OnClick = miINPMMOffClick
         end
       end
+      object N12: TMenuItem
+        Caption = '-'
+      end
+      object miPasteText: TMenuItem
+        Caption = 'Paste'
+        OnClick = miPasteTextClick
+      end
     end
     object miAudio: TMenuItem
       Caption = 'Audio'
