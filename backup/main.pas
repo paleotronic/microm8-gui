@@ -586,14 +586,19 @@ procedure TGUIForm.AppDeactivate(Sender: TObject);
 begin
      // if we have deactivated because of a click on the main window
      // then sort it...
-     lastFocusLostTime:=Now();
 
      if MillisecondsBetween(Now(), lastShowTime) < 1000 then
       exit;
 
      RepaintWindow;
      if GetTitleOfActiveWindow <> 'microM8' then
-        HideM8;
+        HideM8
+     else
+       begin
+            lastFocusLostTime:=Now();
+            StatusBar1.SimpleText:='focus';
+            SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
+       end;
      //StatusBar1.SimpleText := GetTitleOfActiveWindow;
      //Memo1.Lines.Add('app is deactivating');
 end;

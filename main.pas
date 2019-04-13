@@ -597,6 +597,8 @@ begin
        begin
             lastFocusLostTime:=Now();
             StatusBar1.SimpleText:='focus';
+            // send fake mouse button state change
+            SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
        end;
      //StatusBar1.SimpleText := GetTitleOfActiveWindow;
      //Memo1.Lines.Add('app is deactivating');
