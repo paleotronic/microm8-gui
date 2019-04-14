@@ -6077,6 +6077,13 @@ object GUIForm: TGUIForm
           Caption = 'Alternate Controls'
           OnClick = miCameraAlternateControlsClick
         end
+        object N15: TMenuItem
+          Caption = '-'
+        end
+        object miCameraReset: TMenuItem
+          Caption = 'Reset Camera'
+          OnClick = miCameraResetClick
+        end
       end
     end
     object Input: TMenuItem
@@ -10582,6 +10589,13 @@ object GUIForm: TGUIForm
     object miPMApple2plus: TMenuItem
       Caption = 'Apple ][+'
       OnClick = miPRFIIplusClick
+    end
+    object N14: TMenuItem
+      Caption = '-'
+    end
+    object miPRFReboot: TMenuItem
+      Caption = 'Reboot'
+      OnClick = miPRFRebootClick
     end
   end
   object WaitRepos: TTimer

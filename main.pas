@@ -27,6 +27,10 @@ type
     btnHide: TButton;
     Label1: TLabel;
     Label2: TLabel;
+    miCameraReset: TMenuItem;
+    N15: TMenuItem;
+    miPRFReboot: TMenuItem;
+    N14: TMenuItem;
     miCameraMouseControl: TMenuItem;
     miCameraAlternateControls: TMenuItem;
     miCamera: TMenuItem;
@@ -376,6 +380,7 @@ type
     procedure miCameraAlternateControlsClick(Sender: TObject);
     procedure miCameraClick(Sender: TObject);
     procedure miCameraMouseControlClick(Sender: TObject);
+    procedure miCameraResetClick(Sender: TObject);
     procedure miColorDotsClick(Sender: TObject);
     procedure miColorRasterClick(Sender: TObject);
     procedure miColorVoxelsClick(Sender: TObject);
@@ -438,6 +443,7 @@ type
     procedure miPRFIIeEnhancedClick(Sender: TObject);
     procedure miPRFIIeEnhancedSoftcardClick(Sender: TObject);
     procedure miPRFIIplusClick(Sender: TObject);
+    procedure miPRFRebootClick(Sender: TObject);
     procedure miPrinterPDFClick(Sender: TObject);
     procedure miProfilesClick(Sender: TObject);
     procedure miPSG0m100Click(Sender: TObject);
@@ -893,6 +899,11 @@ begin
   end;
 end;
 
+procedure TGUIForm.miCameraResetClick(Sender: TObject);
+begin
+  SimpleGet(baseUrl+'/api/control/system/camera/reset');
+end;
+
 procedure TGUIForm.miColorDotsClick(Sender: TObject);
 begin
   UpdateConfig( 'video/init.video.hgrmode',  '0', true );
@@ -1327,49 +1338,33 @@ procedure TGUIForm.miPRFIIeClick(Sender: TObject);
 var
   reply: integer;
 begin
-  RepaintWindow;
-  HideM8;
-  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
-  if reply = idYes then
      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e' );
-  ShowM8;
 end;
 
 procedure TGUIForm.miPRFIIeEnhancedClick(Sender: TObject);
 var
   reply: integer;
 begin
-  RepaintWindow;
-  HideM8;
-  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
-  if reply = idYes then
      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e-en' );
-  ShowM8;
-
 end;
 
 procedure TGUIForm.miPRFIIeEnhancedSoftcardClick(Sender: TObject);
 var
   reply: integer;
 begin
-   RepaintWindow;
-  HideM8;
-  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
-  if reply = idYes then
      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e-en-cpm' );
-  ShowM8;
 end;
 
 procedure TGUIForm.miPRFIIplusClick(Sender: TObject);
 var
   reply: integer;
 begin
-      RepaintWindow;
-  HideM8;
-  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
-  if reply = idYes then
-     SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-plus' );
-  ShowM8;
+  SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-plus' );
+end;
+
+procedure TGUIForm.miPRFRebootClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/system/reboot' );
 end;
 
 procedure TGUIForm.miPrinterPDFClick(Sender: TObject);

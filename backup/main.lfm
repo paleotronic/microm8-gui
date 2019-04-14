@@ -10583,6 +10583,13 @@ object GUIForm: TGUIForm
       Caption = 'Apple ][+'
       OnClick = miPRFIIplusClick
     end
+    object N14: TMenuItem
+      Caption = '-'
+    end
+    object miPRFReboot: TMenuItem
+      Caption = 'Reboot'
+      OnClick = miPRFRebootClick
+    end
   end
   object WaitRepos: TTimer
     Enabled = False
