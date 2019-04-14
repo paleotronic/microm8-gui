@@ -27,6 +27,8 @@ type
     btnHide: TButton;
     Label1: TLabel;
     Label2: TLabel;
+    miOpenPAK: TMenuItem;
+    N16: TMenuItem;
     miCameraReset: TMenuItem;
     N15: TMenuItem;
     miPRFReboot: TMenuItem;
@@ -437,6 +439,7 @@ type
     procedure miMonoVoxelsClick(Sender: TObject);
     procedure miMVOL000Click(Sender: TObject);
     procedure miOpenFreezeClick(Sender: TObject);
+    procedure miOpenPAKClick(Sender: TObject);
     procedure miPasteTextClick(Sender: TObject);
     procedure miPDFTO5sClick(Sender: TObject);
     procedure miPRFIIeClick(Sender: TObject);
@@ -546,6 +549,7 @@ type
     function  IsMicroM8Active: boolean;
     procedure WaitReposTimer(Sender: TObject);
     procedure SendOSDMessage(msg: string);
+    procedure LaunchPAK(disk: string);
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -1320,6 +1324,19 @@ begin
 
        }
        BootFreeze( odFreezeFiles.FileName );
+  end;
+  ShowM8;
+end;
+
+procedure TGUIForm.miOpenPAKClick(Sender: TObject);
+begin
+  RepaintWindow;
+  HideM8;
+  odDiskImages.FilterIndex := 3;
+  if odDiskImages.Execute then
+  begin
+     LaunchPAK(  ReplaceStr( odDiskImages.Filename, '\', '/' ) );
+     //StatusBar1.SimpleText := odDiskImages.Filename;
   end;
   ShowM8;
 end;
@@ -2206,6 +2223,20 @@ begin
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
      //self.StatusBar1.SimpleText:=S;
+     Respo.Destroy;
+end;
+
+procedure TGUIForm.LaunchPAK(disk: string);
+var
+  json, S: string;
+  Respo: TStringStream;
+begin
+     json := '{"pakfile": "' + disk +
+             '"}';
+     Respo := TStringStream.Create('');
+     SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
+     S := Respo.DataString;
+     self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 

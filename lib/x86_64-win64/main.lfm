@@ -329,7 +329,6 @@ object GUIForm: TGUIForm
     BevelOuter = bvNone
     ClientHeight = 589
     ClientWidth = 1014
-    Color = clAqua
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
@@ -5660,6 +5659,13 @@ object GUIForm: TGUIForm
       object N7: TMenuItem
         Caption = '-'
       end
+      object miOpenPAK: TMenuItem
+        Caption = 'Open microPAK...'
+        OnClick = miOpenPAKClick
+      end
+      object N16: TMenuItem
+        Caption = '-'
+      end
       object miOpenFreeze: TMenuItem
         Caption = 'Open Freeze...'
         OnClick = miOpenFreezeClick
@@ -10465,7 +10471,7 @@ object GUIForm: TGUIForm
   object odDiskImages: TOpenDialog
     Title = 'Open Disk Image'
     DefaultExt = '.*'
-    Filter = 'All Floppy Images|*.dsk; *.do; *.po; *.woz; *.nib|All HDD Images|*.po; *.2mg; *.hdv|Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
+    Filter = 'All Floppy Images|*.dsk; *.do; *.po; *.woz; *.nib|All HDD Images|*.po; *.2mg; *.hdv|MicroPAK|*.pak|Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
     left = 24
     top = 104
   end
