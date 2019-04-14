@@ -10569,4 +10569,11 @@ object GUIForm: TGUIForm
       OnClick = miPRFIIplusClick
     end
   end
+  object WaitRepos: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = WaitReposTimer
+    left = 238
+    top = 223
+  end
 end

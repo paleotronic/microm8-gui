@@ -202,6 +202,7 @@ type
     sidecarPanel: TPanel;
     FSTimer: TTimer;
     tbVolDown: TToolButton;
+    WaitRepos: TTimer;
     ToolButton1: TToolButton;
     ToolButton10: TToolButton;
     tbJoystickAxisSwitch: TToolButton;
@@ -530,6 +531,7 @@ type
     function  IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
     function  IsMouseBtnDown: Boolean;
     function  IsMicroM8Active: boolean;
+    procedure WaitReposTimer(Sender: TObject);
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -627,6 +629,13 @@ begin
   if guiActive then
      exit;
   result := GetTitleOfActiveWindow = 'microM8';
+end;
+
+procedure TGUIForm.WaitReposTimer(Sender: TObject);
+begin
+  WaitRepos.Enabled := false;
+  lx:=-1;
+  ReposWindow;
 end;
 
 procedure TGUIForm.AppActivate(Sender: TObject);
@@ -1194,7 +1203,7 @@ end;
 procedure TGUIForm.miMemoryEditClick(Sender: TObject);
 begin
   pnlMemory.Visible := (not pnlMemory.Visible);
-  ReposWindow;
+  WaitRepos.Enabled := true;
 end;
 
 procedure TGUIForm.miMMHelpClick(Sender: TObject);
@@ -2415,7 +2424,7 @@ end;
 procedure TGUIForm.btnHideClick(Sender: TObject);
 begin
   pnlMemory.Visible := false;
-  ReposWindow;
+  WaitRepos.Enabled := true;
 end;
 
 procedure TGUIForm.btnReadClick(Sender: TObject);

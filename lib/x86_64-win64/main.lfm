@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2111
+  Left = 228
   Height = 668
-  Top = 138
+  Top = 132
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -10568,5 +10568,12 @@ object GUIForm: TGUIForm
       Caption = 'Apple ][+'
       OnClick = miPRFIIplusClick
     end
+  end
+  object WaitRepos: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = WaitReposTimer
+    left = 238
+    top = 223
   end
 end
