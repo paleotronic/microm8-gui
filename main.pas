@@ -654,7 +654,7 @@ begin
      else
        begin
             lastFocusLostTime:=Now();
-            StatusBar1.SimpleText:='focus';
+            //StatusBar1.SimpleText:='focus';
             // send fake mouse button state change
             SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
        end;
@@ -692,7 +692,7 @@ procedure TGUIForm.Image1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var
   p, q: TPoint;
-  py, bi: integer;
+  py, bi, reply: integer;
 begin
      if inPopup then
         exit;
@@ -771,7 +771,12 @@ begin
                       end
                       else
                       begin
-                           SimpleGet(baseUrl + '/api/control/system/reboot');
+                           RepaintWindow;
+                           HideM8;
+                           reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
+                           if reply = idYes then
+                              SimpleGet(baseUrl + '/api/control/system/reboot');
+                           ShowM8;
                       end;
 
            end;
@@ -1267,23 +1272,52 @@ begin
 end;
 
 procedure TGUIForm.miPRFIIeClick(Sender: TObject);
+var
+  reply: integer;
 begin
-      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e' );
+  RepaintWindow;
+  HideM8;
+  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
+  if reply = idYes then
+     SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e' );
+  ShowM8;
 end;
 
 procedure TGUIForm.miPRFIIeEnhancedClick(Sender: TObject);
+var
+  reply: integer;
 begin
+  RepaintWindow;
+  HideM8;
+  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
+  if reply = idYes then
      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e-en' );
+  ShowM8;
+
 end;
 
 procedure TGUIForm.miPRFIIeEnhancedSoftcardClick(Sender: TObject);
+var
+  reply: integer;
 begin
+   RepaintWindow;
+  HideM8;
+  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
+  if reply = idYes then
      SimpleGet( baseUrl+'/api/control/system/profile/set/apple2e-en-cpm' );
+  ShowM8;
 end;
 
 procedure TGUIForm.miPRFIIplusClick(Sender: TObject);
+var
+  reply: integer;
 begin
-    SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-plus' );
+      RepaintWindow;
+  HideM8;
+  reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
+  if reply = idYes then
+     SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-plus' );
+  ShowM8;
 end;
 
 procedure TGUIForm.miPrinterPDFClick(Sender: TObject);
@@ -2470,7 +2504,7 @@ begin
      SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
 
      //Application.Restore;
-     StatusBar1.SimpleText := 'trying to focus '+DateTimeToStr(Now);
+     //StatusBar1.SimpleText := 'trying to focus '+DateTimeToStr(Now);
      Application.BringToFront;
      {$IFDEF WINDOWS}
      SetForegroundWindow(Application.MainForm.Handle);
