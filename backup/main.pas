@@ -532,6 +532,7 @@ type
     function  IsMouseBtnDown: Boolean;
     function  IsMicroM8Active: boolean;
     procedure WaitReposTimer(Sender: TObject);
+    procedure SendOSDMessage(msg: string);
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -2741,6 +2742,13 @@ begin
   //log.Lines.Add('mouse button up at '+IntToStr(x)+', '+IntToStr(y));
 end;
 
+procedure TGUIForm.SendOSDMessage(msg: string);
+var
+  Respo: TStringStream;
+begin
+     SimpleFormPost( baseUrl+'/api/control/osd/send', msg, Respo);
+end;
+
 procedure TGUIForm.FormResize(Sender: TObject);
 var
   h: double;
@@ -2802,8 +2810,9 @@ begin
   '0': begin
             UpdateConfig('video/current.fullscreen', '1', false);
             isFS := true;
+            SendOSDMessage('Alt/Option Enter to leave fullscreen');
        end;
-  '1': begin:
+  '1': begin
              UpdateConfig('video/current.fullscreen', '0', false);
             isFS := false;
        end;
