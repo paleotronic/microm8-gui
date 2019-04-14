@@ -1770,7 +1770,7 @@ end;
 
 procedure TGUIForm.pnlMemoryResize(Sender: TObject);
 begin
-
+  ReposWindow;
 end;
 
 procedure TGUIForm.sidecarPanelResize(Sender: TObject);
