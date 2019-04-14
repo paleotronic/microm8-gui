@@ -2159,19 +2159,15 @@ end;
 
 procedure TGUIForm.RepaintWindow;
 var
-  S: TMemoryStream;
-  filename: string;
+  S: TStringStream;
+  filename, json: string;
 begin
-       S := TMemoryStream.Create();
-       SimpleGetStream(baseUrl + '/api/control/window/screen', S);
-       if S.Size > 0 then
-       begin
-            filename := GetUserDir + PathSeparator + 'microm8scrn.png';
-            //StatusBar1.SimpleText:='Got '+IntToStr(S.Size)+' bytes of PNG data';
-            S.SaveToFile(filename);
-            backdrop.Picture.LoadFromFile(filename);
-            S.Free;
-       end;
+       backdrop.Visible := false;
+       filename := GetUserDir + DirectorySeparator + 'microm8scrn.png';
+       json := '{ "path": "' + ReplaceStr(filename, '\', '/') + '" }';
+       SimpleFormPost(baseUrl + '/api/control/window/screen', json, S);
+       backdrop.Picture.LoadFromFile(filename);
+       backdrop.Visible := true;
 end;
 
 procedure TGUIForm.ReposWindow;
