@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 2434
+  Left = 2111
   Height = 668
-  Top = 239
+  Top = 138
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -334,20 +334,20 @@ object GUIForm: TGUIForm
     TabOrder = 2
     object sidecarPanel: TPanel
       Left = 844
-      Height = 589
+      Height = 552
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 589
+      ClientHeight = 552
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 589
+        Height = 552
         Top = 0
         Width = 170
         Align = alClient
@@ -5440,12 +5440,12 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 589
+      Height = 552
       Top = 0
       Width = 844
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 589
+      ClientHeight = 552
       ClientWidth = 844
       Color = clBlack
       Font.Color = clWhite
@@ -5457,7 +5457,7 @@ object GUIForm: TGUIForm
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
-        Height = 589
+        Height = 552
         Top = 0
         Width = 844
         Align = alClient
@@ -5465,6 +5465,94 @@ object GUIForm: TGUIForm
         OnMouseDown = FormMouseDown
         OnMouseUp = FormMouseUp
         Stretch = True
+      end
+    end
+    object pnlMemory: TPanel
+      Left = 0
+      Height = 37
+      Top = 552
+      Width = 1014
+      Align = alBottom
+      ClientHeight = 37
+      ClientWidth = 1014
+      ParentColor = False
+      TabOrder = 2
+      Visible = False
+      object txtAddress: TEdit
+        Left = 136
+        Height = 23
+        Top = 8
+        Width = 80
+        TabStop = False
+        TabOrder = 1
+        Text = '$0400'
+      end
+      object Label1: TLabel
+        Left = 9
+        Height = 15
+        Top = 10
+        Width = 122
+        Caption = 'Memory Address (hex):'
+        ParentColor = False
+      end
+      object Label2: TLabel
+        Left = 240
+        Height = 15
+        Top = 10
+        Width = 60
+        Caption = 'Value (hex):'
+        ParentColor = False
+      end
+      object txtValue: TEdit
+        Left = 312
+        Height = 23
+        Top = 8
+        Width = 80
+        OnKeyPress = txtValueKeyPress
+        TabStop = False
+        TabOrder = 2
+        Text = '$00'
+      end
+      object pnlMemButtons: TPanel
+        Left = 760
+        Height = 35
+        Top = 1
+        Width = 253
+        Align = alRight
+        BevelOuter = bvNone
+        ClientHeight = 35
+        ClientWidth = 253
+        TabOrder = 0
+        object btnRead: TButton
+          Left = 8
+          Height = 25
+          Top = 5
+          Width = 75
+          Caption = 'Read'
+          OnClick = btnReadClick
+          TabOrder = 0
+          TabStop = False
+        end
+        object btnWrite: TButton
+          Left = 88
+          Height = 25
+          Top = 5
+          Width = 75
+          Caption = 'Write'
+          OnClick = btnWriteClick
+          TabOrder = 1
+          TabStop = False
+        end
+        object btnHide: TButton
+          Left = 168
+          Height = 25
+          Top = 5
+          Width = 75
+          Caption = 'Close'
+          OnClick = btnHideClick
+          TabOrder = 2
+          TabStop = False
+        end
       end
     end
   end
@@ -5969,6 +6057,10 @@ object GUIForm: TGUIForm
         ShortCut = 24796
         OnClick = miVideoScreenshotClick
       end
+      object miCopyText: TMenuItem
+        Caption = 'Copy Text Screen'
+        OnClick = miCopyTextClick
+      end
     end
     object Input: TMenuItem
       Caption = 'Input'
@@ -6453,6 +6545,10 @@ object GUIForm: TGUIForm
         Caption = 'Web Debugger'
         ShortCut = 24642
         OnClick = miToolsWebDebuggerClick
+      end
+      object miMemoryEdit: TMenuItem
+        Caption = 'Read/Write Memory'
+        OnClick = miMemoryEditClick
       end
     end
     object miHelp: TMenuItem

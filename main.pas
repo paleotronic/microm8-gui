@@ -22,6 +22,13 @@ type
   { TGUIForm }
 
   TGUIForm = class(TForm)
+    btnRead: TButton;
+    btnWrite: TButton;
+    btnHide: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    miMemoryEdit: TMenuItem;
+    miCopyText: TMenuItem;
     miPasteText: TMenuItem;
     N12: TMenuItem;
     N11: TMenuItem;
@@ -82,6 +89,8 @@ type
     backdrop: TImage;
     Image1: TImage;
     odFreezeFiles: TOpenDialog;
+    pnlMemButtons: TPanel;
+    pnlMemory: TPanel;
     pnlContainer: TPanel;
     ProfileMenu: TPopupMenu;
     RecordingMenu: TPopupMenu;
@@ -302,7 +311,12 @@ type
     tbRMColor: TToolButton;
     tbMasterVolume: TTrackBar;
     TrackBar2: TTrackBar;
+    txtAddress: TEdit;
+    txtValue: TEdit;
     procedure backdropClick(Sender: TObject);
+    procedure btnHideClick(Sender: TObject);
+    procedure btnReadClick(Sender: TObject);
+    procedure btnWriteClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CheckTimerTimer(Sender: TObject);
     procedure DiskMenuClose(Sender: TObject);
@@ -357,6 +371,7 @@ type
     procedure miColorDotsClick(Sender: TObject);
     procedure miColorRasterClick(Sender: TObject);
     procedure miColorVoxelsClick(Sender: TObject);
+    procedure miCopyTextClick(Sender: TObject);
     procedure miCPU6502Click(Sender: TObject);
     procedure miCPUTypeClick(Sender: TObject);
     procedure miCPUWarpClick(Sender: TObject);
@@ -402,6 +417,7 @@ type
     procedure miJSAxisSwapClick(Sender: TObject);
     procedure miJSXRevClick(Sender: TObject);
     procedure miJSYRevClick(Sender: TObject);
+    procedure miMemoryEditClick(Sender: TObject);
     procedure miMMHelpClick(Sender: TObject);
     procedure miMonoDotsClick(Sender: TObject);
     procedure miMonoRasterClick(Sender: TObject);
@@ -472,6 +488,8 @@ type
     procedure ToolTimerTimer(Sender: TObject);
     procedure tbMasterVolumeChange(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
+    procedure txtAddressKeyPress(Sender: TObject; var Key: char);
+    procedure txtValueKeyPress(Sender: TObject; var Key: char);
     procedure UpdateRenderMode;
     procedure UnFreeze;
     procedure HideM8;
@@ -820,6 +838,14 @@ begin
    UpdateConfig( 'video/init.video.hgrmode',  '1', true );
 end;
 
+procedure TGUIForm.miCopyTextClick(Sender: TObject);
+var
+  s: string;
+begin
+  s := SimpleGet(baseUrl+'/api/control/memory/screen/text');
+  ClipBoard.SetAsHTML( s, s );
+end;
+
 procedure TGUIForm.miCPU6502Click(Sender: TObject);
 begin
   UpdateConfig('hardware/current.cpu.model', TMenuItem(sender).Caption, false );
@@ -1145,6 +1171,11 @@ begin
         UpdateConfig( 'input/init.joystick.reversey', '0', true )
   else
        UpdateConfig( 'input/init.joystick.reversey', '1', true );
+end;
+
+procedure TGUIForm.miMemoryEditClick(Sender: TObject);
+begin
+  pnlMemory.Visible := (not pnlMemory.Visible);
 end;
 
 procedure TGUIForm.miMMHelpClick(Sender: TObject);
@@ -1590,7 +1621,7 @@ end;
 
 procedure TGUIForm.miToolsClick(Sender: TObject);
 begin
-
+  miMemoryEdit.Checked := pnlMemory.Visible;
 end;
 
 procedure TGUIForm.miToolsTrackerClick(Sender: TObject);
@@ -1956,6 +1987,22 @@ begin
   end;
 end;
 
+procedure TGUIForm.txtAddressKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+  begin
+       btnReadClick(sender);
+  end;
+end;
+
+procedure TGUIForm.txtValueKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+  begin
+       btnWriteClick(sender);
+  end;
+end;
+
 procedure TGUIForm.UnFreeze;
 begin
        SimpleGet(baseUrl + '/api/control/window/unfreeze');
@@ -2312,6 +2359,44 @@ begin
 
 end;
 
+procedure TGUIForm.btnHideClick(Sender: TObject);
+begin
+  pnlMemory.Visible := false;
+end;
+
+procedure TGUIForm.btnReadClick(Sender: TObject);
+var
+  addr: string;
+  r: string;
+begin
+  try
+    addr := IntToStr( StrToInt(txtAddress.Text) );
+    r := SimpleGet(baseUrl+'/api/control/memory/read/'+addr);
+    txtValue.Text := '$' + IntToHex( StrToInt(r), 2 );
+  except
+    on e: Exception do begin
+       // don't update
+    end;
+  end;
+end;
+
+procedure TGUIForm.btnWriteClick(Sender: TObject);
+var
+  addr, value: string;
+  r: string;
+begin
+  try
+    addr := IntToStr( StrToInt(txtAddress.Text) );
+    value := IntToStr( StrToInt(txtValue.Text) );
+    r := SimpleGet(baseUrl+'/api/control/memory/write/'+addr+'/'+value);
+    txtValue.Text := '$' + IntToHex( StrToInt(r), 2 );
+  except
+    on e: Exception do begin
+       // don't update
+    end;
+  end;
+end;
+
 {$IFDEF WINDOWS}
 function TGUIForm.GetTitleOfActiveWindow: string;
 var
@@ -2345,8 +2430,8 @@ procedure TGUIForm.CheckTimerTimer(Sender: TObject);
 begin
   if isFS then
      exit;
-  if MilliSecondsBetween(Now(), lastFocusLostTime) < 250 then
-     exit;
+  //if MilliSecondsBetween(Now(), lastFocusLostTime) < 250 then
+  //   exit;
   if WindowState = wsMinimized then
      exit;
   if disableFocusStealing then
