@@ -2424,7 +2424,7 @@ end;
 procedure TGUIForm.btnHideClick(Sender: TObject);
 begin
   pnlMemory.Visible := false;
-  ReposWindow;
+  WaitRepos.Enabled := true;
 end;
 
 procedure TGUIForm.btnReadClick(Sender: TObject);
@@ -2798,8 +2798,16 @@ end;
 procedure TGUIForm.MenuItem14Click(Sender: TObject);
 begin
   { do fullscreen here }
-  UpdateConfig('video/current.fullscreen', '1', false);
-  isFS := true;
+  case GetConfig( 'video/current.fullscreen' ) of
+  '0': begin
+            UpdateConfig('video/current.fullscreen', '1', false);
+            isFS := true;
+       end;
+  '1': begin:
+             UpdateConfig('video/current.fullscreen', '0', false);
+            isFS := false;
+       end;
+  end;
 end;
 
 procedure TGUIForm.MenuItem15Click(Sender: TObject);
