@@ -5478,6 +5478,7 @@ object GUIForm: TGUIForm
       ParentColor = False
       TabOrder = 2
       Visible = False
+      OnResize = pnlMemoryResize
       object txtAddress: TEdit
         Left = 136
         Height = 23
@@ -10434,7 +10435,7 @@ object GUIForm: TGUIForm
   end
   object CheckTimer: TTimer
     Enabled = False
-    Interval = 250
+    Interval = 50
     OnTimer = CheckTimerTimer
     left = 168
     top = 104

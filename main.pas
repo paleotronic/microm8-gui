@@ -472,6 +472,7 @@ type
     procedure miVMClick(Sender: TObject);
     procedure miWarp25Click(Sender: TObject);
     procedure MouseTimerTimer(Sender: TObject);
+    procedure pnlMemoryResize(Sender: TObject);
     procedure sidecarPanelResize(Sender: TObject);
     procedure tbCapsModeClick(Sender: TObject);
     procedure tbFullscreenClick(Sender: TObject);
@@ -1188,6 +1189,7 @@ end;
 procedure TGUIForm.miMemoryEditClick(Sender: TObject);
 begin
   pnlMemory.Visible := (not pnlMemory.Visible);
+  ReposWindow;
 end;
 
 procedure TGUIForm.miMMHelpClick(Sender: TObject);
@@ -1730,6 +1732,11 @@ begin
                SendMouseState( x - longint(p.X), y - longint(p.Y) );
           end;
      end;
+end;
+
+procedure TGUIForm.pnlMemoryResize(Sender: TObject);
+begin
+
 end;
 
 procedure TGUIForm.sidecarPanelResize(Sender: TObject);
@@ -2374,6 +2381,7 @@ end;
 procedure TGUIForm.btnHideClick(Sender: TObject);
 begin
   pnlMemory.Visible := false;
+  ReposWindow;
 end;
 
 procedure TGUIForm.btnReadClick(Sender: TObject);
