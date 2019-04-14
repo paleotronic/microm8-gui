@@ -10434,7 +10434,7 @@ object GUIForm: TGUIForm
   end
   object CheckTimer: TTimer
     Enabled = False
-    Interval = 250
+    Interval = 125
     OnTimer = CheckTimerTimer
     left = 168
     top = 104

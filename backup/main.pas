@@ -488,6 +488,7 @@ type
     procedure ToolTimerTimer(Sender: TObject);
     procedure tbMasterVolumeChange(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
+    procedure txtAddressKeyPress(Sender: TObject; var Key: char);
     procedure txtValueKeyPress(Sender: TObject; var Key: char);
     procedure UpdateRenderMode;
     procedure UnFreeze;
@@ -527,6 +528,7 @@ type
     procedure UpdateRecordState;
     function  IsMouseBtnDown(const AMouseBtn: TMouseBtnType): Boolean;
     function  IsMouseBtnDown: Boolean;
+    function  IsMicroM8Active: boolean;
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -537,6 +539,7 @@ type
     inPopup: boolean;
     isFS: boolean;
     disableFocusStealing: boolean;
+    guiActive: boolean;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -617,8 +620,17 @@ begin
   Application.OnActivate:=@AppActivate;
 end;
 
+function TGUIForm.IsMicroM8Active: boolean;
+begin
+  result := false;
+  if guiActive then
+     exit;
+  result := GetTitleOfActiveWindow = 'microM8';
+end;
+
 procedure TGUIForm.AppActivate(Sender: TObject);
 begin
+     guiActive := true;
      //StatusBar1.SimpleText := 'App has gained focus!';
      if MillisecondsBetween(Now(), lastHideTime) < 1000 then
       exit;
@@ -628,6 +640,7 @@ end;
 
 procedure TGUIForm.AppDeactivate(Sender: TObject);
 begin
+     guiActive := false;
      // if we have deactivated because of a click on the main window
      // then sort it...
 
@@ -635,7 +648,7 @@ begin
       exit;
 
      RepaintWindow;
-     if GetTitleOfActiveWindow <> 'microM8' then
+     if not IsMicroM8Active then
         HideM8
      else
        begin
@@ -1986,6 +1999,14 @@ begin
   end;
 end;
 
+procedure TGUIForm.txtAddressKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+  begin
+       btnReadClick(sender);
+  end;
+end;
+
 procedure TGUIForm.txtValueKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
@@ -2429,7 +2450,7 @@ begin
      exit;
   //if hidden then
   //   exit;
-  if GetTitleOfActiveWindow = 'microM8' then
+  if IsMicroM8Active then
    begin
 
      {$IFDEF WINDOWS}

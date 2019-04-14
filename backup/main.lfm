@@ -5483,6 +5483,7 @@ object GUIForm: TGUIForm
         Height = 23
         Top = 8
         Width = 80
+        OnKeyPress = txtAddressKeyPress
         TabStop = False
         TabOrder = 1
         Text = '$0400'
