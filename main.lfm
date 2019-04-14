@@ -6063,6 +6063,21 @@ object GUIForm: TGUIForm
         Caption = 'Copy Text Screen'
         OnClick = miCopyTextClick
       end
+      object N13: TMenuItem
+        Caption = '-'
+      end
+      object miCamera: TMenuItem
+        Caption = 'Camera'
+        OnClick = miCameraClick
+        object miCameraMouseControl: TMenuItem
+          Caption = 'Mouse Control'
+          OnClick = miCameraMouseControlClick
+        end
+        object miCameraAlternateControls: TMenuItem
+          Caption = 'Alternate Controls'
+          OnClick = miCameraAlternateControlsClick
+        end
+      end
     end
     object Input: TMenuItem
       Caption = 'Input'

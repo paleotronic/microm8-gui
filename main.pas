@@ -27,6 +27,10 @@ type
     btnHide: TButton;
     Label1: TLabel;
     Label2: TLabel;
+    miCameraMouseControl: TMenuItem;
+    miCameraAlternateControls: TMenuItem;
+    miCamera: TMenuItem;
+    N13: TMenuItem;
     miMemoryEdit: TMenuItem;
     miCopyText: TMenuItem;
     miPasteText: TMenuItem;
@@ -369,6 +373,9 @@ type
     procedure miAR100Click(Sender: TObject);
     procedure miARClick(Sender: TObject);
     procedure miAudioClick(Sender: TObject);
+    procedure miCameraAlternateControlsClick(Sender: TObject);
+    procedure miCameraClick(Sender: TObject);
+    procedure miCameraMouseControlClick(Sender: TObject);
     procedure miColorDotsClick(Sender: TObject);
     procedure miColorRasterClick(Sender: TObject);
     procedure miColorVoxelsClick(Sender: TObject);
@@ -850,6 +857,40 @@ procedure TGUIForm.miAudioClick(Sender: TObject);
 begin
    // muted
    miSNDMuted.Checked := GetConfig('audio/init.master.mute') = '1';
+end;
+
+procedure TGUIForm.miCameraAlternateControlsClick(Sender: TObject);
+begin
+  if GetConfig('video/current.mousemovecamera.alternate') = '1' then
+  begin
+      UpdateConfig('video/current.mousemovecamera.alternate', '0', false);
+      SendOSDMessage('Alternate Camera Mouse control disabled');
+  end
+  else
+  begin
+      UpdateConfig('video/current.mousemovecamera.alternate', '1', false);
+      SendOSDMessage('Alternate Camera Mouse control enabled');
+  end;
+end;
+
+procedure TGUIForm.miCameraClick(Sender: TObject);
+begin
+  miCameraMouseControl.Checked := GetConfig('video/current.mousemovecamera.enabled') = '1';
+  miCameraAlternateControls.Checked := GetConfig('video/current.mousemovecamera.alternate') = '1';
+end;
+
+procedure TGUIForm.miCameraMouseControlClick(Sender: TObject);
+begin
+  if GetConfig('video/current.mousemovecamera.enabled') = '1' then
+  begin
+      UpdateConfig('video/current.mousemovecamera.enabled', '0', false);
+      SendOSDMessage('Camera Mouse control disabled');
+  end
+  else
+  begin
+      UpdateConfig('video/current.mousemovecamera.enabled', '1', false);
+      SendOSDMessage('Camera Mouse control enabled');
+  end;
 end;
 
 procedure TGUIForm.miColorDotsClick(Sender: TObject);
