@@ -329,7 +329,6 @@ object GUIForm: TGUIForm
     BevelOuter = bvNone
     ClientHeight = 589
     ClientWidth = 1014
-    Color = clAqua
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel

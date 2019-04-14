@@ -963,6 +963,7 @@ end;
 
 procedure TGUIForm.miD1FileClick(Sender: TObject);
 begin
+     odDiskImages.FilterIndex := 1;
      RepaintWindow;
      HideM8;
      if odDiskImages.Execute then
@@ -979,6 +980,7 @@ end;
 
 procedure TGUIForm.miD2FileClick(Sender: TObject);
 begin
+  odDiskImages.FilterIndex := 1;
   RepaintWindow;
   HideM8;
   if odDiskImages.Execute then
