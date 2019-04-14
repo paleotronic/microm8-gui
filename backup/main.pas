@@ -27,6 +27,8 @@ type
     btnHide: TButton;
     Label1: TLabel;
     Label2: TLabel;
+    miCameraReset: TMenuItem;
+    N15: TMenuItem;
     miPRFReboot: TMenuItem;
     N14: TMenuItem;
     miCameraMouseControl: TMenuItem;
@@ -378,6 +380,7 @@ type
     procedure miCameraAlternateControlsClick(Sender: TObject);
     procedure miCameraClick(Sender: TObject);
     procedure miCameraMouseControlClick(Sender: TObject);
+    procedure miCameraResetClick(Sender: TObject);
     procedure miColorDotsClick(Sender: TObject);
     procedure miColorRasterClick(Sender: TObject);
     procedure miColorVoxelsClick(Sender: TObject);
@@ -894,6 +897,11 @@ begin
       UpdateConfig('video/current.mousemovecamera.enabled', '1', false);
       SendOSDMessage('Camera Mouse control enabled');
   end;
+end;
+
+procedure TGUIForm.miCameraResetClick(Sender: TObject);
+begin
+  SimpleGet(baseUrl+'/api/control/system/camera/reset');
 end;
 
 procedure TGUIForm.miColorDotsClick(Sender: TObject);

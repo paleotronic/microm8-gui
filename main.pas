@@ -902,6 +902,8 @@ end;
 procedure TGUIForm.miCameraResetClick(Sender: TObject);
 begin
   SimpleGet(baseUrl+'/api/control/system/camera/reset');
+  UpdateConfig('video/current.mousemovecamera.enabled', '0', false)
+  UpdateConfig('video/current.mousemovecamera.alternate', '0', false)
 end;
 
 procedure TGUIForm.miColorDotsClick(Sender: TObject);
