@@ -2667,6 +2667,10 @@ const
 	CSR_DOWN  = $e003;
         CTRL_A = $e041;
         SHIFT_CTRL_A = $e071;
+        PAGE_UP   = $e004;
+	PAGE_DOWN = $e005;
+	SHIFT_CSR_LEFT  = $e05b;
+	SHIFT_CSR_RIGHT = $e05c;
 begin
   case Key of
   219:
@@ -2724,10 +2728,22 @@ begin
        Result := Ord('~')
       else
         Result := Ord('`');
-  VK_Up: Result := CSR_UP;
-  VK_Down: Result := CSR_DOWN;
-  VK_Left: Result := CSR_LEFT;
-  VK_Right: Result := CSR_RIGHT;
+  VK_Up: if (ssShift in Shift) then
+              Result := PAGE_UP
+           else
+              Result := CSR_UP;
+  VK_Down: if (ssShift in Shift) then
+              Result := PAGE_DOWN
+           else
+              Result := CSR_DOWN;
+  VK_Left: if (ssShift in Shift) then
+              Result := SHIFT_CSR_LEFT
+           else
+              Result := CSR_LEFT;
+  VK_Right: if (ssShift in Shift) then
+              Result := SHIFT_CSR_RIGHT
+           else
+              Result := CSR_RIGHT;
   VK_0..VK_9:
   begin
       if ssShift in Shift then
