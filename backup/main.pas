@@ -1309,6 +1309,8 @@ begin
 end;
 
 procedure TGUIForm.miPRFIIplusClick(Sender: TObject);
+var
+  reply: integer;
 begin
       RepaintWindow;
   HideM8;
