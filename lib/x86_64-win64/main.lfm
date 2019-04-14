@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 102
+  Left = 116
   Height = 668
-  Top = 82
+  Top = 91
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -10465,7 +10465,7 @@ object GUIForm: TGUIForm
   object odDiskImages: TOpenDialog
     Title = 'Open Disk Image'
     DefaultExt = '.*'
-    Filter = 'Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
+    Filter = 'All Floppy Images|*.dsk; *.do; *.po; *.woz; *.nib|All HDD Images|*.po; *.2mg; *.hdv|Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
     left = 24
     top = 104
   end

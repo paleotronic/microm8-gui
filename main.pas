@@ -730,6 +730,7 @@ begin
          Image1.PopupMenu := nil;
            case bi of
            0: begin
+                      odDiskImages.FilterIndex := 1;
                       if Button = mbRight then
                       begin
                         DiskMenu.Tag := 0;
@@ -747,6 +748,7 @@ begin
                       end;
            end;
            1: begin
+                      odDiskImages.FilterIndex := 1;
                       if Button = mbRight then
                       begin
                         DiskMenu.Tag := 1;
@@ -770,6 +772,7 @@ begin
 
            3: begin
                       {smart port}
+                      odDiskImages.FilterIndex := 2;
                       if Button = mbRight then
                       begin
                         DiskMenu.Tag := 2;
@@ -902,8 +905,8 @@ end;
 procedure TGUIForm.miCameraResetClick(Sender: TObject);
 begin
   SimpleGet(baseUrl+'/api/control/system/camera/reset');
-  UpdateConfig('video/current.mousemovecamera.enabled', '0', false)
-  UpdateConfig('video/current.mousemovecamera.alternate', '0', false)
+  UpdateConfig('video/current.mousemovecamera.enabled', '0', false);
+  UpdateConfig('video/current.mousemovecamera.alternate', '0', false);
 end;
 
 procedure TGUIForm.miColorDotsClick(Sender: TObject);
@@ -960,6 +963,7 @@ end;
 
 procedure TGUIForm.miD1FileClick(Sender: TObject);
 begin
+     odDiskImages.FilterIndex := 1;
      RepaintWindow;
      HideM8;
      if odDiskImages.Execute then
@@ -976,6 +980,7 @@ end;
 
 procedure TGUIForm.miD2FileClick(Sender: TObject);
 begin
+  odDiskImages.FilterIndex := 1;
   RepaintWindow;
   HideM8;
   if odDiskImages.Execute then
