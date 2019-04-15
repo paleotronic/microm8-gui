@@ -2820,6 +2820,8 @@ begin
   isSuper := (ssSuper in Shift);
   isHyper := (ssHyper in Shift);
 
+  keydesc := '';
+
   if isAltGr then
    keydesc := 'AltGr';
 
