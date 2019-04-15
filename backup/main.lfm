@@ -5764,6 +5764,249 @@ object GUIForm: TGUIForm
         OnClick = MenuItem2Click
       end
     end
+    object miAudio: TMenuItem
+      Caption = 'Audio'
+      OnClick = miAudioClick
+      object miSNDMuted: TMenuItem
+        Caption = 'Mute'
+        OnClick = miSNDMutedClick
+      end
+      object miSNDMaster: TMenuItem
+        Caption = 'Master Volume'
+        OnClick = miSNDMasterClick
+        object miMVOL000: TMenuItem
+          Caption = '0'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL010: TMenuItem
+          Caption = '1'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL020: TMenuItem
+          Caption = '2'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL030: TMenuItem
+          Caption = '3'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL040: TMenuItem
+          Caption = '4'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL050: TMenuItem
+          Caption = '5'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL060: TMenuItem
+          Caption = '6'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL070: TMenuItem
+          Caption = '7'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL080: TMenuItem
+          Caption = '8'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL090: TMenuItem
+          Caption = '9'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL100: TMenuItem
+          Caption = '10'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+      end
+      object miSNDSpeaker: TMenuItem
+        Caption = 'Speaker Volume'
+        OnClick = miSNDSpeakerClick
+        object miSVOL000: TMenuItem
+          Caption = '0'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL010: TMenuItem
+          Caption = '1'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL020: TMenuItem
+          Caption = '2'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL030: TMenuItem
+          Caption = '3'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL040: TMenuItem
+          Caption = '4'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL050: TMenuItem
+          Caption = '5'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL060: TMenuItem
+          Caption = '6'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL070: TMenuItem
+          Caption = '7'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL080: TMenuItem
+          Caption = '8'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL090: TMenuItem
+          Caption = '9'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL100: TMenuItem
+          Caption = '10'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+      end
+      object miSNDMockingboard: TMenuItem
+        Caption = 'Mockingboard'
+        object miSNDPSG0: TMenuItem
+          Caption = 'PSG0 Balance'
+          OnClick = miSNDPSG0Click
+          object miPSG0m100: TMenuItem
+            Tag = -100
+            Caption = 'Left'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0m75: TMenuItem
+            Tag = -75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0m50: TMenuItem
+            Tag = -50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0m25: TMenuItem
+            Tag = -25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p0: TMenuItem
+            Caption = 'Center'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p25: TMenuItem
+            Tag = 25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p50: TMenuItem
+            Tag = 50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p75: TMenuItem
+            Tag = 75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p100: TMenuItem
+            Tag = 100
+            Caption = 'Right'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+        end
+        object miSNDPSG1: TMenuItem
+          Caption = 'PSG1 Balance'
+          OnClick = miSNDPSG1Click
+          object miPSG1m100: TMenuItem
+            Tag = -100
+            Caption = 'Left'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1m75: TMenuItem
+            Tag = -75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1m50: TMenuItem
+            Tag = -50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1m25: TMenuItem
+            Tag = -25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p0: TMenuItem
+            Caption = 'Center'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p25: TMenuItem
+            Tag = 25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p50: TMenuItem
+            Tag = 50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p75: TMenuItem
+            Tag = 75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p100: TMenuItem
+            Tag = 100
+            Caption = 'Right'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+        end
+      end
+    end
     object miVideo: TMenuItem
       Caption = 'Video'
       object miScanLineInt: TMenuItem
@@ -6155,249 +6398,6 @@ object GUIForm: TGUIForm
       object miPasteText: TMenuItem
         Caption = 'Paste'
         OnClick = miPasteTextClick
-      end
-    end
-    object miAudio: TMenuItem
-      Caption = 'Audio'
-      OnClick = miAudioClick
-      object miSNDMuted: TMenuItem
-        Caption = 'Mute'
-        OnClick = miSNDMutedClick
-      end
-      object miSNDMaster: TMenuItem
-        Caption = 'Master Volume'
-        OnClick = miSNDMasterClick
-        object miMVOL000: TMenuItem
-          Caption = '0'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL010: TMenuItem
-          Caption = '1'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL020: TMenuItem
-          Caption = '2'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL030: TMenuItem
-          Caption = '3'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL040: TMenuItem
-          Caption = '4'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL050: TMenuItem
-          Caption = '5'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL060: TMenuItem
-          Caption = '6'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL070: TMenuItem
-          Caption = '7'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL080: TMenuItem
-          Caption = '8'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL090: TMenuItem
-          Caption = '9'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL100: TMenuItem
-          Caption = '10'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-      end
-      object miSNDSpeaker: TMenuItem
-        Caption = 'Speaker Volume'
-        OnClick = miSNDSpeakerClick
-        object miSVOL000: TMenuItem
-          Caption = '0'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL010: TMenuItem
-          Caption = '1'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL020: TMenuItem
-          Caption = '2'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL030: TMenuItem
-          Caption = '3'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL040: TMenuItem
-          Caption = '4'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL050: TMenuItem
-          Caption = '5'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL060: TMenuItem
-          Caption = '6'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL070: TMenuItem
-          Caption = '7'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL080: TMenuItem
-          Caption = '8'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL090: TMenuItem
-          Caption = '9'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL100: TMenuItem
-          Caption = '10'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-      end
-      object miSNDMockingboard: TMenuItem
-        Caption = 'Mockingboard'
-        object miSNDPSG0: TMenuItem
-          Caption = 'PSG0 Balance'
-          OnClick = miSNDPSG0Click
-          object miPSG0m100: TMenuItem
-            Tag = -100
-            Caption = 'Left'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0m75: TMenuItem
-            Tag = -75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0m50: TMenuItem
-            Tag = -50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0m25: TMenuItem
-            Tag = -25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p0: TMenuItem
-            Caption = 'Center'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p25: TMenuItem
-            Tag = 25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p50: TMenuItem
-            Tag = 50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p75: TMenuItem
-            Tag = 75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p100: TMenuItem
-            Tag = 100
-            Caption = 'Right'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-        end
-        object miSNDPSG1: TMenuItem
-          Caption = 'PSG1 Balance'
-          OnClick = miSNDPSG1Click
-          object miPSG1m100: TMenuItem
-            Tag = -100
-            Caption = 'Left'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1m75: TMenuItem
-            Tag = -75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1m50: TMenuItem
-            Tag = -50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1m25: TMenuItem
-            Tag = -25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p0: TMenuItem
-            Caption = 'Center'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p25: TMenuItem
-            Tag = 25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p50: TMenuItem
-            Tag = 50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p75: TMenuItem
-            Tag = 75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p100: TMenuItem
-            Tag = 100
-            Caption = 'Right'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-        end
       end
     end
     object miHardware: TMenuItem

@@ -2796,82 +2796,95 @@ const
 	PAGE_DOWN = $e005;
 	SHIFT_CSR_LEFT  = $e05b;
 	SHIFT_CSR_RIGHT = $e05c;
+var
+  isShift: boolean;
+  isCtrl: boolean;
+  isAlt: boolean;
 begin
+
+  isShift := (ssShift in Shift);
+  isCtrl  := (ssCtrl in Shift);
+  isAlt   := (ssAlt in Shift);
+
   case Key of
   219:
-        if ssShift in Shift then
-       Result := Ord('{')
+      if (isShift and not isCtrl) then
+        Result := Ord('{')
+      else if not isShift then
+        Result := Ord('[')
       else
-        Result := Ord('[');
+        Result := 0;
   221:
-              if ssShift in Shift then
-       Result := Ord('}')
+      if (isShift and not isCtrl) then
+        Result := Ord('}')
+      else if not isShift then
+        Result := Ord(']')
       else
-        Result := Ord(']');
+        Result := 0;
   222:
-              if ssShift in Shift then
+      if (isShift and not isCtrl) then
        Result := Ord('"')
       else
         Result := Ord('''');
   186:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord(':')
       else
         Result := Ord(';');
   220:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord('|')
       else
         Result := Ord('\');
   191:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord('?')
       else
         Result := Ord('/');
   190:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord('>')
       else
         Result := Ord('.');
   188:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord('<')
       else
         Result := Ord(',');
   187:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord('+')
       else
         Result := Ord('=');
   189:
-              if ssShift in Shift then
+              if (isShift and not isCtrl) then
        Result := Ord('_')
       else
         Result := Ord('-');
   192:
-      if ssShift in Shift then
+      if (isShift and not isCtrl) then
        Result := Ord('~')
       else
         Result := Ord('`');
-  VK_Up: if (ssShift in Shift) then
+  VK_Up: if (isShift and not isCtrl) then
               Result := PAGE_UP
            else
               Result := CSR_UP;
-  VK_Down: if (ssShift in Shift) then
+  VK_Down: if (isShift and not isCtrl) then
               Result := PAGE_DOWN
            else
               Result := CSR_DOWN;
-  VK_Left: if (ssShift in Shift) then
+  VK_Left: if (isShift and not isCtrl) then
               Result := SHIFT_CSR_LEFT
            else
               Result := CSR_LEFT;
-  VK_Right: if (ssShift in Shift) then
+  VK_Right: if (isShift and not isCtrl) then
               Result := SHIFT_CSR_RIGHT
            else
               Result := CSR_RIGHT;
   VK_0..VK_9:
   begin
-      if ssShift in Shift then
+      if (isShift and not isCtrl) then
       case Key of
        VK_0: Result := Ord(')');
        VK_9: Result := Ord('(');
@@ -2889,7 +2902,7 @@ begin
   end;
   VK_A..VK_Z:
   begin
-             if (ssCtrl in Shift) and (ssShift in Shift) then
+             if (isShift and isCtrl) then
              begin
               //StatusBar1.SimpleText := 'Shift+Ctrl+'+char(Key);
               Result := (Integer(Key) - 65) + SHIFT_CTRL_A;
@@ -2927,8 +2940,12 @@ end;
 
 procedure TGUIForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
   );
+var
+  code: integer;
 begin
-  SendKey( MapKeyCode(Key, Shift), 0, 1, MapShiftState(Key, Shift) );
+  code := MapKeyCode(Key,Shift);
+  SendKey( code, 0, 1, MapShiftState(Key, Shift) );
+  StatusBar1.SimpleText := 'keycode = '+IntToStr(code);
 end;
 
 procedure TGUIForm.FormKeyPress(Sender: TObject; var Key: char);
