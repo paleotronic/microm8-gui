@@ -2844,7 +2844,7 @@ begin
   if isExtra2 then
    keydesc := 'Extra2';
 
-  if isAlt then
+  if isAlt or isMeta then
   begin
     result := OPEN_APPLE;
     keydesc := 'Alt';
@@ -2991,7 +2991,7 @@ begin
   code := MapKeyCode(Key,Shift);
   if code <> 0 then
      SendKey( code, 0, 1, MapShiftState(Key, Shift) );
-  StatusBar1.SimpleText := keydesc;
+  //StatusBar1.SimpleText := keydesc;
 end;
 
 procedure TGUIForm.FormKeyPress(Sender: TObject; var Key: char);
