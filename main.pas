@@ -2954,7 +2954,7 @@ begin
   code := MapKeyCode(Key,Shift);
   if code <> 0 then
      SendKey( code, 0, 1, MapShiftState(Key, Shift) );
-  //StatusBar1.SimpleText := 'keycode = '+IntToStr(code);
+  StatusBar1.SimpleText := 'keycode = '+IntToStr(code);
 end;
 
 procedure TGUIForm.FormKeyPress(Sender: TObject; var Key: char);
