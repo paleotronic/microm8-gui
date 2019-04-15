@@ -2839,10 +2839,10 @@ begin
    keydesc := 'Hyper';
 
   if isExtra1 then
-   keydesc := 'Extra1'
+   keydesc := 'Extra1';
 
   if isExtra2 then
-   keydesc := 'Extra2'
+   keydesc := 'Extra2';
 
   if isAlt then
   begin

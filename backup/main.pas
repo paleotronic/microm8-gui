@@ -2809,6 +2809,8 @@ var
   isMeta: boolean;
   isSuper: boolean;
   isHyper: boolean;
+  isExtra1: boolean;
+  isExtra2: boolean;
   s: string;
 begin
 
@@ -2819,6 +2821,8 @@ begin
   isMeta  := (ssMeta in Shift);
   isSuper := (ssSuper in Shift);
   isHyper := (ssHyper in Shift);
+  isExtra1 := (ssExtra1 in Shift);
+  isExtra2 := (ssExtra2 in Shift);
 
   keydesc := '';
 
@@ -2833,6 +2837,12 @@ begin
 
   if isHyper then
    keydesc := 'Hyper';
+
+  if isExtra1 then
+   keydesc := 'Extra1'
+
+  if isExtra2 then
+   keydesc := 'Extra2'
 
   if isAlt then
   begin
