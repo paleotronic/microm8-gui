@@ -2784,6 +2784,9 @@ begin
   HideM8;
 end;
 
+var
+  keydesc: string;
+
 function MapKeyCode( Key: Word; Shift: TShiftState ): integer;
 const
   	CSR_LEFT  = $e000;
@@ -2802,15 +2805,39 @@ var
   isShift: boolean;
   isCtrl: boolean;
   isAlt: boolean;
+  isAltGr: boolean;
+  isMeta: boolean;
+  isSuper: boolean;
+  isHyper: boolean;
+  s: string;
 begin
 
   isShift := (ssShift in Shift);
   isCtrl  := (ssCtrl in Shift);
   isAlt   := (ssAlt in Shift);
+  isAltGr := (ssAltGr in Shift);
+  isMeta  := (ssMeta in Shift);
+  isSuper := (ssSuper in Shift);
+  isHyper := (ssHyper in Shift);
+
+  keydesc := '';
+
+  if isAltGr then
+   keydesc := 'AltGr';
+
+  if isMeta then
+   keydesc := 'Meta';
+
+  if isSuper then
+   keydesc := 'Super';
+
+  if isHyper then
+   keydesc := 'Hyper';
 
   if isAlt then
   begin
     result := OPEN_APPLE;
+    keydesc := 'Alt';
     exit;
   end;
 
@@ -2954,7 +2981,7 @@ begin
   code := MapKeyCode(Key,Shift);
   if code <> 0 then
      SendKey( code, 0, 1, MapShiftState(Key, Shift) );
-  StatusBar1.SimpleText := 'keycode = '+IntToStr(code);
+  StatusBar1.SimpleText := keydesc;
 end;
 
 procedure TGUIForm.FormKeyPress(Sender: TObject; var Key: char);
