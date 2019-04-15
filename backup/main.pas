@@ -25,8 +25,11 @@ type
     btnRead: TButton;
     btnWrite: TButton;
     btnHide: TButton;
+    SPMenu: TPopupMenu;
     Label1: TLabel;
     Label2: TLabel;
+    miSPConnect: TMenuItem;
+    miSPMenuEject: TMenuItem;
     miOpenPAK: TMenuItem;
     N16: TMenuItem;
     miCameraReset: TMenuItem;
@@ -779,8 +782,8 @@ begin
                       odDiskImages.FilterIndex := 2;
                       if Button = mbRight then
                       begin
-                        DiskMenu.Tag := 2;
-                        DiskMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+                        SPMenu.Tag := 2;
+                        SPMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
                       end
                         else
                          begin
@@ -2669,8 +2672,8 @@ const
         SHIFT_CTRL_A = $e071;
         PAGE_UP   = $e004;
 	PAGE_DOWN = $e005;
-	SHIFT_LEFT  = $e014;
-	SHIFT_RIGHT = $e015;
+	SHIFT_CSR_LEFT  = $e05b;
+	SHIFT_CSR_RIGHT = $e05c;
 begin
   case Key of
   219:
@@ -2737,11 +2740,11 @@ begin
            else
               Result := CSR_DOWN;
   VK_Left: if (ssShift in Shift) then
-              Result := SHIFT_LEFT
+              Result := SHIFT_CSR_LEFT
            else
               Result := CSR_LEFT;
   VK_Right: if (ssShift in Shift) then
-              Result := SHIFT_RIGHT
+              Result := SHIFT_CSR_RIGHT
            else
               Result := CSR_RIGHT;
   VK_0..VK_9:

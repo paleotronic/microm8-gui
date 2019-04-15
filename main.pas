@@ -25,8 +25,11 @@ type
     btnRead: TButton;
     btnWrite: TButton;
     btnHide: TButton;
+    SPMenu: TPopupMenu;
     Label1: TLabel;
     Label2: TLabel;
+    miSPConnect: TMenuItem;
+    miSPMenuEject: TMenuItem;
     miOpenPAK: TMenuItem;
     N16: TMenuItem;
     miCameraReset: TMenuItem;
@@ -779,8 +782,8 @@ begin
                       odDiskImages.FilterIndex := 2;
                       if Button = mbRight then
                       begin
-                        DiskMenu.Tag := 2;
-                        DiskMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+                        SPMenu.Tag := 2;
+                        SPMenu.PopUp(Mouse.CursorPos.X, Mouse.CursorPos.Y);
                       end
                         else
                          begin
@@ -1677,7 +1680,7 @@ end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
 begin
-      SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
+      StatusBar1.SimpleText := SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
 end;
 
 procedure TGUIForm.miSPFileClick(Sender: TObject);
