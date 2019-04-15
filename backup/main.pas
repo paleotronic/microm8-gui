@@ -497,6 +497,13 @@ type
     procedure tbCapsModeClick(Sender: TObject);
     procedure tbFullscreenClick(Sender: TObject);
     procedure tbJoystickAxisSwitchClick(Sender: TObject);
+    procedure tbMasterVolumeEnter(Sender: TObject);
+    procedure tbMasterVolumeKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure tbMasterVolumeMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure tbMasterVolumeMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure tbRMClick(Sender: TObject);
     procedure tbRMColorClick(Sender: TObject);
     procedure tbScanlinesClick(Sender: TObject);
@@ -509,6 +516,10 @@ type
     procedure ToolTimerTimer(Sender: TObject);
     procedure tbMasterVolumeChange(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
+    procedure TrackBar2MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure TrackBar2MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure txtAddressKeyPress(Sender: TObject; var Key: char);
     procedure txtValueKeyPress(Sender: TObject; var Key: char);
     procedure UpdateRenderMode;
@@ -564,6 +575,8 @@ type
     isFS: boolean;
     disableFocusStealing: boolean;
     guiActive: boolean;
+    VolPosition, WarpPosition: integer;
+    VolDrag, WarpDrag: boolean;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -1680,7 +1693,7 @@ end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
 begin
-      SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
+      StatusBar1.SimpleText := SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
 end;
 
 procedure TGUIForm.miSPFileClick(Sender: TObject);
@@ -1881,6 +1894,29 @@ begin
   UpdateJoystickAxis;
 end;
 
+procedure TGUIForm.tbMasterVolumeEnter(Sender: TObject);
+begin
+ //embedPanel.SetFocus;
+end;
+
+procedure TGUIForm.tbMasterVolumeKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  Key := VK_F1;
+end;
+
+procedure TGUIForm.tbMasterVolumeMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  VolDrag := true;
+end;
+
+procedure TGUIForm.tbMasterVolumeMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  VolDrag := false;
+end;
+
 procedure TGUIForm.UpdateJoystickAxis;
 begin
      case GetConfig( 'input/init.joystick.axis0' ) of
@@ -2060,6 +2096,13 @@ end;
 
 procedure TGUIForm.tbMasterVolumeChange(Sender: TObject);
 begin
+  {$IFDEF LINUX}
+  if not VolDrag then
+  begin
+    tbMasterVolume.Position := VolPosition;
+    exit;
+  end;
+  {$ENDIF}
   case TTrackBar(sender).Position of
   0: UpdateConfig( 'audio/init.master.volume', '0.0', false );
   1: UpdateConfig( 'audio/init.master.volume', '0.1', false );
@@ -2105,6 +2148,14 @@ end;
 
 procedure TGUIForm.TrackBar2Change(Sender: TObject);
 begin
+  {$IFDEF LINUX}
+  if not WarpDrag then
+  begin
+     TrackBar2.Position := WarpPosition;
+     exit;
+  end;
+  {$ENDIF}
+
   case TTrackBar(sender).Position of
   0: UpdateConfig( 'hardware/current.cpu.warp', '0.25', false);
   1: UpdateConfig( 'hardware/current.cpu.warp', '0.50', false);
@@ -2112,6 +2163,18 @@ begin
   3: UpdateConfig( 'hardware/current.cpu.warp', '2.00', false);
   4: UpdateConfig( 'hardware/current.cpu.warp', '4.00', false);
   end;
+end;
+
+procedure TGUIForm.TrackBar2MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  WarpDrag := true;
+end;
+
+procedure TGUIForm.TrackBar2MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  WarpDrag := false;
 end;
 
 procedure TGUIForm.txtAddressKeyPress(Sender: TObject; var Key: char);
@@ -2375,6 +2438,7 @@ var
   json, S, pval: string;
   Respo: TStringStream;
   f: TReplaceFlags;
+  d: double;
 begin
      pval := 'false';
      if persist then
@@ -2386,6 +2450,24 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/settings/update',json,Respo);
      S := Respo.DataString;
+
+     if path = 'audio/init.master.volume' then
+     begin
+          d := StrToFloat( value );
+          VolPosition := Round(10 * d);
+     end;
+
+     if path = 'hardware/current.cpu.warp' then
+     begin
+         case value of
+         '0.25': TrackBar2.Position := 0;
+         '0.50': TrackBar2.Position := 1;
+         '1.00': TrackBar2.Position := 2;
+         '2.00': TrackBar2.Position := 3;
+         '4.00': TrackBar2.Position := 4;
+         end;
+     end;
+
      //self.StatusBar1.SimpleText:=json;
      Respo.Destroy;
 end;
@@ -2395,6 +2477,7 @@ var
   json, S, pval: string;
   Respo: TStringStream;
   f: TReplaceFlags;
+  d: double;
 begin
      json := '{"path":"' + path +
              '"}';
@@ -2402,6 +2485,44 @@ begin
      SimpleFormPost(baseUrl + '/api/control/settings/get',json,Respo);
      Result := Respo.DataString;
      //self.StatusBar1.SimpleText:=json;
+
+     if path = 'audio/init.master.volume' then
+     begin
+          try
+            begin
+                 d := StrToFloat( Result );
+                 VolPosition := Round(10 * d)
+            end;
+          except
+            on e: Exception do
+            begin
+
+            end;
+          end;
+     end;
+
+
+     if path = 'hardware/current.cpu.warp' then
+     begin
+          try
+            begin
+                 d := StrToFloat(Result);
+                 case Round(d * 100) of
+                 25: WarpPosition := 0;
+                 50: WarpPosition := 1;
+                 100: WarpPosition := 2;
+                 200: WarpPosition := 3;
+                 400: WarpPosition := 4;
+                 end;
+            end;
+          except
+            on e: Exception do
+            begin
+
+            end;
+          end;
+     end;
+
      Respo.Destroy;
 end;
 

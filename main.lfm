@@ -241,6 +241,9 @@ object GUIForm: TGUIForm
       TabStop = False
       TickMarks = tmBoth
       TickStyle = tsManual
+      OnEnter = tbMasterVolumeEnter
+      OnMouseDown = tbMasterVolumeMouseDown
+      OnMouseUp = tbMasterVolumeMouseUp
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 0
@@ -283,6 +286,8 @@ object GUIForm: TGUIForm
       TabStop = False
       TickMarks = tmBoth
       TickStyle = tsManual
+      OnMouseDown = TrackBar2MouseDown
+      OnMouseUp = TrackBar2MouseUp
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 1
