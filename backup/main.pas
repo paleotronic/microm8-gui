@@ -2459,13 +2459,14 @@ begin
 
      if path = 'hardware/current.cpu.warp' then
      begin
-         case value of
-         '0.25': TrackBar2.Position := 0;
-         '0.50': TrackBar2.Position := 1;
-         '1.00': TrackBar2.Position := 2;
-         '2.00': TrackBar2.Position := 3;
-         '4.00': TrackBar2.Position := 4;
-         end;
+        d := StrToFloat(value);
+        case Round(d * 100) of
+        25: WarpPosition := 0;
+        50: WarpPosition := 1;
+        100: WarpPosition := 2;
+        200: WarpPosition := 3;
+        400: WarpPosition := 4;
+        end;
      end;
 
      //self.StatusBar1.SimpleText:=json;
