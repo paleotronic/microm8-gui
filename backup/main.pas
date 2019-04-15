@@ -821,9 +821,9 @@ begin
                            RepaintWindow;
                            HideM8;
                            reply := Application.MessageBox('Reboot the VM?', 'Reboot', MB_ICONQUESTION + MB_YESNO );
+                           ShowM8;
                            if reply = idYes then
                               SimpleGet(baseUrl + '/api/control/system/reboot');
-                           ShowM8;
                       end;
 
            end;
@@ -2796,6 +2796,8 @@ const
 	PAGE_DOWN = $e005;
 	SHIFT_CSR_LEFT  = $e05b;
 	SHIFT_CSR_RIGHT = $e05c;
+        OPEN_APPLE  = $e05d;
+	CLOSE_APPLE = $e05e;
 var
   isShift: boolean;
   isCtrl: boolean;
@@ -2805,6 +2807,12 @@ begin
   isShift := (ssShift in Shift);
   isCtrl  := (ssCtrl in Shift);
   isAlt   := (ssAlt in Shift);
+
+  if isAlt then
+  begin
+    result := OPEN_APPLE;
+    exit;
+  end;
 
   case Key of
   219:
@@ -2944,7 +2952,8 @@ var
   code: integer;
 begin
   code := MapKeyCode(Key,Shift);
-  SendKey( code, 0, 1, MapShiftState(Key, Shift) );
+  if code <> 0 then
+     SendKey( code, 0, 1, MapShiftState(Key, Shift) );
   StatusBar1.SimpleText := 'keycode = '+IntToStr(code);
 end;
 
@@ -2954,8 +2963,12 @@ begin
 end;
 
 procedure TGUIForm.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+var
+  code: integer;
 begin
-  SendKey( MapKeyCode(Key, Shift), 0, 0, MapShiftState(Key, Shift) );
+  code := MapKeyCode(Key,Shift);
+  if code <> 0 then
+     SendKey( code, 0, 0, MapShiftState(Key, Shift) );
   //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
 end;
 
