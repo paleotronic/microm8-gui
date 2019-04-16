@@ -49,8 +49,8 @@ type
     miDisk2WPToggle: TMenuItem;
     miDisk1WPToggle: TMenuItem;
     MenuItem14: TMenuItem;
-    MenuItem17: TMenuItem;
-    MenuItem18: TMenuItem;
+    miD1InsBlank: TMenuItem;
+    miD2InsBlank: TMenuItem;
     miVideoScreenshot: TMenuItem;
     N10: TMenuItem;
     miPMApple2plus: TMenuItem;
@@ -241,8 +241,8 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
+    miDiskMenuBlank: TMenuItem;
+    miDiskMenuEject: TMenuItem;
     miDiskMenuWP: TMenuItem;
     miDHGREN: TMenuItem;
     Input: TMenuItem;
@@ -309,8 +309,8 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
-    miD1Blank: TMenuItem;
-    miD2Blank: TMenuItem;
+    miD1Eject: TMenuItem;
+    miD2Eject: TMenuItem;
     DiskMenu: TPopupMenu;
     odDiskImages: TOpenDialog;
     StatusBar1: TStatusBar;
@@ -368,8 +368,8 @@ type
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem16Click(Sender: TObject);
-    procedure MenuItem17Click(Sender: TObject);
-    procedure MenuItem18Click(Sender: TObject);
+    procedure miD1InsBlankClick(Sender: TObject);
+    procedure miD2InsBlankClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
    // procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
@@ -393,9 +393,9 @@ type
     procedure miCPU6502Click(Sender: TObject);
     procedure miCPUTypeClick(Sender: TObject);
     procedure miCPUWarpClick(Sender: TObject);
-    procedure miD1BlankClick(Sender: TObject);
+    procedure miD1EjectClick(Sender: TObject);
     procedure miD1FileClick(Sender: TObject);
-    procedure miD2BlankClick(Sender: TObject);
+    procedure miD2EjectClick(Sender: TObject);
     procedure miD2FileClick(Sender: TObject);
     procedure miDHGRENClick(Sender: TObject);
     procedure miDHRColorDotsClick(Sender: TObject);
@@ -410,6 +410,8 @@ type
     procedure miDisableFocusStealingClick(Sender: TObject);
     procedure miDisk1WPToggleClick(Sender: TObject);
     procedure miDisk2WPToggleClick(Sender: TObject);
+    procedure miDiskMenuBlankClick(Sender: TObject);
+    procedure miDiskMenuEjectClick(Sender: TObject);
     procedure miDiskMenuWPClick(Sender: TObject);
     procedure miDisksClick(Sender: TObject);
     procedure miDisksConvertWOZClick(Sender: TObject);
@@ -577,6 +579,7 @@ type
     guiActive: boolean;
     VolPosition, WarpPosition: integer;
     VolDrag, WarpDrag: boolean;
+    Caps: boolean;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -976,7 +979,7 @@ begin
      end;
 end;
 
-procedure TGUIForm.miD1BlankClick(Sender: TObject);
+procedure TGUIForm.miD1EjectClick(Sender: TObject);
 begin
         SimpleGet(baseUrl + '/api/control/hardware/disk/eject/0');
 end;
@@ -993,7 +996,7 @@ begin
      ShowM8;
 end;
 
-procedure TGUIForm.miD2BlankClick(Sender: TObject);
+procedure TGUIForm.miD2EjectClick(Sender: TObject);
 begin
          SimpleGet(baseUrl + '/api/control/hardware/disk/eject/1');
 end;
@@ -1091,6 +1094,22 @@ end;
 procedure TGUIForm.miDisk2WPToggleClick(Sender: TObject);
 begin
     SimpleGet( baseUrl + '/api/control/hardware/disk/wp/1/toggle' );
+end;
+
+procedure TGUIForm.miDiskMenuBlankClick(Sender: TObject);
+begin
+  case DiskMenu.Tag of
+  0: miD1InsBlankClick(sender);
+  1: miD2InsBlankClick(sender);
+  end;
+end;
+
+procedure TGUIForm.miDiskMenuEjectClick(Sender: TObject);
+begin
+  case DiskMenu.Tag of
+  0: miD1EjectClick(sender);
+  1: miD2EjectClick(sender);
+  end;
 end;
 
 procedure TGUIForm.miDiskMenuWPClick(Sender: TObject);
@@ -2786,8 +2805,9 @@ end;
 
 var
   keydesc: string;
+  Caps: boolean;
 
-function MapKeyCode( Key: Word; Shift: TShiftState ): integer;
+function MapKeyCode( Key: Word; Shift: TShiftState; KeyUp: boolean ): integer;
 const
   	CSR_LEFT  = $e000;
 	CSR_RIGHT = $e001;
@@ -2801,6 +2821,7 @@ const
 	SHIFT_CSR_RIGHT = $e05c;
         OPEN_APPLE  = $e05d;
 	CLOSE_APPLE = $e05e;
+        OPEN_APPLE_A = $e501;
 var
   isShift: boolean;
   isCtrl: boolean;
@@ -2811,6 +2832,7 @@ var
   isHyper: boolean;
   isExtra1: boolean;
   isExtra2: boolean;
+  isCaps: boolean;
   s: string;
 begin
 
@@ -2823,6 +2845,7 @@ begin
   isHyper := (ssHyper in Shift);
   isExtra1 := (ssExtra1 in Shift);
   isExtra2 := (ssExtra2 in Shift);
+  isCaps   := (ssCaps in Shift);
 
   keydesc := '';
 
@@ -2844,14 +2867,33 @@ begin
   if isExtra2 then
    keydesc := 'Extra2';
 
+  if isCaps then
+   keydesc := 'CapsLock';
+
   if isAlt or isMeta then
   begin
     result := OPEN_APPLE;
-    keydesc := 'Alt';
     exit;
   end;
 
   case Key of
+  VK_SHIFT: Result := 0;
+  VK_CAPITAL: begin
+              if KeyUp then
+              begin
+                Caps := (not Caps);
+                if Caps then
+                   keydesc := 'Caps On'
+                else
+                   keydesc := 'Caps Off';
+                Result := 0;
+                exit;
+              end;
+       end;
+  VK_MENU: if (not isAlt and not isShift) then
+            Result := OPEN_APPLE
+         else if (isShift) then
+            Result := CLOSE_APPLE;
   219:
       if (isShift and not isCtrl) then
         Result := Ord('{')
@@ -2952,7 +2994,7 @@ begin
               //StatusBar1.SimpleText := 'Shift+Ctrl+'+char(Key);
               Result := (Integer(Key) - 65) + SHIFT_CTRL_A;
              end
-             else if ssShift in Shift then
+             else if (ssShift in Shift) or Caps then
               Result := Integer(Key)
              else if ssCtrl in Shift then
              begin
@@ -2960,6 +3002,10 @@ begin
                   Result := 3
                 else
                   Result := CTRL_A + Integer(Key-65);
+             end
+             else if ssAlt in Shift then
+             begin
+                Result := (Integer(Key) - 65) + OPEN_APPLE_A;
              end
              else
                Result := Integer(Key)+32;
@@ -2988,10 +3034,10 @@ procedure TGUIForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftStat
 var
   code: integer;
 begin
-  code := MapKeyCode(Key,Shift);
+  code := MapKeyCode(Key,Shift,false);
   if code <> 0 then
      SendKey( code, 0, 1, MapShiftState(Key, Shift) );
-  StatusBar1.SimpleText := keydesc;
+  StatusBar1.SimpleText := IntToStr(code) + ' ' + keydesc;
 end;
 
 procedure TGUIForm.FormKeyPress(Sender: TObject; var Key: char);
@@ -3003,7 +3049,7 @@ procedure TGUIForm.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState)
 var
   code: integer;
 begin
-  code := MapKeyCode(Key,Shift);
+  code := MapKeyCode(Key,Shift,true);
   if code <> 0 then
      SendKey( code, 0, 0, MapShiftState(Key, Shift) );
   //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
@@ -3138,12 +3184,12 @@ begin
   end;
 end;
 
-procedure TGUIForm.MenuItem17Click(Sender: TObject);
+procedure TGUIForm.miD1InsBlankClick(Sender: TObject);
 begin
   SimpleGet(baseUrl + '/api/control/hardware/disk/blank/0');
 end;
 
-procedure TGUIForm.MenuItem18Click(Sender: TObject);
+procedure TGUIForm.miD2InsBlankClick(Sender: TObject);
 begin
   SimpleGet(baseUrl + '/api/control/hardware/disk/blank/1');
 end;

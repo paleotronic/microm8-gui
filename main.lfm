@@ -1,7 +1,7 @@
 object GUIForm: TGUIForm
-  Left = 81
+  Left = 565
   Height = 668
-  Top = 109
+  Top = 128
   Width = 1014
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
@@ -5685,17 +5685,17 @@ object GUIForm: TGUIForm
       object MenuItem4: TMenuItem
         Caption = 'Drive 1'
         OnClick = MenuItem4Click
-        object miD1Blank: TMenuItem
+        object miD1Eject: TMenuItem
           Caption = 'Eject'
-          OnClick = miD1BlankClick
+          OnClick = miD1EjectClick
         end
         object miD1File: TMenuItem
           Caption = 'Insert Disk...'
           OnClick = miD1FileClick
         end
-        object MenuItem17: TMenuItem
+        object miD1InsBlank: TMenuItem
           Caption = 'Insert Blank'
-          OnClick = MenuItem17Click
+          OnClick = miD1InsBlankClick
         end
         object miDisk1WPToggle: TMenuItem
           Caption = 'Write Protected'
@@ -5705,17 +5705,17 @@ object GUIForm: TGUIForm
       object MenuItem5: TMenuItem
         Caption = 'Drive 2'
         OnClick = MenuItem5Click
-        object miD2Blank: TMenuItem
+        object miD2Eject: TMenuItem
           Caption = 'Eject'
-          OnClick = miD2BlankClick
+          OnClick = miD2EjectClick
         end
         object miD2File: TMenuItem
           Caption = 'Insert Disk...'
           OnClick = miD2FileClick
         end
-        object MenuItem18: TMenuItem
+        object miD2InsBlank: TMenuItem
           Caption = 'Insert Blank'
-          OnClick = MenuItem18Click
+          OnClick = miD2InsBlankClick
         end
         object miDisk2WPToggle: TMenuItem
           Caption = 'Write Protected'
@@ -10454,11 +10454,13 @@ object GUIForm: TGUIForm
       Caption = 'Insert Disk'
       OnClick = MenuItem10Click
     end
-    object MenuItem11: TMenuItem
+    object miDiskMenuBlank: TMenuItem
       Caption = 'Insert Blank'
+      OnClick = miDiskMenuBlankClick
     end
-    object MenuItem12: TMenuItem
+    object miDiskMenuEject: TMenuItem
       Caption = 'Eject'
+      OnClick = miDiskMenuEjectClick
     end
     object miDiskMenuWP: TMenuItem
       Caption = 'Write Protected'
