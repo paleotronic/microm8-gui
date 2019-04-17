@@ -2870,13 +2870,26 @@ begin
   if isCaps then
    keydesc := 'CapsLock';
 
-  if isAlt or isMeta then
+  if isAlt then
   begin
     result := OPEN_APPLE;
     //exit;
   end;
 
+  if isMeta then
+  begin
+    result := 0;
+    exit;
+  end;
+
   case Key of
+  VK_BACK:
+       if isCtrl and isShift then
+          Result := 0;
+  13: begin
+           if isAlt or isShift or isCtrl then
+              Result := 0;
+       end;
   VK_SHIFT: Result := 0;
   VK_CAPITAL: begin
               if KeyUp then
@@ -3049,9 +3062,9 @@ procedure TGUIForm.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState)
 var
   code: integer;
 begin
-  code := MapKeyCode(Key,Shift,true);
-  if code <> 0 then
-     SendKey( code, 0, 0, MapShiftState(Key, Shift) );
+  //code := MapKeyCode(Key,Shift,true);
+  //if code <> 0 then
+  //   SendKey( code, 0, 0, MapShiftState(Key, Shift) );
   //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
 end;
 
