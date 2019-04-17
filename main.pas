@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls,
   ExtCtrls, StdCtrls, fphttpclient, LCLType, Buttons, AsyncProcess, DateUtils,
-  Clipbrd,
+  Clipbrd, lclintf,
 {$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
@@ -25,6 +25,7 @@ type
     btnRead: TButton;
     btnWrite: TButton;
     btnHide: TButton;
+    miIssue: TMenuItem;
     SPMenu: TPopupMenu;
     Label1: TLabel;
     Label2: TLabel;
@@ -434,6 +435,7 @@ type
     procedure miIntFPClick(Sender: TObject);
     procedure miIntINTClick(Sender: TObject);
     procedure miIntLOGOClick(Sender: TObject);
+    procedure miIssueClick(Sender: TObject);
     procedure miJSAxisSwapClick(Sender: TObject);
     procedure miJSXRevClick(Sender: TObject);
     procedure miJSYRevClick(Sender: TObject);
@@ -1259,6 +1261,11 @@ end;
 procedure TGUIForm.miIntLOGOClick(Sender: TObject);
 begin
     SimpleGet(baseUrl + '/api/control/interpreter/logo');
+end;
+
+procedure TGUIForm.miIssueClick(Sender: TObject);
+begin
+  openurl( 'https://github.com/paleotronic/microm8-gui/issues' );
 end;
 
 procedure TGUIForm.miJSAxisSwapClick(Sender: TObject);

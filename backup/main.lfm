@@ -6593,6 +6593,10 @@ object GUIForm: TGUIForm
         ShortCut = 24648
         OnClick = miMMHelpClick
       end
+      object miIssue: TMenuItem
+        Caption = 'Report an Issue...'
+        OnClick = miIssueClick
+      end
     end
   end
   object ToolbarIcons: TImageList
