@@ -2886,7 +2886,9 @@ begin
           Result := 0;
   VK_RETURN: begin
            if not isAlt then
-             Result := 13;
+             Result := 13
+           else
+              Result := 0;
       end;
   VK_SHIFT: Result := 0;
   VK_CAPITAL: begin

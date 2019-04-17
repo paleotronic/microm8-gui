@@ -2731,9 +2731,7 @@ begin
      lastShowTime := Now();
 
      lastFocusLostTime:=Now();
-     SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
-     Sleep(50);
-     SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
+     SimpleGet( baseUrl + '/api/control/mouse/buttonclick' );
    end;
   ReposWindow;
 end;
