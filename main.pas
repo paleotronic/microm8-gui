@@ -2731,7 +2731,8 @@ begin
      lastShowTime := Now();
 
      lastFocusLostTime:=Now();
-     SimpleGet( baseUrl + '/api/control/mouse/buttonclick' );
+     //SimpleGet( baseUrl + '/api/control/mouse/buttonclick' );
+     SendKey( $e05d, 0, 1, 0 );
    end;
   ReposWindow;
 end;
