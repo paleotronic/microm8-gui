@@ -2884,10 +2884,12 @@ begin
   VK_BACK:
        if isCtrl and isShift then
           Result := 0;
-  13: begin
-           if isAlt or isShift or isCtrl then
+  VK_RETURN: begin
+           if not isAlt then
+             Result := 13
+           else
               Result := 0;
-       end;
+      end;
   VK_SHIFT: Result := 0;
   VK_CAPITAL: begin
               if KeyUp then

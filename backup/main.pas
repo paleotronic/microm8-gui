@@ -2732,7 +2732,7 @@ begin
 
      lastFocusLostTime:=Now();
      SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
-     Delay(50);
+     Sleep(50);
      SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
    end;
   ReposWindow;
@@ -2884,10 +2884,10 @@ begin
   VK_BACK:
        if isCtrl and isShift then
           Result := 0;
-  13: begin
-           if isAlt or isShift or isCtrl then
-              Result := 0;
-       end;
+  VK_RETURN: begin
+           if not isAlt then
+             Result := 13;
+      end;
   VK_SHIFT: Result := 0;
   VK_CAPITAL: begin
               if KeyUp then
