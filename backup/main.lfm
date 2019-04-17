@@ -1,12 +1,12 @@
 object GUIForm: TGUIForm
-  Left = 320
-  Height = 723
-  Top = 76
-  Width = 1113
+  Left = 371
+  Height = 683
+  Top = 112
+  Width = 1078
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
-  ClientHeight = 698
-  ClientWidth = 1113
+  ClientHeight = 658
+  ClientWidth = 1078
   Constraints.MinWidth = 1078
   DoubleBuffered = False
   Menu = MainMenu1
@@ -30,15 +30,15 @@ object GUIForm: TGUIForm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
-    Top = 679
-    Width = 1113
+    Top = 639
+    Width = 1078
     Panels = <>
   end
   object ToolBar1: TToolBar
     Left = 0
     Height = 36
     Top = 0
-    Width = 1113
+    Width = 1078
     ButtonHeight = 32
     ButtonWidth = 32
     Caption = 'ToolBar1'
@@ -327,31 +327,31 @@ object GUIForm: TGUIForm
   end
   object pnlContainer: TPanel
     Left = 0
-    Height = 643
+    Height = 603
     Top = 36
-    Width = 1113
+    Width = 1078
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 643
-    ClientWidth = 1113
+    ClientHeight = 603
+    ClientWidth = 1078
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
-      Left = 943
-      Height = 606
+      Left = 908
+      Height = 566
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 606
+      ClientHeight = 566
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 606
+        Height = 566
         Top = 0
         Width = 170
         Align = alClient
@@ -5444,13 +5444,13 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 606
+      Height = 566
       Top = 0
-      Width = 943
+      Width = 908
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 606
-      ClientWidth = 943
+      ClientHeight = 566
+      ClientWidth = 908
       Color = clBlack
       Font.Color = clWhite
       ParentColor = False
@@ -5461,9 +5461,9 @@ object GUIForm: TGUIForm
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
-        Height = 606
+        Height = 566
         Top = 0
-        Width = 943
+        Width = 908
         Align = alClient
         OnClick = backdropClick
         OnMouseDown = FormMouseDown
@@ -5474,11 +5474,11 @@ object GUIForm: TGUIForm
     object pnlMemory: TPanel
       Left = 0
       Height = 37
-      Top = 606
-      Width = 1113
+      Top = 566
+      Width = 1078
       Align = alBottom
       ClientHeight = 37
-      ClientWidth = 1113
+      ClientWidth = 1078
       ParentColor = False
       TabOrder = 2
       Visible = False
@@ -5520,7 +5520,7 @@ object GUIForm: TGUIForm
         Text = '$00'
       end
       object pnlMemButtons: TPanel
-        Left = 859
+        Left = 824
         Height = 35
         Top = 1
         Width = 253

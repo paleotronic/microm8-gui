@@ -696,15 +696,8 @@ begin
 
      RepaintWindow;
      if not IsMicroM8Active then
-        HideM8
-     else
-       begin
-            lastFocusLostTime:=Now();
-            //StatusBar1.SimpleText:='focus';
-            // send fake mouse button state change
-            SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
-       end;
-     //StatusBar1.SimpleText := GetTitleOfActiveWindow;
+        HideM8;
+
      //log.Lines.Add('app is deactivating');
 end;
 
@@ -2726,7 +2719,7 @@ begin
      {$ENDIF}
 
      // another hack: disable mouse buttons on refocus
-     SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
+     //SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
 
      //Application.Restore;
      //StatusBar1.SimpleText := 'trying to focus '+DateTimeToStr(Now);
@@ -2736,6 +2729,11 @@ begin
      {$ENDIF}
      //StatusBar1.SimpleText := 'App is refocussing';
      lastShowTime := Now();
+
+     lastFocusLostTime:=Now();
+     SimpleGet( baseUrl + '/api/control/mouse/buttonstate/1' );
+     Delay(50);
+     SimpleGet( baseUrl + '/api/control/mouse/buttonstate/0' );
    end;
   ReposWindow;
 end;
