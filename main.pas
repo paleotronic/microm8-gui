@@ -369,6 +369,7 @@ type
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem16Click(Sender: TObject);
+    procedure MicroM8ProcessTerminate(Sender: TObject);
     procedure miD1InsBlankClick(Sender: TObject);
     procedure miD2InsBlankClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
@@ -568,6 +569,7 @@ type
     procedure WaitReposTimer(Sender: TObject);
     procedure SendOSDMessage(msg: string);
     procedure LaunchPAK(disk: string);
+    procedure CheckMicroM8RunState;
   private
     lx, ly, lw, lh: integer;
     lastShowTime: TDateTime;
@@ -582,6 +584,7 @@ type
     VolPosition, WarpPosition: integer;
     VolDrag, WarpDrag: boolean;
     Caps: boolean;
+    NeedsRestart, Quitting: boolean;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -2373,7 +2376,9 @@ begin
      result := self.httpc.Get(url)
   except
         on e: Exception do begin
-             // nothing much
+             // restart backend if not running
+             NeedsRestart:=true;
+             CheckMicroM8RunState;
         end;
   end;
 end;
@@ -2386,6 +2391,9 @@ begin
   except
         on e: Exception do begin
              // nothing much
+             // restart backend if not running
+             NeedsRestart:=true;
+             CheckMicroM8RunState;
         end;
   end;
 end;
@@ -2409,6 +2417,9 @@ begin
      except
         on e: Exception do begin
              // nothing much
+             // restart backend if not running
+             NeedsRestart:=true;
+             CheckMicroM8RunState;
         end;
      end;
 end;
@@ -2623,6 +2634,7 @@ end;
 
 procedure TGUIForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
+    Quitting := true;
     SimpleGet( baseUrl+'/api/control/quit' );
     CanClose := true;
 end;
@@ -3203,6 +3215,11 @@ begin
   end;
 end;
 
+procedure TGUIForm.MicroM8ProcessTerminate(Sender: TObject);
+begin
+  //lblTerm.Caption := 'core has terminated';
+end;
+
 procedure TGUIForm.miD1InsBlankClick(Sender: TObject);
 begin
   SimpleGet(baseUrl + '/api/control/hardware/disk/blank/0');
@@ -3221,8 +3238,24 @@ end;
 
 procedure TGUIForm.MenuItem2Click(Sender: TObject);
 begin
+  Quitting := true;
   SimpleGet( baseUrl+'/api/control/quit' );
   Application.Terminate();
+end;
+
+procedure TGUIForm.CheckMicroM8RunState;
+begin
+  if Quitting then
+    exit;
+  if not NeedsRestart then
+    exit;
+  if MicroM8Process.Active then
+    exit;
+  { okay not running and we want to start it }
+  MicroM8Process.Active := true;
+  Sleep(1000);
+  lx := -1;
+  ReposWindow;
 end;
 
 end.
