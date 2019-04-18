@@ -6066,6 +6066,7 @@ object GUIForm: TGUIForm
       end
       object miDisableScanlines: TMenuItem
         Caption = 'Disable Scanlines'
+        OnClick = miDisableScanlinesClick
       end
       object N4: TMenuItem
         Caption = '-'

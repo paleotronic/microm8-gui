@@ -411,6 +411,7 @@ type
     procedure miDHRMonoRasterClick(Sender: TObject);
     procedure miDHRMonoVoxelsClick(Sender: TObject);
     procedure miDisableFocusStealingClick(Sender: TObject);
+    procedure miDisableScanlinesClick(Sender: TObject);
     procedure miDisk1WPToggleClick(Sender: TObject);
     procedure miDisk2WPToggleClick(Sender: TObject);
     procedure miDiskMenuBlankClick(Sender: TObject);
@@ -1086,6 +1087,15 @@ end;
 procedure TGUIForm.miDisableFocusStealingClick(Sender: TObject);
 begin
   disableFocusStealing:=(not disableFocusStealing);
+end;
+
+procedure TGUIForm.miDisableScanlinesClick(Sender: TObject);
+begin
+  miDisableScanlines.Checked := (not miDisableScanlines.Checked);
+  if miDisableScanlines.Checked then
+     UpdateConfig('video/init.video.scanlinedisable', '1', true)
+  else
+     UpdateConfig('video/init.video.scanlinedisable', '0', true);
 end;
 
 procedure TGUIForm.miDisk1WPToggleClick(Sender: TObject);

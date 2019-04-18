@@ -1924,6 +1924,7 @@ procedure TGUIForm.tbFullscreenClick(Sender: TObject);
 begin
   UpdateConfig('video/current.fullscreen', '1', false);
   isFS := true;
+  SendOSDMessage('Alt/Option Enter to leave fullscreen');
 end;
 
 procedure TGUIForm.UpdateAllCaps;
