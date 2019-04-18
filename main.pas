@@ -3174,6 +3174,8 @@ end;
 procedure TGUIForm.FSTimerTimer(Sender: TObject);
 begin
   isFS := (GetConfig( 'video/current.fullscreen' ) = '1');
+  if not hidden then
+     SimpleGet(baseUrl+'/api/control/system/heartbeat');
 end;
 
 procedure TGUIForm.InputClick(Sender: TObject);

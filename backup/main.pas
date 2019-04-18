@@ -3174,6 +3174,8 @@ end;
 procedure TGUIForm.FSTimerTimer(Sender: TObject);
 begin
   isFS := (GetConfig( 'video/current.fullscreen' ) = '1');
+
+  SimpleGet(baseUrl+'/api/control/system/heartbeat');
 end;
 
 procedure TGUIForm.InputClick(Sender: TObject);
@@ -3288,11 +3290,8 @@ begin
     exit;
   if MicroM8Process.Active then
     exit;
-  { okay not running and we want to start it }
-  MicroM8Process.Active := true;
-  Sleep(1000);
-  lx := -1;
-  ReposWindow;
+  { okay not running and we want to quit }
+  Application.Terminate;
 end;
 
 end.
