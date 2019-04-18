@@ -2894,6 +2894,7 @@ begin
                    // insert smartport here
                    InsertDisk( 'local:'+filename, 2 );
                    ShowM8;
+                   SendOSDMessage('SmartPort Volume Connected');
                  end;
             end;
      end;
