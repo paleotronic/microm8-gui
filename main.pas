@@ -3174,13 +3174,13 @@ end;
 procedure TGUIForm.FSTimerTimer(Sender: TObject);
 begin
   isFS := (GetConfig( 'video/current.fullscreen' ) = '1');
-  if not hidden then
-  begin
-     Caption := 'microM8 GUI';
-     SimpleGet(baseUrl+'/api/control/system/heartbeat');
-  end
-  else
-     Caption := 'microM8 GUI (hide)';
+  //if not hidden then
+  //begin
+  //   Caption := 'microM8 GUI';
+  //   SimpleGet(baseUrl+'/api/control/system/heartbeat');
+  //end
+  //else
+  //   Caption := 'microM8 GUI (hide)';
 end;
 
 procedure TGUIForm.InputClick(Sender: TObject);
