@@ -1894,7 +1894,11 @@ end;
 
 procedure TGUIForm.tbCapsModeClick(Sender: TObject);
 begin
-  miINPAllCapsClick(sender);
+  if GetConfig('input/init.uppercase') = '0' then
+    UpdateConfig( 'input/init.uppercase', '1', false )
+  else
+    UpdateConfig( 'input/init.uppercase', '0', false );
+
   UpdateAllCaps;
 end;
 
@@ -2897,6 +2901,13 @@ begin
     exit;
   end;
 
+  {$IFDEF WINDOWS}
+  Caps := Odd(GetKeyState(VK_CAPITAL));
+  {$ENDIF}
+
+  if isCaps then
+     keydesc := 'caps';
+
   case Key of
   VK_RETURN: begin
            if not isAlt then
@@ -2904,19 +2915,30 @@ begin
            else
               Result := 0;
       end;
-  VK_SHIFT: Result := 0;
+  //VK_SHIFT: Result := 0;
   VK_CAPITAL: begin
-              if KeyUp then
-              begin
-                Caps := (not Caps);
-                if Caps then
-                   keydesc := 'Caps On'
-                else
-                   keydesc := 'Caps Off';
-                Result := 0;
-                exit;
-              end;
-       end;
+                 {$IFDEF DARWIN}
+                 Caps := (not KeyUp);
+                 if Caps then
+                    keydesc := 'Caps On'
+                 else
+                    keydesc := 'Caps Off';
+                 Result := 0;
+                 {$ELSE}
+                        {$IFDEF LINUX}
+                            if KeyUp then
+                            begin
+                              Caps := (not Caps);
+                              if Caps then
+                                 keydesc := 'Caps On'
+                              else
+                                 keydesc := 'Caps Off';
+                              Result := 0;
+                              exit;
+                            end;
+                        {$ENDIF}
+                 {$ENDIF}
+        end;
   VK_MENU: if (not isAlt and not isShift) then
             Result := OPEN_APPLE
          else if (isShift) then
@@ -3076,9 +3098,9 @@ procedure TGUIForm.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState)
 var
   code: integer;
 begin
-  //code := MapKeyCode(Key,Shift,true);
-  //if code <> 0 then
-  //   SendKey( code, 0, 0, MapShiftState(Key, Shift) );
+  code := MapKeyCode(Key,Shift,true);
+  if code <> 0 then
+     SendKey( code, 0, 0, MapShiftState(Key, Shift) );
   //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
 end;
 
