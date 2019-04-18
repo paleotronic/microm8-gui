@@ -2338,7 +2338,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     //self.StatusBar1.SimpleText:=S;
+     self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -2750,9 +2750,6 @@ begin
      {$ENDIF}
      //StatusBar1.SimpleText := 'App is refocussing';
      lastShowTime := Now();
-
-     lastFocusLostTime:=Now();
-     //SimpleGet( baseUrl + '/api/control/mouse/buttonclick' );
      SendKey( $e05d, 0, 1, 0 );
    end;
   ReposWindow;

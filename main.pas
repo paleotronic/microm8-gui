@@ -2338,7 +2338,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     //self.StatusBar1.SimpleText:=S;
+     self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -2898,9 +2898,6 @@ begin
   end;
 
   case Key of
-  VK_BACK:
-       if isCtrl and isShift then
-          Result := 0;
   VK_RETURN: begin
            if not isAlt then
              Result := 13
