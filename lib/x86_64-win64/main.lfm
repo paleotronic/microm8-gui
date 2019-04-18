@@ -1,13 +1,13 @@
 object GUIForm: TGUIForm
-  Left = 81
-  Height = 668
+  Left = 275
+  Height = 683
   Top = 109
-  Width = 1014
+  Width = 1078
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
-  ClientHeight = 648
-  ClientWidth = 1014
-  Constraints.MinWidth = 1014
+  ClientHeight = 663
+  ClientWidth = 1078
+  Constraints.MinWidth = 1078
   DoubleBuffered = False
   Menu = MainMenu1
   OnChangeBounds = FormChangeBounds
@@ -30,15 +30,15 @@ object GUIForm: TGUIForm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 625
-    Width = 1014
+    Top = 640
+    Width = 1078
     Panels = <>
   end
   object ToolBar1: TToolBar
     Left = 0
     Height = 36
     Top = 0
-    Width = 1014
+    Width = 1078
     ButtonHeight = 32
     ButtonWidth = 32
     Caption = 'ToolBar1'
@@ -58,7 +58,7 @@ object GUIForm: TGUIForm
     end
     object tbRMVoxels: TToolButton
       Tag = 1
-      Left = 549
+      Left = 613
       Hint = 'Voxel Render'
       Top = 2
       Caption = 'Voxels'
@@ -72,7 +72,7 @@ object GUIForm: TGUIForm
       Style = tbsCheck
     end
     object tbRMDots: TToolButton
-      Left = 585
+      Left = 649
       Hint = 'Dot Render'
       Top = 2
       Caption = 'Dots'
@@ -85,7 +85,7 @@ object GUIForm: TGUIForm
     end
     object tbRMRaster: TToolButton
       Tag = 2
-      Left = 621
+      Left = 685
       Hint = 'Raster Render'
       Top = 2
       Caption = 'Raster'
@@ -97,7 +97,7 @@ object GUIForm: TGUIForm
       Style = tbsCheck
     end
     object tbRMColor: TToolButton
-      Left = 657
+      Left = 721
       Hint = 'Toggle Color/Mono'
       Top = 2
       Caption = 'tbRMColor'
@@ -107,7 +107,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object tbRECState: TToolButton
-      Left = 725
+      Left = 789
       Hint = 'Start Recording'
       Top = 2
       Caption = 'tbRECState'
@@ -117,7 +117,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton5: TToolButton
-      Left = 761
+      Left = 825
       Hint = 'Rewind'
       Top = 2
       Caption = 'ToolButton5'
@@ -127,7 +127,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton6: TToolButton
-      Left = 797
+      Left = 861
       Hint = 'Forwards'
       Top = 2
       Caption = 'ToolButton6'
@@ -137,7 +137,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton7: TToolButton
-      Left = 833
+      Left = 897
       Hint = 'Resume'
       Top = 2
       Caption = 'ToolButton7'
@@ -147,7 +147,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton8: TToolButton
-      Left = 869
+      Left = 933
       Hint = 'Stop Recording'
       Top = 2
       Caption = 'ToolButton8'
@@ -157,7 +157,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton9: TToolButton
-      Left = 905
+      Left = 969
       Hint = 'Pause'
       Top = 2
       Caption = 'ToolButton9'
@@ -167,7 +167,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton10: TToolButton
-      Left = 693
+      Left = 757
       Top = 2
       Caption = 'ToolButton10'
       Enabled = False
@@ -234,19 +234,22 @@ object GUIForm: TGUIForm
       Left = 249
       Height = 32
       Top = 2
-      Width = 64
+      Width = 96
       OnChange = tbMasterVolumeChange
       Position = 0
       ScalePos = trBottom
       TabStop = False
       TickMarks = tmBoth
       TickStyle = tsManual
+      OnEnter = tbMasterVolumeEnter
+      OnMouseDown = tbMasterVolumeMouseDown
+      OnMouseUp = tbMasterVolumeMouseUp
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 0
     end
     object tbVolUp: TToolButton
-      Left = 313
+      Left = 345
       Hint = 'Volume Up'
       Top = 2
       Caption = 'tbVolUp'
@@ -256,13 +259,13 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton3: TToolButton
-      Left = 349
+      Left = 381
       Top = 2
       Caption = 'ToolButton3'
       Enabled = False
     end
     object tbSpeedDown: TToolButton
-      Left = 381
+      Left = 413
       Hint = 'CPU Speed Down'
       Top = 2
       Caption = 'tbSpeedDown'
@@ -272,10 +275,10 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object TrackBar2: TTrackBar
-      Left = 417
+      Left = 449
       Height = 32
       Top = 2
-      Width = 64
+      Width = 96
       Max = 4
       OnChange = TrackBar2Change
       Position = 0
@@ -283,12 +286,14 @@ object GUIForm: TGUIForm
       TabStop = False
       TickMarks = tmBoth
       TickStyle = tsManual
+      OnMouseDown = TrackBar2MouseDown
+      OnMouseUp = TrackBar2MouseUp
       OnKeyDown = FormKeyDown
       OnKeyUp = FormKeyUp
       TabOrder = 1
     end
     object tbSpeedUp: TToolButton
-      Left = 481
+      Left = 545
       Hint = 'CPU Speed Up'
       Top = 2
       Caption = 'tbSpeedUp'
@@ -298,19 +303,19 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton18: TToolButton
-      Left = 517
+      Left = 581
       Top = 2
       Caption = 'ToolButton18'
       Enabled = False
     end
     object ToolButton1: TToolButton
-      Left = 941
+      Left = 1005
       Top = 2
       Caption = 'ToolButton1'
       Enabled = False
     end
     object tbFullscreen: TToolButton
-      Left = 973
+      Left = 1037
       Hint = 'Fullscreen'
       Top = 2
       Caption = 'tbFullscreen'
@@ -322,31 +327,31 @@ object GUIForm: TGUIForm
   end
   object pnlContainer: TPanel
     Left = 0
-    Height = 589
+    Height = 604
     Top = 36
-    Width = 1014
+    Width = 1078
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 589
-    ClientWidth = 1014
+    ClientHeight = 604
+    ClientWidth = 1078
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
-      Left = 844
-      Height = 552
+      Left = 908
+      Height = 567
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 552
+      ClientHeight = 567
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 552
+        Height = 567
         Top = 0
         Width = 170
         Align = alClient
@@ -5439,13 +5444,13 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 552
+      Height = 567
       Top = 0
-      Width = 844
+      Width = 908
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 552
-      ClientWidth = 844
+      ClientHeight = 567
+      ClientWidth = 908
       Color = clBlack
       Font.Color = clWhite
       ParentColor = False
@@ -5456,9 +5461,9 @@ object GUIForm: TGUIForm
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
-        Height = 552
+        Height = 567
         Top = 0
-        Width = 844
+        Width = 908
         Align = alClient
         OnClick = backdropClick
         OnMouseDown = FormMouseDown
@@ -5469,11 +5474,11 @@ object GUIForm: TGUIForm
     object pnlMemory: TPanel
       Left = 0
       Height = 37
-      Top = 552
-      Width = 1014
+      Top = 567
+      Width = 1078
       Align = alBottom
       ClientHeight = 37
-      ClientWidth = 1014
+      ClientWidth = 1078
       ParentColor = False
       TabOrder = 2
       Visible = False
@@ -5515,7 +5520,7 @@ object GUIForm: TGUIForm
         Text = '$00'
       end
       object pnlMemButtons: TPanel
-        Left = 760
+        Left = 824
         Height = 35
         Top = 1
         Width = 253
@@ -5680,17 +5685,17 @@ object GUIForm: TGUIForm
       object MenuItem4: TMenuItem
         Caption = 'Drive 1'
         OnClick = MenuItem4Click
-        object miD1Blank: TMenuItem
+        object miD1Eject: TMenuItem
           Caption = 'Eject'
-          OnClick = miD1BlankClick
+          OnClick = miD1EjectClick
         end
         object miD1File: TMenuItem
           Caption = 'Insert Disk...'
           OnClick = miD1FileClick
         end
-        object MenuItem17: TMenuItem
+        object miD1InsBlank: TMenuItem
           Caption = 'Insert Blank'
-          OnClick = MenuItem17Click
+          OnClick = miD1InsBlankClick
         end
         object miDisk1WPToggle: TMenuItem
           Caption = 'Write Protected'
@@ -5700,17 +5705,17 @@ object GUIForm: TGUIForm
       object MenuItem5: TMenuItem
         Caption = 'Drive 2'
         OnClick = MenuItem5Click
-        object miD2Blank: TMenuItem
+        object miD2Eject: TMenuItem
           Caption = 'Eject'
-          OnClick = miD2BlankClick
+          OnClick = miD2EjectClick
         end
         object miD2File: TMenuItem
           Caption = 'Insert Disk...'
           OnClick = miD2FileClick
         end
-        object MenuItem18: TMenuItem
+        object miD2InsBlank: TMenuItem
           Caption = 'Insert Blank'
-          OnClick = MenuItem18Click
+          OnClick = miD2InsBlankClick
         end
         object miDisk2WPToggle: TMenuItem
           Caption = 'Write Protected'
@@ -5757,6 +5762,249 @@ object GUIForm: TGUIForm
       object MenuItem2: TMenuItem
         Caption = 'Quit'
         OnClick = MenuItem2Click
+      end
+    end
+    object miAudio: TMenuItem
+      Caption = 'Audio'
+      OnClick = miAudioClick
+      object miSNDMuted: TMenuItem
+        Caption = 'Mute'
+        OnClick = miSNDMutedClick
+      end
+      object miSNDMaster: TMenuItem
+        Caption = 'Master Volume'
+        OnClick = miSNDMasterClick
+        object miMVOL000: TMenuItem
+          Caption = '0'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL010: TMenuItem
+          Caption = '1'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL020: TMenuItem
+          Caption = '2'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL030: TMenuItem
+          Caption = '3'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL040: TMenuItem
+          Caption = '4'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL050: TMenuItem
+          Caption = '5'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL060: TMenuItem
+          Caption = '6'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL070: TMenuItem
+          Caption = '7'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL080: TMenuItem
+          Caption = '8'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL090: TMenuItem
+          Caption = '9'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+        object miMVOL100: TMenuItem
+          Caption = '10'
+          RadioItem = True
+          OnClick = miMVOL000Click
+        end
+      end
+      object miSNDSpeaker: TMenuItem
+        Caption = 'Speaker Volume'
+        OnClick = miSNDSpeakerClick
+        object miSVOL000: TMenuItem
+          Caption = '0'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL010: TMenuItem
+          Caption = '1'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL020: TMenuItem
+          Caption = '2'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL030: TMenuItem
+          Caption = '3'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL040: TMenuItem
+          Caption = '4'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL050: TMenuItem
+          Caption = '5'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL060: TMenuItem
+          Caption = '6'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL070: TMenuItem
+          Caption = '7'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL080: TMenuItem
+          Caption = '8'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL090: TMenuItem
+          Caption = '9'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+        object miSVOL100: TMenuItem
+          Caption = '10'
+          RadioItem = True
+          OnClick = miSVOL000Click
+        end
+      end
+      object miSNDMockingboard: TMenuItem
+        Caption = 'Mockingboard'
+        object miSNDPSG0: TMenuItem
+          Caption = 'PSG0 Balance'
+          OnClick = miSNDPSG0Click
+          object miPSG0m100: TMenuItem
+            Tag = -100
+            Caption = 'Left'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0m75: TMenuItem
+            Tag = -75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0m50: TMenuItem
+            Tag = -50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0m25: TMenuItem
+            Tag = -25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p0: TMenuItem
+            Caption = 'Center'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p25: TMenuItem
+            Tag = 25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p50: TMenuItem
+            Tag = 50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p75: TMenuItem
+            Tag = 75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+          object miPSG0p100: TMenuItem
+            Tag = 100
+            Caption = 'Right'
+            RadioItem = True
+            OnClick = miPSG0m100Click
+          end
+        end
+        object miSNDPSG1: TMenuItem
+          Caption = 'PSG1 Balance'
+          OnClick = miSNDPSG1Click
+          object miPSG1m100: TMenuItem
+            Tag = -100
+            Caption = 'Left'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1m75: TMenuItem
+            Tag = -75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1m50: TMenuItem
+            Tag = -50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1m25: TMenuItem
+            Tag = -25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p0: TMenuItem
+            Caption = 'Center'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p25: TMenuItem
+            Tag = 25
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p50: TMenuItem
+            Tag = 50
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p75: TMenuItem
+            Tag = 75
+            Caption = '...'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+          object miPSG1p100: TMenuItem
+            Tag = 100
+            Caption = 'Right'
+            RadioItem = True
+            OnClick = miPSG1m100Click
+          end
+        end
       end
     end
     object miVideo: TMenuItem
@@ -6152,249 +6400,6 @@ object GUIForm: TGUIForm
         OnClick = miPasteTextClick
       end
     end
-    object miAudio: TMenuItem
-      Caption = 'Audio'
-      OnClick = miAudioClick
-      object miSNDMuted: TMenuItem
-        Caption = 'Mute'
-        OnClick = miSNDMutedClick
-      end
-      object miSNDMaster: TMenuItem
-        Caption = 'Master Volume'
-        OnClick = miSNDMasterClick
-        object miMVOL000: TMenuItem
-          Caption = '0'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL010: TMenuItem
-          Caption = '1'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL020: TMenuItem
-          Caption = '2'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL030: TMenuItem
-          Caption = '3'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL040: TMenuItem
-          Caption = '4'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL050: TMenuItem
-          Caption = '5'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL060: TMenuItem
-          Caption = '6'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL070: TMenuItem
-          Caption = '7'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL080: TMenuItem
-          Caption = '8'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL090: TMenuItem
-          Caption = '9'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-        object miMVOL100: TMenuItem
-          Caption = '10'
-          RadioItem = True
-          OnClick = miMVOL000Click
-        end
-      end
-      object miSNDSpeaker: TMenuItem
-        Caption = 'Speaker Volume'
-        OnClick = miSNDSpeakerClick
-        object miSVOL000: TMenuItem
-          Caption = '0'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL010: TMenuItem
-          Caption = '1'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL020: TMenuItem
-          Caption = '2'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL030: TMenuItem
-          Caption = '3'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL040: TMenuItem
-          Caption = '4'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL050: TMenuItem
-          Caption = '5'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL060: TMenuItem
-          Caption = '6'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL070: TMenuItem
-          Caption = '7'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL080: TMenuItem
-          Caption = '8'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL090: TMenuItem
-          Caption = '9'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-        object miSVOL100: TMenuItem
-          Caption = '10'
-          RadioItem = True
-          OnClick = miSVOL000Click
-        end
-      end
-      object miSNDMockingboard: TMenuItem
-        Caption = 'Mockingboard'
-        object miSNDPSG0: TMenuItem
-          Caption = 'PSG0 Balance'
-          OnClick = miSNDPSG0Click
-          object miPSG0m100: TMenuItem
-            Tag = -100
-            Caption = 'Left'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0m75: TMenuItem
-            Tag = -75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0m50: TMenuItem
-            Tag = -50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0m25: TMenuItem
-            Tag = -25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p0: TMenuItem
-            Caption = 'Center'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p25: TMenuItem
-            Tag = 25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p50: TMenuItem
-            Tag = 50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p75: TMenuItem
-            Tag = 75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-          object miPSG0p100: TMenuItem
-            Tag = 100
-            Caption = 'Right'
-            RadioItem = True
-            OnClick = miPSG0m100Click
-          end
-        end
-        object miSNDPSG1: TMenuItem
-          Caption = 'PSG1 Balance'
-          OnClick = miSNDPSG1Click
-          object miPSG1m100: TMenuItem
-            Tag = -100
-            Caption = 'Left'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1m75: TMenuItem
-            Tag = -75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1m50: TMenuItem
-            Tag = -50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1m25: TMenuItem
-            Tag = -25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p0: TMenuItem
-            Caption = 'Center'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p25: TMenuItem
-            Tag = 25
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p50: TMenuItem
-            Tag = 50
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p75: TMenuItem
-            Tag = 75
-            Caption = '...'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-          object miPSG1p100: TMenuItem
-            Tag = 100
-            Caption = 'Right'
-            RadioItem = True
-            OnClick = miPSG1m100Click
-          end
-        end
-      end
-    end
     object miHardware: TMenuItem
       Caption = 'Hardware'
       object miSerial: TMenuItem
@@ -6587,6 +6592,10 @@ object GUIForm: TGUIForm
         Caption = 'microM8 Help'
         ShortCut = 24648
         OnClick = miMMHelpClick
+      end
+      object miIssue: TMenuItem
+        Caption = 'Report an Issue...'
+        OnClick = miIssueClick
       end
     end
   end
@@ -10449,11 +10458,13 @@ object GUIForm: TGUIForm
       Caption = 'Insert Disk'
       OnClick = MenuItem10Click
     end
-    object MenuItem11: TMenuItem
+    object miDiskMenuBlank: TMenuItem
       Caption = 'Insert Blank'
+      OnClick = miDiskMenuBlankClick
     end
-    object MenuItem12: TMenuItem
+    object miDiskMenuEject: TMenuItem
       Caption = 'Eject'
+      OnClick = miDiskMenuEjectClick
     end
     object miDiskMenuWP: TMenuItem
       Caption = 'Write Protected'
@@ -10538,6 +10549,7 @@ object GUIForm: TGUIForm
     WindowTop = 0
     WindowWidth = 0
     FillAttribute = 0
+    OnTerminate = MicroM8ProcessTerminate
     left = 240
     top = 160
   end
@@ -10610,5 +10622,19 @@ object GUIForm: TGUIForm
     OnTimer = WaitReposTimer
     left = 238
     top = 223
+  end
+  object SPMenu: TPopupMenu
+    OnPopup = DiskMenuPopup
+    OnClose = DiskMenuClose
+    left = 24
+    top = 272
+    object miSPConnect: TMenuItem
+      Caption = 'Connect Disk'
+      OnClick = miSPFileClick
+    end
+    object miSPMenuEject: TMenuItem
+      Caption = 'Eject'
+      OnClick = miSPEjectClick
+    end
   end
 end

@@ -701,7 +701,9 @@ begin
 
      RepaintWindow;
      if not IsMicroM8Active then
-        HideM8;
+        HideM8
+     else
+       lastFocusLostTime:=Now();
 
      //log.Lines.Add('app is deactivating');
 end;
@@ -3253,7 +3255,7 @@ begin
     exit;
   { okay not running and we want to start it }
   MicroM8Process.Active := true;
-  Sleep(50);
+  Sleep(1000);
   lx := -1;
   ReposWindow;
 end;

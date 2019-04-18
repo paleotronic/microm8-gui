@@ -701,7 +701,9 @@ begin
 
      RepaintWindow;
      if not IsMicroM8Active then
-        HideM8;
+        HideM8
+     else
+       lastFocusLostTime:=Now();
 
      //log.Lines.Add('app is deactivating');
 end;
@@ -2748,9 +2750,6 @@ begin
      {$ENDIF}
      //StatusBar1.SimpleText := 'App is refocussing';
      lastShowTime := Now();
-
-     lastFocusLostTime:=Now();
-     //SimpleGet( baseUrl + '/api/control/mouse/buttonclick' );
      SendKey( $e05d, 0, 1, 0 );
    end;
   ReposWindow;
