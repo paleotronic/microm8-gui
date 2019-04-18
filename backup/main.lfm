@@ -6319,7 +6319,7 @@ object GUIForm: TGUIForm
         OnClick = miVideoScreenshotClick
       end
       object miCopyText: TMenuItem
-        Caption = 'Copy Text Screen'
+        Caption = 'Text Screen to Clipboard'
         OnClick = miCopyTextClick
       end
       object N13: TMenuItem

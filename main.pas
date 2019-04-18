@@ -3288,11 +3288,8 @@ begin
     exit;
   if MicroM8Process.Active then
     exit;
-  { okay not running and we want to start it }
-  MicroM8Process.Active := true;
-  Sleep(1000);
-  lx := -1;
-  ReposWindow;
+  { okay not running and we want to quit }
+  Application.Terminate;
 end;
 
 end.
