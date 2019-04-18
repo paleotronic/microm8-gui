@@ -1,11 +1,12 @@
 object GUIForm: TGUIForm
-  Left = 275
-  Height = 683
-  Top = 109
+  Left = 290
+  Height = 650
+  Top = 130
   Width = 1078
+  AllowDropFiles = True
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
-  ClientHeight = 663
+  ClientHeight = 630
   ClientWidth = 1078
   Constraints.MinWidth = 1078
   DoubleBuffered = False
@@ -15,6 +16,7 @@ object GUIForm: TGUIForm
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDeactivate = FormDeactivate
+  OnDropFiles = FormDropFiles
   OnHide = FormHide
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
@@ -30,7 +32,7 @@ object GUIForm: TGUIForm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 640
+    Top = 607
     Width = 1078
     Panels = <>
   end
@@ -327,38 +329,39 @@ object GUIForm: TGUIForm
   end
   object pnlContainer: TPanel
     Left = 0
-    Height = 604
+    Height = 571
     Top = 36
     Width = 1078
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 604
+    ClientHeight = 571
     ClientWidth = 1078
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
       Left = 908
-      Height = 567
+      Height = 534
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 567
+      ClientHeight = 534
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 567
+        Height = 534
         Top = 0
         Width = 170
         Align = alClient
         OnClick = Image1Click
         OnDblClick = Image1DblClick
-        OnDragDrop = Image1DragDrop
         OnMouseDown = Image1MouseDown
+        OnMouseLeave = Image1MouseLeave
+        OnMouseMove = Image1MouseMove
         OnMouseUp = Image1MouseUp
         Picture.Data = {
           1754506F727461626C654E6574776F726B477261706869636B7A020089504E47
@@ -5444,12 +5447,12 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 567
+      Height = 534
       Top = 0
       Width = 908
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 567
+      ClientHeight = 534
       ClientWidth = 908
       Color = clBlack
       Font.Color = clWhite
@@ -5461,7 +5464,7 @@ object GUIForm: TGUIForm
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
-        Height = 567
+        Height = 534
         Top = 0
         Width = 908
         Align = alClient
@@ -5474,7 +5477,7 @@ object GUIForm: TGUIForm
     object pnlMemory: TPanel
       Left = 0
       Height = 37
-      Top = 567
+      Top = 534
       Width = 1078
       Align = alBottom
       ClientHeight = 37

@@ -345,6 +345,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure FormHide(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: char);
@@ -363,6 +364,9 @@ type
     procedure Image1DragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseLeave(Sender: TObject);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer
+      );
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure InputClick(Sender: TObject);
@@ -588,6 +592,7 @@ type
     VolDrag, WarpDrag: boolean;
     Caps: boolean;
     NeedsRestart, Quitting: boolean;
+    sbx, sby, sbButton: longint;
   public
     procedure AppActivate(Sender: TObject);
     procedure AppDeactivate(Sender: TObject);
@@ -735,6 +740,19 @@ procedure TGUIForm.Image1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
       // nothing much
+end;
+
+procedure TGUIForm.Image1MouseLeave(Sender: TObject);
+begin
+  sbx := -1;
+  sby := -1;
+end;
+
+procedure TGUIForm.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  sbx := x;
+  sby := y;
 end;
 
 procedure TGUIForm.Image1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -1894,6 +1912,22 @@ begin
                //StatusBar1.SimpleText := StatusBar1.SimpleText + ' (in window)';
                SendMouseState( x - longint(p.X), y - longint(p.Y) );
           end;
+
+          { Now see if we are over the sidecar }
+          p := sidecarPanel.ClientToScreen(q);
+          if (x >= longint(p.X)) and (x < longint(p.X)+longint(sidecarPanel.Width)) and
+             (y >= longint(p.Y)) and (y < longint(p.Y)+longint(sidecarPanel.Height)) then
+          begin
+               sbx := x - p.X;
+               sby := y - p.Y;
+               sbButton := sby div Round(sidecarPanel.Height/5);
+          end
+          else
+          begin
+               sbx := -1;
+               sby := -1;
+               sbButton := -1;
+          end;
      end;
 end;
 
@@ -2835,6 +2869,37 @@ begin
   lastFocusLostTime:=Now();
 end;
 
+procedure TGUIForm.FormDropFiles(Sender: TObject;
+  const FileNames: array of String);
+var
+  filename, ext: string;
+begin
+  //StatusBar1.SimpleText := IntToStr(sbButton) + ':' + FileNames[0];
+  filename := FileNames[0];
+  ext := ExtractFileExt(filename);
+  case sbButton of
+  0, 1: begin
+             case ext of
+             '.dsk', '.do', '.po', '.woz', '.nib': begin
+                    // insert disk here
+                  InsertDisk( 'local:'+filename, sbButton );
+                  ShowM8;
+                  SendOSDMessage('Disk Insert to Drive '+IntToStr(sbButton+1));
+                  end;
+             end;
+        end;
+  3: begin
+            case ext of
+            '.po', '.2mg', '.hdv': begin
+                   // insert smartport here
+                   InsertDisk( 'local:'+filename, 2 );
+                   ShowM8;
+                 end;
+            end;
+     end;
+  end;
+end;
+
 procedure TGUIForm.FormHide(Sender: TObject);
 begin
   RepaintWindow;
@@ -3174,13 +3239,13 @@ end;
 procedure TGUIForm.FSTimerTimer(Sender: TObject);
 begin
   isFS := (GetConfig( 'video/current.fullscreen' ) = '1');
-  if not hidden then
-  begin
-     Caption := 'microM8 GUI';
-     SimpleGet(baseUrl+'/api/control/system/heartbeat');
-  end
-  else
-     Caption := 'microM8 GUI (hide)';
+  //if not hidden then
+  //begin
+  //   Caption := 'microM8 GUI';
+  //   SimpleGet(baseUrl+'/api/control/system/heartbeat');
+  //end
+  //else
+  //   Caption := 'microM8 GUI (hide)';
 end;
 
 procedure TGUIForm.InputClick(Sender: TObject);
