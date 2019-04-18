@@ -6009,6 +6009,7 @@ object GUIForm: TGUIForm
     end
     object miVideo: TMenuItem
       Caption = 'Video'
+      OnClick = miVideoClick
       object miScanLineInt: TMenuItem
         Caption = 'Scanline Intensity'
         OnClick = miScanLineIntClick
@@ -6062,6 +6063,9 @@ object GUIForm: TGUIForm
           RadioItem = True
           OnClick = miSLIClick
         end
+      end
+      object miDisableScanlines: TMenuItem
+        Caption = 'Disable Scanlines'
       end
       object N4: TMenuItem
         Caption = '-'

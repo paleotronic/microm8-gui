@@ -25,6 +25,7 @@ type
     btnRead: TButton;
     btnWrite: TButton;
     btnHide: TButton;
+    miDisableScanlines: TMenuItem;
     miIssue: TMenuItem;
     SPMenu: TPopupMenu;
     Label1: TLabel;
@@ -492,6 +493,7 @@ type
     procedure miVCRClick(Sender: TObject);
     procedure miVD1Click(Sender: TObject);
     procedure miVDClick(Sender: TObject);
+    procedure miVideoClick(Sender: TObject);
     procedure miVideoScreenshotClick(Sender: TObject);
     procedure miVM1Click(Sender: TObject);
     procedure miVMClick(Sender: TObject);
@@ -1825,6 +1827,12 @@ begin
     end;
 end;
 
+procedure TGUIForm.miVideoClick(Sender: TObject);
+begin
+  { disable scanlines }
+  miDisableScanlines.Checked := ( GetConfig('video/init.video.scanlinedisable') <> '0' );
+end;
+
 procedure TGUIForm.miVideoScreenshotClick(Sender: TObject);
 begin
   SendKey( $e092, $e092, 1, 0 );
@@ -2925,9 +2933,7 @@ begin
                     keydesc := 'Caps Off';
                  Result := 0;
                  {$ELSE}
-                        {$IFDEF WINDOWS}
-
-                        {$ELSE}
+                        {$IFDEF LINUX}
                             if KeyUp then
                             begin
                               Caps := (not Caps);

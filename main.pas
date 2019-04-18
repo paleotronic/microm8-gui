@@ -25,6 +25,7 @@ type
     btnRead: TButton;
     btnWrite: TButton;
     btnHide: TButton;
+    miDisableScanlines: TMenuItem;
     miIssue: TMenuItem;
     SPMenu: TPopupMenu;
     Label1: TLabel;
@@ -410,6 +411,7 @@ type
     procedure miDHRMonoRasterClick(Sender: TObject);
     procedure miDHRMonoVoxelsClick(Sender: TObject);
     procedure miDisableFocusStealingClick(Sender: TObject);
+    procedure miDisableScanlinesClick(Sender: TObject);
     procedure miDisk1WPToggleClick(Sender: TObject);
     procedure miDisk2WPToggleClick(Sender: TObject);
     procedure miDiskMenuBlankClick(Sender: TObject);
@@ -492,6 +494,7 @@ type
     procedure miVCRClick(Sender: TObject);
     procedure miVD1Click(Sender: TObject);
     procedure miVDClick(Sender: TObject);
+    procedure miVideoClick(Sender: TObject);
     procedure miVideoScreenshotClick(Sender: TObject);
     procedure miVM1Click(Sender: TObject);
     procedure miVMClick(Sender: TObject);
@@ -1084,6 +1087,15 @@ end;
 procedure TGUIForm.miDisableFocusStealingClick(Sender: TObject);
 begin
   disableFocusStealing:=(not disableFocusStealing);
+end;
+
+procedure TGUIForm.miDisableScanlinesClick(Sender: TObject);
+begin
+  miDisableScanlines.Checked := (not miDisableScanlines.Checked);
+  if miDisableScanlines.Checked then
+     UpdateConfig('video/init.video.scanlinedisable', '1', true)
+  else
+     UpdateConfig('video/init.video.scanlinedisable', '0', true);
 end;
 
 procedure TGUIForm.miDisk1WPToggleClick(Sender: TObject);
@@ -1823,6 +1835,12 @@ begin
     7: miVD8.Checked := true;
     8: miVD9.Checked := true;
     end;
+end;
+
+procedure TGUIForm.miVideoClick(Sender: TObject);
+begin
+  { disable scanlines }
+  miDisableScanlines.Checked := ( GetConfig('video/init.video.scanlinedisable') <> '0' );
 end;
 
 procedure TGUIForm.miVideoScreenshotClick(Sender: TObject);
