@@ -2876,7 +2876,7 @@ var
 begin
   //StatusBar1.SimpleText := IntToStr(sbButton) + ':' + FileNames[0];
   filename := FileNames[0];
-  ext := ExtractFileExt(filename);
+  ext := LowerCase(ExtractFileExt(filename));
   case sbButton of
   0, 1: begin
              case ext of

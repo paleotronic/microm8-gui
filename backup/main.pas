@@ -2865,7 +2865,7 @@ end;
 
 procedure TGUIForm.FormDeactivate(Sender: TObject);
 begin
-  StatusBar1.SimpleText := 'focus lost';
+  //StatusBar1.SimpleText := 'focus lost';
   lastFocusLostTime:=Now();
 end;
 
