@@ -3000,7 +3000,7 @@ begin
            else
               Result := 0;
       end;
-  //VK_SHIFT: Result := 0;
+  VK_SHIFT: Result := 0;
   VK_CAPITAL: begin
                  {$IFDEF DARWIN}
                  Caps := (not KeyUp);
