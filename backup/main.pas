@@ -1747,7 +1747,7 @@ end;
 
 procedure TGUIForm.miSPEjectClick(Sender: TObject);
 begin
-      StatusBar1.SimpleText := SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
+      SimpleGet(baseUrl + '/api/control/hardware/disk/eject/2');
 end;
 
 procedure TGUIForm.miSPFileClick(Sender: TObject);
@@ -2379,7 +2379,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -2395,7 +2395,7 @@ begin
      Respo := TStringStream.Create('');
      SimpleFormPost(baseUrl + '/api/control/system/launch',json,Respo);
      S := Respo.DataString;
-     self.StatusBar1.SimpleText:=S;
+     //self.StatusBar1.SimpleText:=S;
      Respo.Destroy;
 end;
 
@@ -3000,7 +3000,7 @@ begin
            else
               Result := 0;
       end;
-  //VK_SHIFT: Result := 0;
+  VK_SHIFT: Result := 0;
   VK_CAPITAL: begin
                  {$IFDEF DARWIN}
                  Caps := (not KeyUp);
