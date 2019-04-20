@@ -6,7 +6,7 @@ object GUIForm: TGUIForm
   AllowDropFiles = True
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
-  ClientHeight = 625
+  ClientHeight = 630
   ClientWidth = 1078
   Constraints.MinWidth = 1078
   DoubleBuffered = False
@@ -31,8 +31,8 @@ object GUIForm: TGUIForm
   LCLVersion = '2.0.0.4'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 19
-    Top = 606
+    Height = 23
+    Top = 607
     Width = 1078
     Panels = <>
   end
@@ -60,7 +60,7 @@ object GUIForm: TGUIForm
     end
     object tbRMVoxels: TToolButton
       Tag = 1
-      Left = 577
+      Left = 613
       Hint = 'Voxel Render'
       Top = 2
       Caption = 'Voxels'
@@ -74,7 +74,7 @@ object GUIForm: TGUIForm
       Style = tbsCheck
     end
     object tbRMDots: TToolButton
-      Left = 613
+      Left = 649
       Hint = 'Dot Render'
       Top = 2
       Caption = 'Dots'
@@ -87,7 +87,7 @@ object GUIForm: TGUIForm
     end
     object tbRMRaster: TToolButton
       Tag = 2
-      Left = 649
+      Left = 685
       Hint = 'Raster Render'
       Top = 2
       Caption = 'Raster'
@@ -99,7 +99,7 @@ object GUIForm: TGUIForm
       Style = tbsCheck
     end
     object tbRMColor: TToolButton
-      Left = 685
+      Left = 721
       Hint = 'Toggle Color/Mono'
       Top = 2
       Caption = 'tbRMColor'
@@ -109,7 +109,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object tbRECState: TToolButton
-      Left = 753
+      Left = 789
       Hint = 'Start Recording'
       Top = 2
       Caption = 'tbRECState'
@@ -119,7 +119,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton5: TToolButton
-      Left = 789
+      Left = 825
       Hint = 'Rewind'
       Top = 2
       Caption = 'ToolButton5'
@@ -129,7 +129,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton6: TToolButton
-      Left = 825
+      Left = 861
       Hint = 'Forwards'
       Top = 2
       Caption = 'ToolButton6'
@@ -139,7 +139,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton7: TToolButton
-      Left = 861
+      Left = 897
       Hint = 'Resume'
       Top = 2
       Caption = 'ToolButton7'
@@ -149,7 +149,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton8: TToolButton
-      Left = 897
+      Left = 933
       Hint = 'Stop Recording'
       Top = 2
       Caption = 'ToolButton8'
@@ -159,7 +159,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton9: TToolButton
-      Left = 933
+      Left = 969
       Hint = 'Pause'
       Top = 2
       Caption = 'ToolButton9'
@@ -169,7 +169,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton10: TToolButton
-      Left = 721
+      Left = 757
       Top = 2
       Caption = 'ToolButton10'
       Enabled = False
@@ -206,14 +206,24 @@ object GUIForm: TGUIForm
       ParentShowHint = False
       ShowHint = True
     end
-    object ToolButton15: TToolButton
+    object tbWebDebugger: TToolButton
       Left = 145
+      Hint = 'Web Debugger'
+      Top = 2
+      Caption = 'tbWebDebugger'
+      ImageIndex = 28
+      OnClick = miToolsWebDebuggerClick
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object ToolButton15: TToolButton
+      Left = 181
       Top = 2
       Caption = 'ToolButton15'
       Enabled = False
     end
     object tbVolDown: TToolButton
-      Left = 177
+      Left = 213
       Hint = 'Volume Down'
       Top = 2
       Caption = 'tbVolDown'
@@ -223,8 +233,8 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object tbMasterVolume: TTrackBar
-      Left = 213
-      Height = 38
+      Left = 249
+      Height = 32
       Top = 2
       Width = 96
       OnChange = tbMasterVolumeChange
@@ -241,7 +251,7 @@ object GUIForm: TGUIForm
       TabOrder = 0
     end
     object tbVolUp: TToolButton
-      Left = 309
+      Left = 345
       Hint = 'Volume Up'
       Top = 2
       Caption = 'tbVolUp'
@@ -251,13 +261,13 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton3: TToolButton
-      Left = 345
+      Left = 381
       Top = 2
       Caption = 'ToolButton3'
       Enabled = False
     end
     object tbSpeedDown: TToolButton
-      Left = 377
+      Left = 413
       Hint = 'CPU Speed Down'
       Top = 2
       Caption = 'tbSpeedDown'
@@ -267,8 +277,8 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object TrackBar2: TTrackBar
-      Left = 413
-      Height = 38
+      Left = 449
+      Height = 32
       Top = 2
       Width = 96
       Max = 4
@@ -285,7 +295,7 @@ object GUIForm: TGUIForm
       TabOrder = 1
     end
     object tbSpeedUp: TToolButton
-      Left = 509
+      Left = 545
       Hint = 'CPU Speed Up'
       Top = 2
       Caption = 'tbSpeedUp'
@@ -295,19 +305,19 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton18: TToolButton
-      Left = 545
+      Left = 581
       Top = 2
       Caption = 'ToolButton18'
       Enabled = False
     end
     object ToolButton1: TToolButton
-      Left = 969
+      Left = 1005
       Top = 2
       Caption = 'ToolButton1'
       Enabled = False
     end
     object tbFullscreen: TToolButton
-      Left = 1001
+      Left = 1037
       Hint = 'Fullscreen'
       Top = 2
       Caption = 'tbFullscreen'
@@ -319,31 +329,31 @@ object GUIForm: TGUIForm
   end
   object pnlContainer: TPanel
     Left = 0
-    Height = 570
+    Height = 571
     Top = 36
     Width = 1078
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 570
+    ClientHeight = 571
     ClientWidth = 1078
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
       Left = 908
-      Height = 533
+      Height = 534
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 533
+      ClientHeight = 534
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 533
+        Height = 534
         Top = 0
         Width = 170
         Align = alClient
@@ -5437,12 +5447,12 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 533
+      Height = 534
       Top = 0
       Width = 908
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 533
+      ClientHeight = 534
       ClientWidth = 908
       Color = clBlack
       Font.Color = clWhite
@@ -5454,7 +5464,7 @@ object GUIForm: TGUIForm
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
-        Height = 533
+        Height = 534
         Top = 0
         Width = 908
         Align = alClient
@@ -5467,7 +5477,7 @@ object GUIForm: TGUIForm
     object pnlMemory: TPanel
       Left = 0
       Height = 37
-      Top = 533
+      Top = 534
       Width = 1078
       Align = alBottom
       ClientHeight = 37
@@ -5478,7 +5488,7 @@ object GUIForm: TGUIForm
       OnResize = pnlMemoryResize
       object txtAddress: TEdit
         Left = 136
-        Height = 29
+        Height = 23
         Top = 8
         Width = 80
         OnKeyPress = txtAddressKeyPress
@@ -5488,23 +5498,23 @@ object GUIForm: TGUIForm
       end
       object Label1: TLabel
         Left = 9
-        Height = 17
+        Height = 15
         Top = 10
-        Width = 130
+        Width = 122
         Caption = 'Memory Address (hex):'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 240
-        Height = 17
+        Height = 15
         Top = 10
-        Width = 65
+        Width = 60
         Caption = 'Value (hex):'
         ParentColor = False
       end
       object txtValue: TEdit
         Left = 312
-        Height = 29
+        Height = 23
         Top = 8
         Width = 80
         OnKeyPress = txtValueKeyPress
@@ -6573,6 +6583,11 @@ object GUIForm: TGUIForm
       object miToolsTracker: TMenuItem
         Caption = 'microTracker'
         OnClick = miToolsTrackerClick
+      end
+      object miToolsWebDebugger: TMenuItem
+        Caption = 'Web Debugger'
+        ShortCut = 24642
+        OnClick = miToolsWebDebuggerClick
       end
       object miMemoryEdit: TMenuItem
         Caption = 'Read/Write Memory'

@@ -3170,6 +3170,7 @@ begin
   code := MapKeyCode(Key,Shift,false);
   if code <> 0 then
      SendKey( code, 0, 1, MapShiftState(Key, Shift) );
+  Key := 0;
   //StatusBar1.SimpleText := IntToStr(code) + ' ' + keydesc;
 end;
 
@@ -3185,6 +3186,7 @@ begin
   code := MapKeyCode(Key,Shift,true);
   if code <> 0 then
      SendKey( code, 0, 0, MapShiftState(Key, Shift) );
+  Key := 0;
   //StatusBar1.SimpleText := 'keycode ' + IntToStr(Key);
 end;
 
