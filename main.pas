@@ -3170,6 +3170,7 @@ begin
   code := MapKeyCode(Key,Shift,false);
   if code <> 0 then
      SendKey( code, 0, 1, MapShiftState(Key, Shift) );
+  if not (ssAlt in Shift) then
   Key := 0;
   //StatusBar1.SimpleText := IntToStr(code) + ' ' + keydesc;
 end;
