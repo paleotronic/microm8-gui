@@ -75,7 +75,6 @@ type
     miApps816Paint: TMenuItem;
     miAppsPrintShop: TMenuItem;
     miAppsTerminal: TMenuItem;
-    miToolsWebDebugger: TMenuItem;
     miToolsTracker: TMenuItem;
     miTools: TMenuItem;
     miApps: TMenuItem;
@@ -223,7 +222,6 @@ type
     tbJoystickAxisSwitch: TToolButton;
     tbCapsMode: TToolButton;
     tbScanlines: TToolButton;
-    tbWebDebugger: TToolButton;
     ToolButton15: TToolButton;
     tbSpeedDown: TToolButton;
     tbSpeedUp: TToolButton;

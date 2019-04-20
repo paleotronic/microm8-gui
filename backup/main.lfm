@@ -60,7 +60,7 @@ object GUIForm: TGUIForm
     end
     object tbRMVoxels: TToolButton
       Tag = 1
-      Left = 613
+      Left = 577
       Hint = 'Voxel Render'
       Top = 2
       Caption = 'Voxels'
@@ -74,7 +74,7 @@ object GUIForm: TGUIForm
       Style = tbsCheck
     end
     object tbRMDots: TToolButton
-      Left = 649
+      Left = 613
       Hint = 'Dot Render'
       Top = 2
       Caption = 'Dots'
@@ -87,7 +87,7 @@ object GUIForm: TGUIForm
     end
     object tbRMRaster: TToolButton
       Tag = 2
-      Left = 685
+      Left = 649
       Hint = 'Raster Render'
       Top = 2
       Caption = 'Raster'
@@ -99,7 +99,7 @@ object GUIForm: TGUIForm
       Style = tbsCheck
     end
     object tbRMColor: TToolButton
-      Left = 721
+      Left = 685
       Hint = 'Toggle Color/Mono'
       Top = 2
       Caption = 'tbRMColor'
@@ -109,7 +109,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object tbRECState: TToolButton
-      Left = 789
+      Left = 753
       Hint = 'Start Recording'
       Top = 2
       Caption = 'tbRECState'
@@ -119,7 +119,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton5: TToolButton
-      Left = 825
+      Left = 789
       Hint = 'Rewind'
       Top = 2
       Caption = 'ToolButton5'
@@ -129,7 +129,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton6: TToolButton
-      Left = 861
+      Left = 825
       Hint = 'Forwards'
       Top = 2
       Caption = 'ToolButton6'
@@ -139,7 +139,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton7: TToolButton
-      Left = 897
+      Left = 861
       Hint = 'Resume'
       Top = 2
       Caption = 'ToolButton7'
@@ -149,7 +149,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton8: TToolButton
-      Left = 933
+      Left = 897
       Hint = 'Stop Recording'
       Top = 2
       Caption = 'ToolButton8'
@@ -159,7 +159,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton9: TToolButton
-      Left = 969
+      Left = 933
       Hint = 'Pause'
       Top = 2
       Caption = 'ToolButton9'
@@ -169,7 +169,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton10: TToolButton
-      Left = 757
+      Left = 721
       Top = 2
       Caption = 'ToolButton10'
       Enabled = False
@@ -206,24 +206,14 @@ object GUIForm: TGUIForm
       ParentShowHint = False
       ShowHint = True
     end
-    object tbWebDebugger: TToolButton
-      Left = 145
-      Hint = 'Web Debugger'
-      Top = 2
-      Caption = 'tbWebDebugger'
-      ImageIndex = 28
-      OnClick = miToolsWebDebuggerClick
-      ParentShowHint = False
-      ShowHint = True
-    end
     object ToolButton15: TToolButton
-      Left = 181
+      Left = 145
       Top = 2
       Caption = 'ToolButton15'
       Enabled = False
     end
     object tbVolDown: TToolButton
-      Left = 213
+      Left = 177
       Hint = 'Volume Down'
       Top = 2
       Caption = 'tbVolDown'
@@ -233,7 +223,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object tbMasterVolume: TTrackBar
-      Left = 249
+      Left = 213
       Height = 38
       Top = 2
       Width = 96
@@ -251,7 +241,7 @@ object GUIForm: TGUIForm
       TabOrder = 0
     end
     object tbVolUp: TToolButton
-      Left = 345
+      Left = 309
       Hint = 'Volume Up'
       Top = 2
       Caption = 'tbVolUp'
@@ -261,13 +251,13 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton3: TToolButton
-      Left = 381
+      Left = 345
       Top = 2
       Caption = 'ToolButton3'
       Enabled = False
     end
     object tbSpeedDown: TToolButton
-      Left = 413
+      Left = 377
       Hint = 'CPU Speed Down'
       Top = 2
       Caption = 'tbSpeedDown'
@@ -277,7 +267,7 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object TrackBar2: TTrackBar
-      Left = 449
+      Left = 413
       Height = 38
       Top = 2
       Width = 96
@@ -295,7 +285,7 @@ object GUIForm: TGUIForm
       TabOrder = 1
     end
     object tbSpeedUp: TToolButton
-      Left = 545
+      Left = 509
       Hint = 'CPU Speed Up'
       Top = 2
       Caption = 'tbSpeedUp'
@@ -305,19 +295,19 @@ object GUIForm: TGUIForm
       ShowHint = True
     end
     object ToolButton18: TToolButton
-      Left = 581
+      Left = 545
       Top = 2
       Caption = 'ToolButton18'
       Enabled = False
     end
     object ToolButton1: TToolButton
-      Left = 1005
+      Left = 969
       Top = 2
       Caption = 'ToolButton1'
       Enabled = False
     end
     object tbFullscreen: TToolButton
-      Left = 1037
+      Left = 1001
       Hint = 'Fullscreen'
       Top = 2
       Caption = 'tbFullscreen'
@@ -6583,11 +6573,6 @@ object GUIForm: TGUIForm
       object miToolsTracker: TMenuItem
         Caption = 'microTracker'
         OnClick = miToolsTrackerClick
-      end
-      object miToolsWebDebugger: TMenuItem
-        Caption = 'Web Debugger'
-        ShortCut = 24642
-        OnClick = miToolsWebDebuggerClick
       end
       object miMemoryEdit: TMenuItem
         Caption = 'Read/Write Memory'
