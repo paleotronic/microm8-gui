@@ -1,5 +1,5 @@
 # microm8-gui
-GUI for the microM8 Apple II Emulator
+GUI for the microM8 Apple II Emulator https://paleotronic.com/microm8/
 
 Recently we’ve had requests from users for both an API (an interface for controlling our microM8 Apple II emulator externally) and a GUI (a graphical user-interface native to the host operating system).
 
