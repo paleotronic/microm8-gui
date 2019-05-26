@@ -6,7 +6,7 @@ object GUIForm: TGUIForm
   AllowDropFiles = True
   AlphaBlendValue = 128
   Caption = 'microM8 GUI'
-  ClientHeight = 650
+  ClientHeight = 630
   ClientWidth = 1078
   Constraints.MinWidth = 1078
   DoubleBuffered = False
@@ -28,11 +28,11 @@ object GUIForm: TGUIForm
   OnUTF8KeyPress = FormUTF8KeyPress
   OnWindowStateChange = FormWindowStateChange
   ParentDoubleBuffered = False
-  LCLVersion = '2.1.0.0'
+  LCLVersion = '2.0.0.4'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 18
-    Top = 632
+    Height = 23
+    Top = 607
     Width = 1078
     Panels = <>
   end
@@ -317,31 +317,31 @@ object GUIForm: TGUIForm
   end
   object pnlContainer: TPanel
     Left = 0
-    Height = 596
+    Height = 571
     Top = 36
     Width = 1078
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 596
+    ClientHeight = 571
     ClientWidth = 1078
     ParentColor = False
     TabOrder = 2
     object sidecarPanel: TPanel
       Left = 908
-      Height = 559
+      Height = 534
       Top = 0
       Width = 170
       Align = alRight
       BevelOuter = bvNone
       Caption = 'sidecarPanel'
-      ClientHeight = 559
+      ClientHeight = 534
       ClientWidth = 170
       Color = clBlack
       ParentColor = False
       TabOrder = 0
       object Image1: TImage
         Left = 0
-        Height = 559
+        Height = 534
         Top = 0
         Width = 170
         Align = alClient
@@ -5435,12 +5435,12 @@ object GUIForm: TGUIForm
     end
     object embedPanel: TPanel
       Left = 0
-      Height = 559
+      Height = 534
       Top = 0
       Width = 908
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 559
+      ClientHeight = 534
       ClientWidth = 908
       Color = clBlack
       Font.Color = clWhite
@@ -5452,7 +5452,7 @@ object GUIForm: TGUIForm
       OnMouseUp = FormMouseUp
       object backdrop: TImage
         Left = 0
-        Height = 559
+        Height = 534
         Top = 0
         Width = 908
         Align = alClient
@@ -5465,7 +5465,7 @@ object GUIForm: TGUIForm
     object pnlMemory: TPanel
       Left = 0
       Height = 37
-      Top = 559
+      Top = 534
       Width = 1078
       Align = alBottom
       ClientHeight = 37
@@ -5476,7 +5476,7 @@ object GUIForm: TGUIForm
       OnResize = pnlMemoryResize
       object txtAddress: TEdit
         Left = 136
-        Height = 21
+        Height = 23
         Top = 8
         Width = 80
         OnKeyPress = txtAddressKeyPress
@@ -5486,23 +5486,23 @@ object GUIForm: TGUIForm
       end
       object Label1: TLabel
         Left = 9
-        Height = 16
+        Height = 15
         Top = 10
-        Width = 141
+        Width = 122
         Caption = 'Memory Address (hex):'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 240
-        Height = 16
+        Height = 15
         Top = 10
-        Width = 72
+        Width = 60
         Caption = 'Value (hex):'
         ParentColor = False
       end
       object txtValue: TEdit
         Left = 312
-        Height = 21
+        Height = 23
         Top = 8
         Width = 80
         OnKeyPress = txtValueKeyPress
@@ -5555,8 +5555,8 @@ object GUIForm: TGUIForm
   end
   object MainMenu1: TMainMenu
     Images = ToolbarIcons
-    Left = 168
-    Top = 48
+    left = 168
+    top = 48
     object MenuItem1: TMenuItem
       Caption = 'File'
       OnClick = MenuItem1Click
@@ -5583,6 +5583,16 @@ object GUIForm: TGUIForm
           Caption = 'Apple ][+'
           RadioItem = True
           OnClick = miPRFIIplusClick
+        end
+        object miPRFIIAuto: TMenuItem
+          Caption = 'Apple ][ (Autostart)'
+          RadioItem = True
+          OnClick = miPRFIIAutoClick
+        end
+        object miPRFAppleII: TMenuItem
+          Caption = 'Apple ]['
+          RadioItem = True
+          OnClick = miPRFAppleIIClick
         end
       end
       object MenuItem9: TMenuItem
@@ -6552,10 +6562,6 @@ object GUIForm: TGUIForm
     end
     object miApps: TMenuItem
       Caption = 'Applications'
-      object miAppsTerminal: TMenuItem
-        Caption = 'Terminal'
-        OnClick = miAppsTerminalClick
-      end
       object miAppsPrintShop: TMenuItem
         Caption = 'Print Shop'
         OnClick = miAppsPrintShopClick
@@ -6563,6 +6569,21 @@ object GUIForm: TGUIForm
       object miApps816Paint: TMenuItem
         Caption = '816 Paint'
         OnClick = miApps816PaintClick
+      end
+      object miAppsTerminal: TMenuItem
+        Caption = 'Dial BBSes'
+        OnClick = miAppsTerminalClick
+      end
+      object MenuItem13: TMenuItem
+        Caption = 'Platoterm'
+        object MenuItem17: TMenuItem
+          Caption = 'Irata Online'
+          OnClick = MenuItem11Click
+        end
+        object MenuItem18: TMenuItem
+          Caption = 'Cyberserv'
+          OnClick = MenuItem12Click
+        end
       end
     end
     object miTools: TMenuItem
@@ -6594,8 +6615,8 @@ object GUIForm: TGUIForm
     Height = 32
     Scaled = True
     Width = 32
-    Left = 96
-    Top = 48
+    left = 96
+    top = 48
     Bitmap = {
       4C691E0000002000000020000000CA9BCA00B16DB100B16DB100B16DB100B16D
       B100B16DB100B16DB100B16DB100B16DB100B16DB100B16DB100AD72BB0E8C68
@@ -10443,8 +10464,8 @@ object GUIForm: TGUIForm
   object DiskMenu: TPopupMenu
     OnPopup = DiskMenuPopup
     OnClose = DiskMenuClose
-    Left = 240
-    Top = 104
+    left = 240
+    top = 104
     object MenuItem10: TMenuItem
       Caption = 'Insert Disk'
       OnClick = MenuItem10Click
@@ -10467,26 +10488,26 @@ object GUIForm: TGUIForm
     Enabled = False
     Interval = 50
     OnTimer = CheckTimerTimer
-    Left = 168
-    Top = 104
+    left = 168
+    top = 104
   end
   object odDiskImages: TOpenDialog
     Title = 'Open Disk Image'
     DefaultExt = '.*'
     Filter = 'All Floppy Images|*.dsk; *.do; *.po; *.woz; *.nib|All HDD Images|*.po; *.2mg; *.hdv|MicroPAK|*.pak|Disk Image|*.dsk|ProDOS Ordered Image|*.po|DOS Ordered Image|*.do|Nibble Image|*.nib|WOZ Image|*.woz|2MG Image|*.2mg|HDV Image|*.hdv'
-    Left = 24
-    Top = 104
+    left = 24
+    top = 104
   end
   object MouseTimer: TTimer
     Enabled = False
     Interval = 50
     OnTimer = MouseTimerTimer
-    Left = 96
-    Top = 104
+    left = 96
+    top = 104
   end
   object TintMode: TPopupMenu
-    Left = 24
-    Top = 48
+    left = 24
+    top = 48
     object miTintOff: TMenuItem
       Caption = 'Off'
       ImageIndex = 0
@@ -10514,13 +10535,13 @@ object GUIForm: TGUIForm
   object ToolTimer: TTimer
     Enabled = False
     OnTimer = ToolTimerTimer
-    Left = 24
-    Top = 160
+    left = 24
+    top = 160
   end
   object SideImages: TImageList
     Scaled = True
-    Left = 240
-    Top = 48
+    left = 240
+    top = 48
   end
   object MicroM8Process: TAsyncProcess
     Active = False
@@ -10541,32 +10562,32 @@ object GUIForm: TGUIForm
     WindowWidth = 0
     FillAttribute = 0
     OnTerminate = MicroM8ProcessTerminate
-    Left = 240
-    Top = 160
+    left = 240
+    top = 160
   end
   object odFreezeFiles: TOpenDialog
     DefaultExt = '.*.frz'
     Filter = 'MicroM8 Freeze|*.frz'
-    Left = 96
-    Top = 160
+    left = 96
+    top = 160
   end
   object FSTimer: TTimer
     OnTimer = FSTimerTimer
-    Left = 168
-    Top = 160
+    left = 168
+    top = 160
   end
   object sdFreezeFiles: TSaveDialog
     Title = 'Save state as'
     DefaultExt = '.*.frz'
     Filter = 'MicroM8 Freeze|*.frz'
-    Left = 24
-    Top = 216
+    left = 24
+    top = 216
   end
   object RecordingMenu: TPopupMenu
     Images = ToolbarIcons
     ImagesWidth = 32
-    Left = 96
-    Top = 216
+    left = 96
+    top = 216
     object miStartDiskRec: TMenuItem
       Caption = 'Start Disk Recording'
       ImageIndex = 10
@@ -10581,8 +10602,8 @@ object GUIForm: TGUIForm
     end
   end
   object ProfileMenu: TPopupMenu
-    Left = 168
-    Top = 216
+    left = 168
+    top = 216
     object miPMApple2eEnh: TMenuItem
       Caption = 'Apple //e Enhanced'
       OnClick = miPRFIIeEnhancedClick
@@ -10599,6 +10620,14 @@ object GUIForm: TGUIForm
       Caption = 'Apple ][+'
       OnClick = miPRFIIplusClick
     end
+    object miPRFSMApple2Auto: TMenuItem
+      Caption = 'Apple ][ (Autostart)'
+      OnClick = miPRFSMApple2AutoClick
+    end
+    object miPRFSMApple2: TMenuItem
+      Caption = 'Apple ]['
+      OnClick = miPRFSMApple2Click
+    end
     object N14: TMenuItem
       Caption = '-'
     end
@@ -10611,14 +10640,14 @@ object GUIForm: TGUIForm
     Enabled = False
     Interval = 50
     OnTimer = WaitReposTimer
-    Left = 238
-    Top = 223
+    left = 238
+    top = 223
   end
   object SPMenu: TPopupMenu
     OnPopup = DiskMenuPopup
     OnClose = DiskMenuClose
-    Left = 24
-    Top = 272
+    left = 24
+    top = 272
     object miSPConnect: TMenuItem
       Caption = 'Connect Disk'
       OnClick = miSPFileClick

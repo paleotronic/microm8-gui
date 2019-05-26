@@ -25,6 +25,13 @@ type
     btnRead: TButton;
     btnWrite: TButton;
     btnHide: TButton;
+    MenuItem13: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
+    miPRFSMApple2: TMenuItem;
+    miPRFSMApple2Auto: TMenuItem;
+    miPRFAppleII: TMenuItem;
+    miPRFIIAuto: TMenuItem;
     miDisableScanlines: TMenuItem;
     miIssue: TMenuItem;
     SPMenu: TPopupMenu;
@@ -369,9 +376,12 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure InputClick(Sender: TObject);
     procedure MenuItem10Click(Sender: TObject);
+    procedure MenuItem11Click(Sender: TObject);
+    procedure MenuItem12Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem16Click(Sender: TObject);
+    procedure MenuItem17Click(Sender: TObject);
     procedure MicroM8ProcessTerminate(Sender: TObject);
     procedure miD1InsBlankClick(Sender: TObject);
     procedure miD2InsBlankClick(Sender: TObject);
@@ -454,11 +464,15 @@ type
     procedure miOpenPAKClick(Sender: TObject);
     procedure miPasteTextClick(Sender: TObject);
     procedure miPDFTO5sClick(Sender: TObject);
+    procedure miPRFAppleIIClick(Sender: TObject);
+    procedure miPRFIIAutoClick(Sender: TObject);
     procedure miPRFIIeClick(Sender: TObject);
     procedure miPRFIIeEnhancedClick(Sender: TObject);
     procedure miPRFIIeEnhancedSoftcardClick(Sender: TObject);
     procedure miPRFIIplusClick(Sender: TObject);
     procedure miPRFRebootClick(Sender: TObject);
+    procedure miPRFSMApple2AutoClick(Sender: TObject);
+    procedure miPRFSMApple2Click(Sender: TObject);
     procedure miPrinterPDFClick(Sender: TObject);
     procedure miProfilesClick(Sender: TObject);
     procedure miPSG0m100Click(Sender: TObject);
@@ -881,7 +895,8 @@ end;
 
 procedure TGUIForm.miAppsTerminalClick(Sender: TObject);
 begin
-    BootFreeze( '/boot/apps/proterm.frz' );
+    //BootFreeze( '/boot/apps/proterm.frz' );
+  LaunchPAK('/micropaks/comms/proterm.pak');
 end;
 
 procedure TGUIForm.miAR100Click(Sender: TObject);
@@ -1426,6 +1441,16 @@ begin
   UpdateConfig( 'hardware/init.printer.timeout', TMenuItem(sender).Caption, true );
 end;
 
+procedure TGUIForm.miPRFAppleIIClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/system/profile/set/apple2' );
+end;
+
+procedure TGUIForm.miPRFIIAutoClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-dsys' );
+end;
+
 procedure TGUIForm.miPRFIIeClick(Sender: TObject);
 var
   reply: integer;
@@ -1459,6 +1484,16 @@ begin
   SimpleGet( baseUrl+'/api/control/system/reboot' );
 end;
 
+procedure TGUIForm.miPRFSMApple2AutoClick(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/system/profile/set/apple2-dsys' );
+end;
+
+procedure TGUIForm.miPRFSMApple2Click(Sender: TObject);
+begin
+  SimpleGet( baseUrl+'/api/control/system/profile/set/apple2' );
+end;
+
 procedure TGUIForm.miPrinterPDFClick(Sender: TObject);
 begin
   case GetConfig( 'hardware/init.printer.timeout' ) of
@@ -1477,7 +1512,9 @@ begin
   'apple2e-en': miPRFIIeEnhanced.Checked := true;
   'apple2e-en-cpm': miPRFIIeEnhancedSoftcard.Checked := true;
   'apple2e': miPRFIIe.Checked := true;
-  'apple2plus': miPRFIIplus.Checked := true;
+  'apple2-plus': miPRFIIplus.Checked := true;
+  'apple2-dsys': miPRFIIAuto.Checked := true;
+  'apple2': miPRFAppleII.Checked := true;
   end;
 end;
 
@@ -3127,15 +3164,12 @@ begin
               //StatusBar1.SimpleText := 'Shift+Ctrl+'+char(Key);
               Result := (Integer(Key) - 65) + SHIFT_CTRL_A;
              end
-             else if (ssShift in Shift) or Caps then
-              Result := Integer(Key)
              else if ssCtrl in Shift then
              begin
-                if Key = 67 then
-                  Result := 3
-                else
-                  Result := CTRL_A + Integer(Key-65);
+                  Result := Integer(Key-64);
              end
+             else if (ssShift in Shift) or Caps then
+              Result := Integer(Key)
              else if ssAlt in Shift then
              begin
                 Result := (Integer(Key) - 65) + OPEN_APPLE_A;
@@ -3177,7 +3211,8 @@ end;
 
 procedure TGUIForm.FormKeyPress(Sender: TObject; var Key: char);
 begin
-  //SendKey( Integer(Ord(Key)), 0, 1, 0 );
+  //if Key = #1 then
+  //   SendKey( $e042, 0, 1, 0 );
 end;
 
 procedure TGUIForm.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -3271,6 +3306,16 @@ begin
    ShowM8;
 end;
 
+procedure TGUIForm.MenuItem11Click(Sender: TObject);
+begin
+  LaunchPAK('/micropaks/comms/platoterm-irataonline.pak');
+end;
+
+procedure TGUIForm.MenuItem12Click(Sender: TObject);
+begin
+  LaunchPAK('/micropaks/comms/platoterm-cyberserv.pak');
+end;
+
 procedure TGUIForm.MenuItem14Click(Sender: TObject);
 begin
   { do fullscreen here }
@@ -3325,6 +3370,11 @@ begin
        '5': miDHRMonoRaster.Checked := true;
        end;
   end;
+end;
+
+procedure TGUIForm.MenuItem17Click(Sender: TObject);
+begin
+
 end;
 
 procedure TGUIForm.MicroM8ProcessTerminate(Sender: TObject);
